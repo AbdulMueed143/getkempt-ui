@@ -1,0 +1,83 @@
+# ── Dependencies ─────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# ── Next.js ───────────────────────────────────────
+.next/
+out/
+
+# ── Production build ──────────────────────────────
+build/
+dist/
+
+# ── Environment variables ─────────────────────────
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
+.env.staging.local
+
+# ── Testing ───────────────────────────────────────
+coverage/
+.nyc_output/
+
+# ── TypeScript ────────────────────────────────────
+*.tsbuildinfo
+next-env.d.ts
+
+# ── Debug logs ────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# ── OS files ──────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── Editor / IDE ──────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── Certificates ──────────────────────────────────
+*.pem
+*.key
+*.crt
+
+# ── Package manager locks (keep only one) ─────────
+# Uncomment the ones you don't use:
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ── Vercel ────────────────────────────────────────
+.vercel
+
+# ── Turbopack cache ───────────────────────────────
+.turbo/
+
+# ── Project-specific ──────────────────────────────
+# Brand assets & design files — tracked separately,
+# too large for general source control commits
+Information/
