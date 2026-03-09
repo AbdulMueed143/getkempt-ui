@@ -6,7 +6,7 @@ export const ROUTES = {
   RESET_PASSWORD:   "/reset-password",
 
   /* ── Dashboard (future) ─────── */
-  DASHBOARD:        "/dashboard",
+  DASHBOARD:        "/dashboard/dashboard",
   BOOKINGS:         "/dashboard/bookings",
   CLIENTS:          "/dashboard/clients",
   SERVICES:         "/dashboard/services",
