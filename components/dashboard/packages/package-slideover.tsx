@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   X, Package2, Clock, DollarSign, Settings2, Search,
 } from "lucide-react";
+import { Toggle } from "@/components/ui/toggle";
 import { packageSchema, type PackageSchema } from "@/lib/validations/package";
 import {
   calculateBasePrice,
@@ -325,25 +326,12 @@ export function PackageSlideover({
                     name="customDurationMinutes"
                     control={control}
                     render={({ field }) => (
-                      <button
-                        type="button"
-                        role="switch"
-                        aria-checked={field.value != null}
-                        onClick={() => {
-                          if (field.value != null) {
-                            field.onChange(null);
-                          } else {
-                            field.onChange(baseDuration || 30);
-                          }
+                      <Toggle
+                        checked={field.value != null}
+                        onChange={(val) => {
+                          field.onChange(val ? (baseDuration || 30) : null);
                         }}
-                        className="w-11 h-6 rounded-full transition-colors relative shrink-0"
-                        style={{ backgroundColor: field.value != null ? "#1B3163" : "#E8ECF4" }}
-                      >
-                        <span
-                          className="absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform"
-                          style={{ transform: field.value != null ? "translateX(22px)" : "translateX(2px)" }}
-                        />
-                      </button>
+                      />
                     )}
                   />
                 </div>
@@ -399,24 +387,13 @@ export function PackageSlideover({
                     name="discountEnabled"
                     control={control}
                     render={({ field }) => (
-                      <button
-                        type="button"
-                        role="switch"
-                        aria-checked={field.value}
-                        onClick={() => {
-                          if (field.value) {
-                            setValue("discountValue", null);
-                          }
-                          field.onChange(!field.value);
+                      <Toggle
+                        checked={field.value}
+                        onChange={(val) => {
+                          if (!val) setValue("discountValue", null);
+                          field.onChange(val);
                         }}
-                        className="w-11 h-6 rounded-full transition-colors relative shrink-0"
-                        style={{ backgroundColor: field.value ? "#1B3163" : "#E8ECF4" }}
-                      >
-                        <span
-                          className="absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform"
-                          style={{ transform: field.value ? "translateX(22px)" : "translateX(2px)" }}
-                        />
-                      </button>
+                      />
                     )}
                   />
                 </label>
@@ -533,19 +510,7 @@ export function PackageSlideover({
                   name="onlineBookingEnabled"
                   control={control}
                   render={({ field }) => (
-                    <button
-                      type="button"
-                      role="switch"
-                      aria-checked={field.value}
-                      onClick={() => field.onChange(!field.value)}
-                      className="w-11 h-6 rounded-full transition-colors relative shrink-0"
-                      style={{ backgroundColor: field.value ? "#1B3163" : "#E8ECF4" }}
-                    >
-                      <span
-                        className="absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform"
-                        style={{ transform: field.value ? "translateX(22px)" : "translateX(2px)" }}
-                      />
-                    </button>
+                    <Toggle checked={field.value} onChange={field.onChange} />
                   )}
                 />
               </label>

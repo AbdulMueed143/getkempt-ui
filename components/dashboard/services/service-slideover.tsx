@@ -10,6 +10,7 @@ import { MOCK_STAFF } from "@/lib/mock/staff";
 import { CATEGORY_LABELS } from "@/types/service";
 import type { Service, ServiceCategory } from "@/types/service";
 import { cn } from "@/lib/utils/cn";
+import { Toggle } from "@/components/ui/toggle";
 
 const CATEGORIES: ServiceCategory[] = [
   "hair", "barber", "nails", "beauty", "lash_brow", "massage", "other",
@@ -282,22 +283,13 @@ export function ServiceSlideover({
                   name="depositRequired"
                   control={control}
                   render={({ field }) => (
-                    <button
-                      type="button"
-                      role="switch"
-                      aria-checked={field.value}
-                      onClick={() => {
-                        field.onChange(!field.value);
-                        if (field.value) setValue("depositAmount", null);
+                    <Toggle
+                      checked={field.value}
+                      onChange={(val) => {
+                        field.onChange(val);
+                        if (!val) setValue("depositAmount", null);
                       }}
-                      className="w-11 h-6 rounded-full transition-colors relative shrink-0"
-                      style={{ backgroundColor: field.value ? "#1B3163" : "#E8ECF4" }}
-                    >
-                      <span
-                        className="absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform"
-                        style={{ transform: field.value ? "translateX(22px)" : "translateX(2px)" }}
-                      />
-                    </button>
+                    />
                   )}
                 />
               </label>
@@ -342,19 +334,7 @@ export function ServiceSlideover({
                   name="onlineBookingEnabled"
                   control={control}
                   render={({ field }) => (
-                    <button
-                      type="button"
-                      role="switch"
-                      aria-checked={field.value}
-                      onClick={() => field.onChange(!field.value)}
-                      className="w-11 h-6 rounded-full transition-colors relative shrink-0"
-                      style={{ backgroundColor: field.value ? "#1B3163" : "#E8ECF4" }}
-                    >
-                      <span
-                        className="absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform"
-                        style={{ transform: field.value ? "translateX(22px)" : "translateX(2px)" }}
-                      />
-                    </button>
+                    <Toggle checked={field.value} onChange={field.onChange} />
                   )}
                 />
               </label>
