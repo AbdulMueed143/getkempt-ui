@@ -32,17 +32,17 @@ export const NAV_SECTIONS: NavSection[] = [
     title: "Overview",
     items: [
       { label: "Dashboard",    href: "/dashboard",          icon: LayoutDashboard },
-      { label: "All Bookings", href: "/dashboard/bookings", icon: CalendarRange, badge: 3 },
-      { label: "All Clients",  href: "/dashboard/clients",  icon: Users },
+      { label: "All Bookings", href: "/bookings", icon: CalendarRange, badge: 3 },
+      { label: "All Clients",  href: "/clients",  icon: Users },
     ],
   },
   {
     title: "Manage",
     items: [
-      { label: "Staff",     href: "/dashboard/staff",     icon: UserPlus },
-      { label: "Services",  href: "/dashboard/services",  icon: Scissors },
-      { label: "Packages",  href: "/dashboard/packages",  icon: PackagePlus },
-      { label: "Loyalty System", href: "/loyalty",  icon: Gift },
+      { label: "Staff",     href: "/staff",     icon: UserPlus },
+      { label: "Services",  href: "/services",  icon: Scissors },
+      { label: "Packages",  href: "/packages",  icon: PackagePlus },
+      { label: "Loyalty System", href: "/loyalty", icon: Gift },
     ],
   },
   {

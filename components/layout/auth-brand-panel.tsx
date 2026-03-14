@@ -112,7 +112,7 @@ export function AuthBrandPanel() {
         >
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
           <span className="text-xs font-sans" style={{ color: "rgba(234,234,234,0.85)" }}>
-            Trusted by grooming businesses across Melbourne
+            Trusted by grooming businesses across World
           </span>
         </div>
       </div>

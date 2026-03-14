@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Get Kempt",
   },
   description:
-    "Melbourne's booking and management platform for barbers and beauty salons.",
+    "World's best booking and management platform for barbers and beauty salons.",
   metadataBase: new URL("https://getkempt.co"),
 };
 
