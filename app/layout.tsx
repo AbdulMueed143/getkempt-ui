@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Rethink_Sans, Hedvig_Letters_Serif } from "next/font/google";
+import { AppProviders } from "@/components/providers/app-providers";
 import "./globals.css";
 
 const rethinkSans = Rethink_Sans({
@@ -33,7 +34,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${rethinkSans.variable} ${hedvigLettersSerif.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   );
 }

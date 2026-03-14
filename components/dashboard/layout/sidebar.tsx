@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { X, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
@@ -44,15 +45,14 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           className="flex items-center justify-between px-5 py-5 shrink-0"
           style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
         >
-          <Link href="/dashboard" className="flex items-center gap-2 focus-visible:outline-none">
-            {/* Text logo fallback — always visible */}
-            <span className="font-serif text-xl leading-none" style={{ color: "#EAEAEA" }}>
-              get
-            </span>
-            <span className="font-serif text-xl leading-none" style={{ color: "#D5B584" }}>
-              Kempt
-            </span>
-            <span style={{ color: "#D5B584", fontSize: "20px", lineHeight: 1 }}>.</span>
+          <Link href="/dashboard" className="inline-block focus-visible:outline-none">
+            <Image
+              src="/assets/logo_partial_white.svg"
+              alt="Get Kempt"
+              width={110}
+              height={52}
+              priority
+            />
           </Link>
 
           {/* Close button — mobile only */}

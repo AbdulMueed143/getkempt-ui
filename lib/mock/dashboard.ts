@@ -31,34 +31,34 @@ export const NAV_SECTIONS: NavSection[] = [
   {
     title: "Overview",
     items: [
-      { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-      { label: "All Bookings", href: "/dashboard/bookings", icon: CalendarRange, badge: 3 },
-      { label: "All Clients", href: "/dashboard/clients", icon: Users },
+      { label: "Dashboard",    href: "/dashboard",          icon: LayoutDashboard },
+      { label: "All Bookings", href: "/bookings",  icon: CalendarRange, badge: 3 },
+      { label: "All Clients",  href: "/clients",   icon: Users },
     ],
   },
   {
     title: "Manage",
     items: [
-      { label: "Staff", href: "/dashboard/staff", icon: UserPlus },
-      { label: "Services", href: "/dashboard/services", icon: Scissors },
-      { label: "Packages", href: "/dashboard/packages", icon: PackagePlus },
-      { label: "Loyalty System", href: "/dashboard/loyalty", icon: Gift },
+      { label: "Staff",          href: "/staff",    icon: UserPlus },
+      { label: "Services",       href: "/services", icon: Scissors },
+      { label: "Packages",       href: "/packages", icon: PackagePlus },
+      { label: "Loyalty System", href: "/loyalty",  icon: Gift },
     ],
   },
   {
     title: "Settings",
     items: [
-      { label: "Store Settings", href: "/dashboard/settings/store", icon: Settings },
-      { label: "Store Profile", href: "/dashboard/settings/profile", icon: Store },
+      { label: "Store Settings", href: "/settings/store",   icon: Settings },
+      { label: "Store Profile",  href: "/settings/profile", icon: Store },
     ],
   },
   {
     title: "My Account",
     items: [
-      { label: "My Bookings", href: "/dashboard/my-bookings", icon: CalendarDays },
-      { label: "Availability", href: "/dashboard/availability", icon: Clock },
-      { label: "Attendance", href: "/dashboard/attendance", icon: ClipboardList },
-      { label: "Profile", href: "/dashboard/profile", icon: UserCircle },
+      { label: "My Bookings",  href: "/my-bookings",  icon: CalendarDays },
+      { label: "Availability", href: "/availability", icon: Clock },
+      { label: "Attendance",   href: "/attendance",   icon: ClipboardList },
+      { label: "Profile",      href: "/profile",      icon: UserCircle },
     ],
   },
 ];
@@ -199,7 +199,7 @@ export const QUICK_ACTIONS: QuickAction[] = [
     label: "Add Booking",
     description: "Schedule a new appointment",
     icon: CalendarPlus,
-    href: "/dashboard/bookings/new",
+    href: "/bookings/new",
     accentColor: "#1B3163",
   },
   {
@@ -207,7 +207,7 @@ export const QUICK_ACTIONS: QuickAction[] = [
     label: "Add Client",
     description: "Register a new customer",
     icon: UserRoundPlus,
-    href: "/dashboard/clients/new",
+    href: "/clients/new",
     accentColor: "#D5B584",
   },
   {
@@ -215,7 +215,7 @@ export const QUICK_ACTIONS: QuickAction[] = [
     label: "Add Service",
     description: "Create a new service offering",
     icon: ListPlus,
-    href: "/dashboard/services/new",
+    href: "/services/new",
     accentColor: "#9FB2D9",
   },
   {
@@ -223,7 +223,7 @@ export const QUICK_ACTIONS: QuickAction[] = [
     label: "Set Availability",
     description: "Manage shop opening hours",
     icon: Clock,
-    href: "/dashboard/availability",
+    href: "/availability",
     accentColor: "#22C55E",
   },
 ];
@@ -237,7 +237,7 @@ export const ALERTS: AlertItem[] = [
     description: "Alex hasn't set availability for tomorrow.",
     time: "10 min ago",
     actionLabel: "Resolve",
-    actionHref: "/dashboard/availability",
+    actionHref: "/availability",
     read: false,
   },
   {
@@ -247,7 +247,7 @@ export const ALERTS: AlertItem[] = [
     description: "3 bookings have no staff member assigned.",
     time: "32 min ago",
     actionLabel: "Assign now",
-    actionHref: "/dashboard/bookings",
+    actionHref: "/bookings",
     read: false,
   },
   {
@@ -257,7 +257,7 @@ export const ALERTS: AlertItem[] = [
     description: "Priya N. signed up via your booking link.",
     time: "1 hr ago",
     actionLabel: "View client",
-    actionHref: "/dashboard/clients",
+    actionHref: "/clients",
     read: true,
   },
   {

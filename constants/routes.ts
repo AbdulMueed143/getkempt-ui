@@ -6,11 +6,11 @@ export const ROUTES = {
   RESET_PASSWORD:   "/reset-password",
 
   /* ── Dashboard (future) ─────── */
-  DASHBOARD:        "/dashboard/dashboard",
-  BOOKINGS:         "/dashboard/bookings",
-  CLIENTS:          "/dashboard/clients",
-  SERVICES:         "/dashboard/services",
-  SETTINGS:         "/dashboard/settings",
+  DASHBOARD:        "/dashboard",
+  BOOKINGS:         "/bookings",
+  CLIENTS:          "/clients",
+  SERVICES:         "/services",
+  SETTINGS:         "/settings",
 } as const;
 
 export type Route = (typeof ROUTES)[keyof typeof ROUTES];
