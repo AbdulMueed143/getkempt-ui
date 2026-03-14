@@ -7,10 +7,10 @@ import {
   Users,
   Settings,
   Store,
+  CalendarCheck2,
   CalendarDays,
   ClipboardList,
   Clock,
-  UserCircle,
   CalendarPlus,
   UserRoundPlus,
   ListPlus,
@@ -41,6 +41,7 @@ export const NAV_SECTIONS: NavSection[] = [
     items: [
       { label: "Staff",          href: "/staff",        icon: UserPlus },
       { label: "Availability",   href: "/availability", icon: Clock },
+      { label: "Visits",         href: "/visits",       icon: CalendarCheck2 },
       { label: "Services",       href: "/services",     icon: Scissors },
       { label: "Packages",       href: "/packages",     icon: PackagePlus },
       { label: "Loyalty System", href: "/loyalty",      icon: Gift },
@@ -51,14 +52,6 @@ export const NAV_SECTIONS: NavSection[] = [
     items: [
       { label: "Store Settings", href: "/settings/store",   icon: Settings },
       { label: "Store Profile",  href: "/settings/profile", icon: Store },
-    ],
-  },
-  {
-    title: "My Account",
-    items: [
-      { label: "My Bookings", href: "/my-bookings", icon: CalendarDays },
-      { label: "Attendance",  href: "/attendance",  icon: ClipboardList },
-      { label: "Profile",     href: "/profile",     icon: UserCircle },
     ],
   },
 ];
