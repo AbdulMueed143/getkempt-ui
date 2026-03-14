@@ -39,9 +39,9 @@ export const NAV_SECTIONS: NavSection[] = [
   {
     title: "Manage",
     items: [
-      { label: "Staff",          href: "/staff",    icon: UserPlus },
-      { label: "Services",       href: "/services", icon: Scissors },
-      { label: "Packages",       href: "/packages", icon: PackagePlus },
+      { label: "Staff",     href: "/dashboard/staff",     icon: UserPlus },
+      { label: "Services",  href: "/dashboard/services",  icon: Scissors },
+      { label: "Packages",  href: "/dashboard/packages",  icon: PackagePlus },
       { label: "Loyalty System", href: "/loyalty",  icon: Gift },
     ],
   },
