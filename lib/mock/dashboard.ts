@@ -32,8 +32,8 @@ export const NAV_SECTIONS: NavSection[] = [
     title: "Overview",
     items: [
       { label: "Dashboard",    href: "/dashboard",          icon: LayoutDashboard },
-      { label: "All Bookings", href: "/bookings",  icon: CalendarRange, badge: 3 },
-      { label: "All Clients",  href: "/clients",   icon: Users },
+      { label: "All Bookings", href: "/dashboard/bookings", icon: CalendarRange, badge: 3 },
+      { label: "All Clients",  href: "/dashboard/clients",  icon: Users },
     ],
   },
   {
