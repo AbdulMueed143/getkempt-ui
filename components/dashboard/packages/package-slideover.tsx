@@ -7,6 +7,7 @@ import {
   X, Package2, Clock, DollarSign, Settings2, Search,
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
+import { ImageUpload } from "@/components/ui/image-upload";
 import { packageSchema, type PackageSchema } from "@/lib/validations/package";
 import {
   calculateBasePrice,
@@ -32,6 +33,7 @@ interface PackageSlideoverProps {
 }
 
 const DEFAULT_VALUES: PackageSchema = {
+  image:                 undefined,
   name:                  "",
   description:           "",
   serviceIds:            [],
@@ -66,6 +68,7 @@ export function PackageSlideover({
   useEffect(() => {
     if (editing) {
       reset({
+        image:                 editing.image,
         name:                  editing.name,
         description:           editing.description,
         serviceIds:            editing.serviceIds,
@@ -187,6 +190,24 @@ export function PackageSlideover({
 
             {/* ── 1. Package Info ────────────────────── */}
             <SlidSection icon={<Package2 size={15} />} title="Package Details">
+
+              {/* Cover image */}
+              <FieldWrap label="Cover Image">
+                <Controller
+                  control={control}
+                  name="image"
+                  render={({ field }) => (
+                    <ImageUpload
+                      aspect="landscape"
+                      value={field.value ?? null}
+                      onChange={(v) => field.onChange(v ?? undefined)}
+                      hint="Shown on the booking page and package cards"
+                      maxSizeMB={5}
+                    />
+                  )}
+                />
+              </FieldWrap>
+
               <FieldWrap label="Package Name" error={errors.name?.message} required>
                 <SlidInput
                   placeholder="e.g. The Full Barber, Pamper Package"

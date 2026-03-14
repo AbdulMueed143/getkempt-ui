@@ -24,24 +24,40 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
         opacity:    isInactive ? 0.7 : 1,
       }}
     >
-      {/* ── Coloured top strip ─────────────────────── */}
-      <div
-        className="h-1.5 w-full shrink-0"
-        style={{ backgroundColor: cat.color }}
-      />
+      {/* ── Header: cover image or colour strip ─────── */}
+      {service.image ? (
+        <div className="relative h-28 shrink-0 overflow-hidden">
+          <img
+            src={service.image}
+            alt={service.name}
+            className="w-full h-full object-cover"
+          />
+          {/* Category badge overlaid on image */}
+          <span
+            className="absolute bottom-2 left-3 text-[10px] font-semibold px-2 py-0.5 rounded-full"
+            style={{ color: cat.color, backgroundColor: cat.bg + "ee" }}
+          >
+            {CATEGORY_LABELS[service.category]}
+          </span>
+        </div>
+      ) : (
+        <div className="h-1.5 w-full shrink-0" style={{ backgroundColor: cat.color }} />
+      )}
 
       <div className="flex flex-col flex-1 px-5 py-4 gap-3">
         {/* Header row */}
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
-            {/* Category + status */}
+            {/* Category badge (hidden when image shows it) + status */}
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-              <span
-                className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                style={{ color: cat.color, backgroundColor: cat.bg }}
-              >
-                {CATEGORY_LABELS[service.category]}
-              </span>
+              {!service.image && (
+                <span
+                  className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                  style={{ color: cat.color, backgroundColor: cat.bg }}
+                >
+                  {CATEGORY_LABELS[service.category]}
+                </span>
+              )}
               {isInactive && (
                 <span
                   className="text-[10px] font-medium px-2 py-0.5 rounded-full"

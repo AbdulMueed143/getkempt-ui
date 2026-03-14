@@ -9,6 +9,7 @@ import { DURATION_PRESETS, BUFFER_PRESETS } from "@/lib/mock/services";
 import { MOCK_STAFF } from "@/lib/mock/staff";
 import { CATEGORY_LABELS } from "@/types/service";
 import type { Service, ServiceCategory } from "@/types/service";
+import { ImageUpload } from "@/components/ui/image-upload";
 import { cn } from "@/lib/utils/cn";
 import { Toggle } from "@/components/ui/toggle";
 
@@ -38,6 +39,7 @@ export function ServiceSlideover({
   } = useForm<ServiceSchema>({
     resolver: zodResolver(serviceSchema),
     defaultValues: {
+      image:                undefined,
       name:                 "",
       category:             "hair",
       description:          "",
@@ -58,6 +60,7 @@ export function ServiceSlideover({
   useEffect(() => {
     if (editing) {
       reset({
+        image:                editing.image,
         name:                 editing.name,
         category:             editing.category,
         description:          editing.description,
@@ -72,6 +75,7 @@ export function ServiceSlideover({
       });
     } else {
       reset({
+        image: undefined,
         name: "", category: "hair", description: "",
         durationMinutes: 30, bufferMinutes: 0, price: 0,
         depositRequired: false, depositAmount: null,
@@ -143,6 +147,23 @@ export function ServiceSlideover({
 
             {/* ── Section 1: Identity ────────────────── */}
             <SlidSection icon={<Tag size={15} />} title="Service Details">
+
+              {/* Cover image */}
+              <FieldWrap label="Cover Image">
+                <Controller
+                  control={control}
+                  name="image"
+                  render={({ field }) => (
+                    <ImageUpload
+                      aspect="landscape"
+                      value={field.value ?? null}
+                      onChange={(v) => field.onChange(v ?? undefined)}
+                      hint="Shown on the booking page and service cards"
+                      maxSizeMB={5}
+                    />
+                  )}
+                />
+              </FieldWrap>
 
               <FieldWrap label="Service Name" error={errors.name?.message} required>
                 <SlidInput placeholder="e.g. Gel Manicure" {...register("name")} hasError={!!errors.name} />

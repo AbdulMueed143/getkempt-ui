@@ -64,13 +64,23 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
 
         {/* Avatar — overlaps the strip + card body */}
         <div
-          className="w-14 h-14 rounded-2xl flex items-center justify-center text-lg font-bold text-white shrink-0 translate-y-7"
-          style={{
-            backgroundColor: member.avatarColor,
-            boxShadow: `0 4px 12px ${member.avatarColor}40`,
-          }}
+          className="w-14 h-14 rounded-2xl overflow-hidden shrink-0 translate-y-7"
+          style={{ boxShadow: `0 4px 12px ${member.avatarColor}40` }}
         >
-          {initials}
+          {member.avatarImage ? (
+            <img
+              src={member.avatarImage}
+              alt={`${member.firstName} ${member.lastName}`}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div
+              className="w-full h-full flex items-center justify-center text-lg font-bold text-white"
+              style={{ backgroundColor: member.avatarColor }}
+            >
+              {initials}
+            </div>
+          )}
         </div>
       </div>
 

@@ -41,8 +41,19 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
         opacity:   isInactive ? 0.72 : 1,
       }}
     >
-      {/* ── Brand accent strip ─────────────────────── */}
-      <div className="h-1.5 w-full shrink-0" style={{ backgroundColor: "#1B3163" }} />
+      {/* ── Header: cover image or brand accent strip ── */}
+      {pkg.image ? (
+        <div className="relative h-28 shrink-0 overflow-hidden">
+          <img
+            src={pkg.image}
+            alt={pkg.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+        </div>
+      ) : (
+        <div className="h-1.5 w-full shrink-0" style={{ backgroundColor: "#1B3163" }} />
+      )}
 
       <div className="flex flex-col flex-1 px-5 pt-4 pb-5 gap-3.5">
 

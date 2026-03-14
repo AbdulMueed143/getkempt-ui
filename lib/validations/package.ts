@@ -2,6 +2,9 @@ import { z } from "zod";
 
 export const packageSchema = z
   .object({
+    /** Optional cover image — data URL or CDN URL */
+    image: z.string().optional(),
+
     name: z
       .string()
       .min(1, "Package name is required")

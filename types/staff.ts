@@ -34,6 +34,9 @@ export interface StaffMember {
   phone:          string;
   bio:            string;
   specialization: string;
+  /** Data URL or CDN URL for the profile photo. Falls back to coloured initials when absent. */
+  avatarImage?:   string;
+  /** Used for calendar colour-coding when no image is set */
   avatarColor:    string;
   calendarColor:  string;
 
@@ -61,6 +64,7 @@ export interface StaffFormValues {
   phone:          string;
   bio:            string;
   specialization: string;
+  avatarImage?:   string;
   avatarColor:    string;
   calendarColor:  string;
   role:           StaffRole;

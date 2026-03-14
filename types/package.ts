@@ -17,6 +17,8 @@ export interface Package {
   /* Identity */
   name:        string;
   description: string;
+  /** Optional cover image — data URL or CDN URL */
+  image?:      string;
 
   /* Which services are included (requires ≥ 2) */
   serviceIds: string[];

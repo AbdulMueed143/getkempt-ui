@@ -39,10 +39,11 @@ export const NAV_SECTIONS: NavSection[] = [
   {
     title: "Manage",
     items: [
-      { label: "Staff",     href: "/staff",     icon: UserPlus },
-      { label: "Services",  href: "/services",  icon: Scissors },
-      { label: "Packages",  href: "/packages",  icon: PackagePlus },
-      { label: "Loyalty System", href: "/loyalty", icon: Gift },
+      { label: "Staff",          href: "/staff",        icon: UserPlus },
+      { label: "Availability",   href: "/availability", icon: Clock },
+      { label: "Services",       href: "/services",     icon: Scissors },
+      { label: "Packages",       href: "/packages",     icon: PackagePlus },
+      { label: "Loyalty System", href: "/loyalty",      icon: Gift },
     ],
   },
   {
@@ -55,10 +56,9 @@ export const NAV_SECTIONS: NavSection[] = [
   {
     title: "My Account",
     items: [
-      { label: "My Bookings",  href: "/my-bookings",  icon: CalendarDays },
-      { label: "Availability", href: "/availability", icon: Clock },
-      { label: "Attendance",   href: "/attendance",   icon: ClipboardList },
-      { label: "Profile",      href: "/profile",      icon: UserCircle },
+      { label: "My Bookings", href: "/my-bookings", icon: CalendarDays },
+      { label: "Attendance",  href: "/attendance",  icon: ClipboardList },
+      { label: "Profile",     href: "/profile",     icon: UserCircle },
     ],
   },
 ];

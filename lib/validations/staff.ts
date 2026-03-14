@@ -28,6 +28,8 @@ export const staffSchema = z.object({
     .string()
     .max(100, "Too long"),
 
+  /** Data URL or CDN URL — optional, falls back to avatarColor initials */
+  avatarImage:   z.string().optional(),
   avatarColor:   z.string().min(1),
   calendarColor: z.string().min(1),
 

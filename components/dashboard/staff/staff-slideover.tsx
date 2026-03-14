@@ -8,6 +8,7 @@ import { staffSchema, type StaffSchema } from "@/lib/validations/staff";
 import { ALL_SERVICES, STAFF_COLORS } from "@/lib/mock/staff";
 import { ROLE_LABELS, ROLE_DESCRIPTIONS } from "@/types/staff";
 import type { StaffMember } from "@/types/staff";
+import { ImageUpload } from "@/components/ui/image-upload";
 import { cn } from "@/lib/utils/cn";
 
 /* ── Helpers ─────────────────────────────────────── */
@@ -48,6 +49,7 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
       phone:          "",
       bio:            "",
       specialization: "",
+      avatarImage:    undefined,
       avatarColor:    STAFF_COLORS[0],
       calendarColor:  STAFF_COLORS[0],
       role:           "staff",
@@ -60,7 +62,6 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
   });
 
   const watchedCommissionType = watch("commissionType");
-  const watchedAvatarColor    = watch("avatarColor");
   const watchedServices       = watch("services");
 
   /* Pre-fill form when editing */
@@ -73,6 +74,7 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
         phone:          editing.phone,
         bio:            editing.bio,
         specialization: editing.specialization,
+        avatarImage:    editing.avatarImage,
         avatarColor:    editing.avatarColor,
         calendarColor:  editing.calendarColor,
         role:           editing.role,
@@ -86,6 +88,7 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
       reset({
         firstName: "", lastName: "", email: "", phone: "",
         bio: "", specialization: "",
+        avatarImage: undefined,
         avatarColor: STAFF_COLORS[0], calendarColor: STAFF_COLORS[0],
         role: "staff", status: "active", services: [],
         commissionType: "hourly", commissionRate: null,
@@ -93,12 +96,6 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
       });
     }
   }, [editing, reset]);
-
-  /* Sync calendar colour with avatar colour by default */
-  const handleAvatarColorChange = (color: string) => {
-    setValue("avatarColor", color);
-    setValue("calendarColor", color);
-  };
 
   /* Service checkbox toggle */
   const toggleService = (service: string) => {
@@ -166,28 +163,28 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
             {/* ── Section 1: Personal Details ─────────── */}
             <FormSection icon={<User size={15} />} title="Personal Details">
 
-              {/* Avatar colour picker */}
+              {/* Profile photo */}
               <div className="mb-4">
                 <label className="block text-xs font-medium uppercase tracking-wide mb-2" style={{ color: "#8E95A5" }}>
-                  Colour
+                  Profile Photo
                 </label>
-                <div className="flex gap-2 flex-wrap">
-                  {STAFF_COLORS.map((color) => (
-                    <button
-                      key={color}
-                      type="button"
-                      onClick={() => handleAvatarColorChange(color)}
-                      className="w-7 h-7 rounded-full transition-transform hover:scale-110 focus-visible:outline-none"
-                      style={{
-                        backgroundColor: color,
-                        outline: watchedAvatarColor === color ? `2px solid ${color}` : "none",
-                        outlineOffset: 2,
-                        boxShadow: watchedAvatarColor === color ? `0 0 0 2px white, 0 0 0 4px ${color}` : "none",
-                      }}
-                      title={color}
-                      aria-label={`Select colour ${color}`}
-                    />
-                  ))}
+                <div className="flex items-start gap-4">
+                  <Controller
+                    control={control}
+                    name="avatarImage"
+                    render={({ field }) => (
+                      <ImageUpload
+                        aspect="square"
+                        value={field.value ?? null}
+                        onChange={(v) => field.onChange(v ?? undefined)}
+                        hint="Used as avatar across the system"
+                        maxSizeMB={5}
+                      />
+                    )}
+                  />
+                  <p className="text-xs text-gray-400 mt-1 flex-1">
+                    Upload a profile photo. If none is provided, a coloured monogram will be used automatically.
+                  </p>
                 </div>
               </div>
 

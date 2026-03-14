@@ -39,6 +39,8 @@ export interface Service {
   name:        string;
   category:    ServiceCategory;
   description: string;
+  /** Optional cover image — data URL or CDN URL */
+  image?:      string;
 
   /* Timing */
   durationMinutes: number;   // service time
@@ -64,6 +66,7 @@ export interface Service {
 export interface ServiceFormValues {
   name:                 string;
   category:             ServiceCategory;
+  image?:               string;
   description:          string;
   durationMinutes:      number;
   bufferMinutes:        number;
