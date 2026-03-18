@@ -63,7 +63,30 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: var(--color-cool-gray); }
 
 /* ── Selection ─────────────────────────────────── */
+/*
+ * Only override the highlight background.
+ * Do NOT set `color` here — browsers will automatically pick a contrasting
+ * foreground for the selection highlight, which works correctly on both
+ * dark-background app pages and white-background form fields.
+ * Forcing color: soft-ivory was making selected text invisible inside
+ * white input boxes and textareas.
+ */
 ::selection {
-  background: rgba(213, 181, 132, 0.25);
-  color: var(--color-soft-ivory);
+  background: rgba(27, 49, 99, 0.35);
+}
+
+/* ── Form element text colour reset ────────────────
+ * The body sets color: soft-ivory (near-white) for the dark dashboard theme.
+ * Any <input>, <textarea>, or <select> that has a light background must
+ * render dark text. Without this reset they inherit the near-white body
+ * colour, making typed text invisible.
+ *
+ * Explicit Tailwind utilities (text-white, text-gray-*) still take
+ * precedence over this base rule because class selectors have higher
+ * specificity than element selectors.
+ * ─────────────────────────────────────────────── */
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="color"]),
+textarea,
+select {
+  color: #0D1B2A;
 }

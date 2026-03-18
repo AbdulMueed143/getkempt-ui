@@ -155,6 +155,60 @@ function SidebarNavItem({
 }) {
   const Icon = item.icon;
 
+  /* ── Coming-soon: non-navigable with tooltip ── */
+  if (item.comingSoon) {
+    return (
+      <li className="group/soon relative">
+        <div
+          className="flex items-center gap-2.5 px-2 py-2 rounded-lg text-sm cursor-default select-none"
+          style={{
+            color: "rgba(234,234,234,0.38)",
+            borderLeft: "2px solid transparent",
+          }}
+        >
+          <Icon size={16} className="shrink-0" />
+          <span className="flex-1 truncate">{item.label}</span>
+          <span
+            className="text-[9px] font-black uppercase tracking-wide px-1.5 py-0.5 rounded-full leading-none shrink-0"
+            style={{ backgroundColor: "rgba(251,191,36,0.18)", color: "#FBB724" }}
+          >
+            Soon
+          </span>
+        </div>
+
+        {/* Tooltip — appears to the right of the sidebar */}
+        {item.comingSoonDescription && (
+          <div
+            className={cn(
+              "pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 z-50",
+              "w-56 rounded-xl p-3 shadow-2xl",
+              "opacity-0 group-hover/soon:opacity-100 transition-opacity duration-200",
+            )}
+            style={{ backgroundColor: "#0D1B2A", border: "1px solid rgba(255,255,255,0.12)" }}
+          >
+            {/* Arrow pointing left */}
+            <div
+              className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 rotate-45"
+              style={{ backgroundColor: "#0D1B2A", borderLeft: "1px solid rgba(255,255,255,0.12)", borderBottom: "1px solid rgba(255,255,255,0.12)" }}
+            />
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <span
+                className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full"
+                style={{ backgroundColor: "rgba(251,191,36,0.18)", color: "#FBB724" }}
+              >
+                Coming soon
+              </span>
+            </div>
+            <p className="text-[11px] leading-relaxed" style={{ color: "rgba(234,234,234,0.65)" }}>
+              {item.comingSoonDescription}
+            </p>
+          </div>
+        )}
+      </li>
+    );
+  }
+
+  /* ── Active / regular item ── */
   return (
     <li>
       <Link

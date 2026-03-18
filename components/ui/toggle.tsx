@@ -7,6 +7,9 @@ interface ToggleProps {
   onChange:   (value: boolean) => void;
   disabled?:  boolean;
   className?: string;
+  /** Accessible label — rendered visibly unless hideLabel is true */
+  label?:     string;
+  hideLabel?: boolean;
 }
 
 /**
@@ -17,12 +20,13 @@ interface ToggleProps {
  *
  * Track: 44 × 24 px  |  Knob: 20 × 20 px  |  Gap: 2 px each side.
  */
-export function Toggle({ checked, onChange, disabled = false, className }: ToggleProps) {
-  return (
+export function Toggle({ checked, onChange, disabled = false, className, label, hideLabel }: ToggleProps) {
+  const button = (
     <button
       type="button"
       role="switch"
       aria-checked={checked}
+      aria-label={label}
       disabled={disabled}
       onClick={() => !disabled && onChange(!checked)}
       className={cn(
@@ -50,5 +54,14 @@ export function Toggle({ checked, onChange, disabled = false, className }: Toggl
         }}
       />
     </button>
+  );
+
+  if (!label || hideLabel) return button;
+
+  return (
+    <label className="inline-flex items-center gap-2 cursor-pointer select-none">
+      {button}
+      <span className="text-sm font-medium text-gray-700">{label}</span>
+    </label>
   );
 }

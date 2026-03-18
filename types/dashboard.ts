@@ -76,6 +76,10 @@ export interface NavItem {
   href: string;
   icon: LucideIcon;
   badge?: number;
+  /** When true the item is non-navigable and shows a "Soon" badge */
+  comingSoon?: boolean;
+  /** Short sentence shown in the hover tooltip for coming-soon items */
+  comingSoonDescription?: string;
 }
 
 export interface NavSection {

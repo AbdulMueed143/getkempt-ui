@@ -16,6 +16,17 @@ import {
   ListPlus,
   AlarmClock,
   CalendarRange,
+  BookOpen,
+  BarChart3,
+  BellRing,
+  Star,
+  CreditCard,
+  FileText,
+  Globe,
+  UserCircle2,
+  Plug2,
+  ListOrdered,
+  TicketPercent,
 } from "lucide-react";
 import type {
   StatCardData,
@@ -31,9 +42,17 @@ export const NAV_SECTIONS: NavSection[] = [
   {
     title: "Overview",
     items: [
-      { label: "Dashboard",    href: "/dashboard",          icon: LayoutDashboard },
-      { label: "All Bookings", href: "/bookings", icon: CalendarRange, badge: 3 },
-      { label: "All Clients",  href: "/clients",  icon: Users },
+      { label: "Dashboard",    href: "/dashboard", icon: LayoutDashboard },
+      { label: "All Bookings", href: "/bookings",  icon: CalendarRange, badge: 3 },
+      { label: "All Clients",  href: "/clients",   icon: Users },
+      {
+        label: "Reports & Analytics",
+        href: "/reports",
+        icon: BarChart3,
+        comingSoon: true,
+        comingSoonDescription:
+          "Revenue by staff, service & date range. Rebooking rates, peak-hour heatmaps, and capacity utilisation charts you can export to CSV.",
+      },
     ],
   },
   {
@@ -45,13 +64,93 @@ export const NAV_SECTIONS: NavSection[] = [
       { label: "Services",       href: "/services",     icon: Scissors },
       { label: "Packages",       href: "/packages",     icon: PackagePlus },
       { label: "Loyalty System", href: "/loyalty",      icon: Gift },
+      // {
+      //   label: "Waitlist",
+      //   href: "/waitlist",
+      //   icon: ListOrdered,
+      //   comingSoon: true,
+      //   comingSoonDescription:
+      //     "Let clients join a waitlist when a slot is fully booked. The moment a cancellation comes in the next eligible client is notified automatically.",
+      // },
+      // {
+      //   label: "Gift Cards",
+      //   href: "/gift-cards",
+      //   icon: TicketPercent,
+      //   comingSoon: true,
+      //   comingSoonDescription:
+      //     "Create and sell digital gift cards in any denomination. Clients redeem them at checkout — balances are tracked automatically against their account.",
+      // },
     ],
   },
+  {
+    title: "Communicate",
+    items: [
+      { label: "Automated Reminders", href: "/reminders", icon: BellRing },
+      {
+        label: "Reviews",
+        href: "/reviews",
+        icon: Star,
+        comingSoon: true,
+        comingSoonDescription:
+          "Automatically request a Google or in-app review after every completed appointment. Track average rating and respond to feedback from one place.",
+      },
+    ],
+  },
+  {
+    title: "Payments",
+    items: [
+      {
+        label: "Checkout & POS",
+        href: "/checkout",
+        icon: CreditCard,
+        comingSoon: true,
+        comingSoonDescription:
+          "Accept deposits at booking time and collect balances in-store. Supports tap, card, and cash with automatic receipt generation and tip tracking.",
+      },
+      {
+        label: "Invoices & Tax",
+        href: "/invoices",
+        icon: FileText,
+        comingSoon: true,
+        comingSoonDescription:
+          "Generate GST-compliant invoices for every transaction. Bulk export to Xero or MYOB at month-end with a single click.",
+      },
+    ],
+  },
+  // {
+  //   title: "Online Presence",
+  //   items: [
+  //     {
+  //       label: "Booking Widget",
+  //       href: "/booking-widget",
+  //       icon: Globe,
+  //       comingSoon: true,
+  //       comingSoonDescription:
+  //         "Embed a public booking page on your website or share a short link anywhere. Clients self-book in under 60 seconds — no app download required.",
+  //     },
+  //     {
+  //       label: "Client Portal",
+  //       href: "/client-portal",
+  //       icon: UserCircle2,
+  //       comingSoon: true,
+  //       comingSoonDescription:
+  //         "Give each client their own login to manage upcoming bookings, view loyalty rewards, update contact details, and download past invoices.",
+  //     },
+  //   ],
+  // },
   {
     title: "Settings",
     items: [
       { label: "Store Settings", href: "/settings/store",   icon: Settings },
       { label: "Store Profile",  href: "/settings/profile", icon: Store },
+      {
+        label: "Integrations",
+        href: "/settings/integrations",
+        icon: Plug2,
+        comingSoon: true,
+        comingSoonDescription:
+          "Connect Google Calendar, Xero, Mailchimp, Stripe, and Square through a single integrations hub — no developer needed.",
+      },
     ],
   },
 ];

@@ -41,18 +41,7 @@ export function Topbar({ onMenuToggle, pageTitle = "Dashboard" }: TopbarProps) {
 
       {/* ── Right actions ────────────────────────── */}
       <div className="flex items-center gap-2">
-        {/* Search */}
-        <button
-          className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors"
-          style={{
-            backgroundColor: "#F0F3FA",
-            color: "#8E95A5",
-            border: "1px solid #E8ECF4",
-          }}
-        >
-          <Search size={14} />
-          <span className="hidden md:inline text-xs">Search anything…</span>
-        </button>
+      
 
         {/* Notifications */}
         <button

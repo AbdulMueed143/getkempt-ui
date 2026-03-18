@@ -81,7 +81,7 @@ function Field({
 /* ── Input styling helper ─────────────────────────────────────── */
 const inputClass = (hasError?: boolean) =>
   cn(
-    "w-full text-sm border rounded-xl px-3 py-2.5 bg-white transition-colors",
+    "w-full text-sm text-gray-900 border rounded-xl px-3 py-2.5 bg-white transition-colors",
     "focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:border-transparent",
     "placeholder:text-gray-400",
     hasError
