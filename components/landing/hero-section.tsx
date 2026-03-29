@@ -26,23 +26,6 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Social proof pill */}
-        <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-8">
-          <div className="flex -space-x-1">
-            {["🇦🇺", "✂️", "💅"].map((e, i) => (
-              <span key={i} className="text-base">{e}</span>
-            ))}
-          </div>
-          <span className="text-xs text-white/80 font-medium">
-            Loved by grooming pros
-          </span>
-          <div className="flex items-center gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-3 h-3 text-amber-400 fill-amber-400" />
-            ))}
-          </div>
-        </div>
-
         {/* Headline */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
           The smarter way
