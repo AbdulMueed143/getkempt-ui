@@ -86,7 +86,7 @@ export function HeroSection() {
                 <div className="w-3 h-3 rounded-full bg-emerald-500/70" />
               </div>
               <div className="flex-1 bg-white/8 rounded-lg h-6 flex items-center px-3">
-                <span className="text-[10px] text-white/30">app.getsquire.com/bookings</span>
+                <span className="text-[10px] text-white/30">app.getkempt.com/bookings</span>
               </div>
             </div>
 

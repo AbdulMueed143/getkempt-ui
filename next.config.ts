@@ -18,9 +18,9 @@ const nextConfig: NextConfig = {
 
   /**
    * If your GitHub Pages site lives at a sub-path
-   * (e.g. https://username.github.io/getsquire) set this env variable
+   * (e.g. https://username.github.io/getkempt) set this env variable
    * before building:
-   *   NEXT_PUBLIC_BASE_PATH=/getsquire npm run deploy
+   *   NEXT_PUBLIC_BASE_PATH=/getkempt npm run deploy
    *
    * For a root deployment (username.github.io) leave it unset.
    */

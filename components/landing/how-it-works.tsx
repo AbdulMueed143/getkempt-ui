@@ -2,7 +2,7 @@ const STEPS = [
   {
     number: "01",
     title:  "Set up your shop",
-    desc:   "Add your shop details, services, packages, and opening hours in minutes. No developer required — if you can use Instagram you can use GetSquire.",
+    desc:   "Add your shop details, services, packages, and opening hours in minutes. No developer required — if you can use Instagram you can use GetKempt.",
     emoji:  "🏪",
   },
   {
@@ -14,7 +14,7 @@ const STEPS = [
   {
     number: "03",
     title:  "Take bookings everywhere",
-    desc:   "Your clients book via your public booking page, the GetSquire app, or walk in. You take phone bookings directly from the calendar. Everything syncs instantly.",
+    desc:   "Your clients book via your public booking page, the GetKempt app, or walk in. You take phone bookings directly from the calendar. Everything syncs instantly.",
     emoji:  "📱",
   },
 ];

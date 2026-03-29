@@ -1,4 +1,4 @@
-# GetSquire — Salon & Barbershop Management Platform
+# GetKempt — Salon & Barbershop Management Platform
 
 > A professional booking and business management platform built for grooming businesses —
 > barbershops, hair salons, nail studios, beauty spas, and more.
@@ -244,7 +244,7 @@ These are the next features to build to make the product shippable to first cust
 |---|---|---|
 | 🔴 P0 | Real API integration | Replace all mock data with live REST / GraphQL API calls |
 | 🔴 P0 | Authentication (real) | JWT / session auth, protected routes, role-based access |
-| 🔴 P0 | Online booking widget | Public-facing booking page at `book.getsquire.com/[shopslug]` |
+| 🔴 P0 | Online booking widget | Public-facing booking page at `book.getkempt.com/[shopslug]` |
 | 🔴 P0 | Payment at booking | Stripe deposit + full payment collection |
 | 🟠 P1 | Appointment reminders | Automated SMS/email at configurable lead times |
 | 🟠 P1 | Client app (MVP) | React Native app for clients to book and manage appointments |

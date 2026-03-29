@@ -1,5 +1,6 @@
 import type { StoreSettings, Holiday } from "@/types/store-settings";
 
+
 /** 2026 Victorian public holidays */
 export const VIC_PUBLIC_HOLIDAYS_2026: Omit<Holiday, "id">[] = [
   { name: "New Year's Day",        date: "2026-01-01", appliesTo: "all", hasSurcharge: false },
@@ -74,7 +75,23 @@ export const MOCK_STORE_SETTINGS: StoreSettings = {
     },
   ],
 
-  /* Policies */
+  /* Payment setup */
+  paymentMode:    "deposit",
+  depositType:    "percentage",
+  depositValue:   25,
+  inStoreMethods: ["card", "cash"],
+  stripeConnected: false,
+
+  /* No-show & cancellation fees */
+  noShowFeeType:  "percentage",
+  noShowFeeValue: 100,
+  autoCharge:     false,
+  cancellationFeeRules: [
+    { id: "cfr1", label: "Same day (within 2 hours)", withinHours: 2,  feeType: "percentage", feeValue: 100 },
+    { id: "cfr2", label: "Within 24 hours",           withinHours: 24, feeType: "percentage", feeValue: 50  },
+  ],
+
+  /* Text policies */
   cancellationPolicy: `We understand that plans change. We kindly ask for at least 24 hours' notice if you need to cancel or reschedule your appointment.
 
 Cancellations made with less than 24 hours' notice may incur a cancellation fee of 50% of the scheduled service cost.
@@ -82,9 +99,6 @@ Cancellations made with less than 24 hours' notice may incur a cancellation fee 
 No-shows will be charged 100% of the service cost. This policy allows us to offer your slot to other clients.
 
 To cancel or reschedule, please call us or use the online booking portal.`,
-
-  minCancellationHours:   24,
-  cancellationFeePercent: 50,
 
   privacyPolicy: `Your privacy is important to us. We collect only the personal information necessary to provide our services, including your name, contact details, and appointment history.
 

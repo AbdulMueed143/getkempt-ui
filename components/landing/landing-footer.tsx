@@ -17,7 +17,7 @@ const FOOTER_LINKS = [
       { label: "About us",         href: "#" },
       { label: "Blog",             href: "#" },
       { label: "Careers",          href: "#" },
-      { label: "Contact",          href: "mailto:hello@getsquire.com" },
+      { label: "Contact",          href: "mailto:hello@getkempt.com" },
     ],
   },
   {
@@ -31,9 +31,9 @@ const FOOTER_LINKS = [
 ];
 
 const SOCIAL = [
-  { label: "Instagram", href: "https://instagram.com/getsquire", icon: "📸" },
-  { label: "TikTok",    href: "https://tiktok.com/@getsquire",   icon: "🎵" },
-  { label: "Facebook",  href: "https://facebook.com/getsquire",  icon: "👍" },
+  { label: "Instagram", href: "https://instagram.com/getkempt", icon: "📸" },
+  { label: "TikTok",    href: "https://tiktok.com/@getkempt",   icon: "🎵" },
+  { label: "Facebook",  href: "https://facebook.com/getkempt",  icon: "👍" },
 ];
 
 export function LandingFooter() {
@@ -45,7 +45,7 @@ export function LandingFooter() {
           <div className="col-span-2 md:col-span-1">
             <Image
               src="/assets/logo_partial_white.svg"
-              alt="GetSquire"
+              alt="GetKempt"
               width={120}
               height={32}
               className="h-8 w-auto mb-4"
@@ -96,7 +96,7 @@ export function LandingFooter() {
         {/* Bottom strip */}
         <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/25">
-            © {new Date().getFullYear()} GetSquire Pty Ltd · ABN XX XXX XXX XXX
+            © {new Date().getFullYear()} GetKempt Pty Ltd · ABN XX XXX XXX XXX
           </p>
           <p className="text-xs text-white/25">
             Built in Melbourne with ☕ · All prices in AUD incl. GST

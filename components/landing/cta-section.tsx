@@ -33,7 +33,7 @@ export function CtaSection() {
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
-                href="mailto:hello@getsquire.com"
+                href="mailto:hello@getkempt.com"
                 className="w-full sm:w-auto text-center text-white/70 hover:text-white font-semibold text-base px-8 py-4 rounded-2xl border border-white/20 hover:border-white/40 transition-all"
               >
                 Talk to us first

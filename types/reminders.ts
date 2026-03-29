@@ -100,8 +100,8 @@ export const TEMPLATE_VARIABLES: TemplateVariable[] = [
   { key: "{{appointment_time}}", label: "Appointment time",   example: "2:30 PM" },
   { key: "{{shop_name}}",         label: "Shop name",          example: "Heritage Barbershop" },
   { key: "{{shop_address}}",      label: "Shop address",       example: "42 Smith St, Fitzroy" },
-  { key: "{{manage_link}}",       label: "Manage booking link", example: "https://book.getsquire.com/…" },
-  { key: "{{cancel_link}}",       label: "Cancel link",        example: "https://book.getsquire.com/…" },
+  { key: "{{manage_link}}",       label: "Manage booking link", example: "https://book.getkempt.com/…" },
+  { key: "{{cancel_link}}",       label: "Cancel link",        example: "https://book.getkempt.com/…" },
 ];
 
 /* ── Rule ─────────────────────────────────────────── */

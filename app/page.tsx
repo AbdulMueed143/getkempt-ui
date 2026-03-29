@@ -9,7 +9,7 @@ import { CtaSection }         from "@/components/landing/cta-section";
 import { LandingFooter }      from "@/components/landing/landing-footer";
 
 export const metadata = {
-  title:       "GetSquire — Salon & Barbershop Booking Software",
+  title:       "GetKempt — Salon & Barbershop Booking Software",
   description: "The smarter way to manage bookings, staff, clients and loyalty for your grooming business. Built in Melbourne.",
 };
 

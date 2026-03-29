@@ -1,7 +1,7 @@
 import { BookingsPageClient } from "@/components/dashboard/bookings/bookings-page-client";
 
 export const metadata = {
-  title: "Bookings | GetSquire",
+  title: "Bookings | GetKempt",
   description: "View, manage and create all appointments",
 };
 

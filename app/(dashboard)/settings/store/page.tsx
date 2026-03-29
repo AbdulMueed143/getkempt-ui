@@ -1,7 +1,7 @@
 import { StoreSettingsClient } from "@/components/dashboard/settings/store-settings-client";
 
 export const metadata = {
-  title: "Store Settings | GetSquire",
+  title: "Store Settings | GetKempt",
   description: "Manage scheduling limits, holidays, surcharges, and policies",
 };
 

@@ -2,27 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, MessageSquare, Info } from "lucide-react";
+import { Check, MessageSquare, Zap } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
-// Per-staff monthly rate decreases at volume tiers
+// Base per-staff monthly rate (without SMS) decreases at volume
 const VOLUME_TIERS = [
-  { min: 1,  max: 5,        rate: 67, label: "1–5 staff" },
-  { min: 6,  max: 15,       rate: 59, label: "6–15 staff" },
-  { min: 16, max: 30,       rate: 52, label: "16–30 staff" },
-  { min: 31, max: Infinity, rate: 45, label: "31+ staff (enterprise)" },
+  { min: 1,  max: 5,        rate: 67,  label: "1–5 staff" },
+  { min: 6,  max: 15,       rate: 59,  label: "6–15 staff" },
+  { min: 16, max: 30,       rate: 52,  label: "16–30 staff" },
+  { min: 31, max: Infinity, rate: null, label: "31+ staff" },
 ];
 
-// SMS credit bundles — priced to cover Twilio AU carrier costs (~AUD $0.135/SMS) + margin
-const SMS_BUNDLES = [
-  { credits: 500,    price: 80,   perSms: "0.16", saving: null },
-  { credits: 1_000,  price: 149,  perSms: "0.149", saving: "7% cheaper" },
-  { credits: 2_500,  price: 349,  perSms: "0.14",  saving: "13% cheaper" },
-  { credits: 5_000,  price: 649,  perSms: "0.13",  saving: "19% cheaper" },
-  { credits: 10_000, price: 1_199, perSms: "0.12", saving: "25% cheaper", best: true },
-];
+// SMS adds a flat $30/staff/mo on top of the base tier rate
+const SMS_ADD_ON = 30;
 
-const INCLUDED_FEATURES = [
+const BASE_FEATURES = [
   "Unlimited bookings & services",
   "Full booking calendar (day / week / month)",
   "Staff availability & schedule management",
@@ -32,7 +26,14 @@ const INCLUDED_FEATURES = [
   "Store profile, settings & policies",
   "In-app push notifications (free, unlimited)",
   "Transactional email confirmations (free, unlimited)",
-  "14-day free trial · first month on us",
+  "First month completely free",
+];
+
+const SMS_FEATURES = [
+  "Automated SMS booking reminders",
+  "SMS no-show & cancellation alerts",
+  "Bulk SMS campaigns to your client list",
+  "Two-way SMS replies from clients",
 ];
 
 function getTier(staffCount: number) {
@@ -42,12 +43,17 @@ function getTier(staffCount: number) {
 export function PricingSection() {
   const [staffCount, setStaffCount] = useState(3);
   const [billing,    setBilling]    = useState<"monthly" | "annual">("monthly");
+  const [includeSms, setIncludeSms] = useState(false);
 
-  const tier          = getTier(staffCount);
-  const monthlyRate   = billing === "annual" ? Math.round(tier.rate * 0.83) : tier.rate;
-  const monthlyTotal  = monthlyRate * staffCount;
-  const annualTotal   = monthlyTotal * 12;
-  const annualSaving  = tier.rate * staffCount * 12 - annualTotal;
+  const tier        = getTier(staffCount);
+  const isEnterprise = tier.rate === null;
+
+  const baseRate     = isEnterprise ? 45 : tier.rate!;
+  const ratePerStaff = includeSms ? baseRate + SMS_ADD_ON : baseRate;
+  const billedRate   = billing === "annual" ? Math.round(ratePerStaff * 0.83) : ratePerStaff;
+  const monthlyTotal = billedRate * staffCount;
+  const annualTotal  = monthlyTotal * 12;
+  const annualSaving = ratePerStaff * staffCount * 12 - annualTotal;
 
   return (
     <section id="pricing" className="bg-[#FAFAF8] py-24 px-4 sm:px-6 lg:px-8">
@@ -64,9 +70,8 @@ export function PricingSection() {
             <span className="text-[#1B3163]">nothing hidden</span>
           </h2>
           <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
-            One flat plan with everything included. The price simply scales with
-            your team size, and SMS credits are topped up separately when you need
-            them — no forced bundles.
+            One flat plan with everything included. Price scales with your team size.
+            Add SMS reminders for <strong className="text-gray-700">$30 more per staff member</strong> — no credit bundles, no surprises.
           </p>
         </div>
 
@@ -83,7 +88,7 @@ export function PricingSection() {
             </div>
 
             {/* Staff count slider */}
-            <div className="relative z-10 mb-8">
+            <div className="relative z-10 mb-6">
               <div className="flex items-center justify-between mb-3">
                 <label className="text-sm font-semibold text-white/70">
                   How many staff members?
@@ -126,7 +131,7 @@ export function PricingSection() {
               </div>
             </div>
 
-            {/* Volume tier badge */}
+            {/* Volume tier badges */}
             <div className="relative z-10 mb-5">
               <div className="flex gap-2 flex-wrap">
                 {VOLUME_TIERS.slice(0, 3).map((t) => (
@@ -139,16 +144,52 @@ export function PricingSection() {
                         : "bg-white/8 text-white/40"
                     )}
                   >
-                    {t.label} · ${t.rate}/staff
+                    {t.label} · ${includeSms ? t.rate! + SMS_ADD_ON : t.rate}/staff
                   </span>
                 ))}
               </div>
             </div>
 
+            {/* SMS toggle */}
+            <div className="relative z-10 mb-5">
+              <button
+                type="button"
+                onClick={() => setIncludeSms((v) => !v)}
+                className={cn(
+                  "w-full flex items-center justify-between gap-3 rounded-2xl px-4 py-3.5 border transition-all text-left",
+                  includeSms
+                    ? "bg-violet-600/20 border-violet-500/50"
+                    : "bg-white/5 border-white/10 hover:border-white/20"
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <MessageSquare className={cn("w-4 h-4 shrink-0", includeSms ? "text-violet-400" : "text-white/40")} />
+                  <div>
+                    <p className={cn("text-sm font-bold", includeSms ? "text-white" : "text-white/60")}>
+                      Include SMS reminders
+                    </p>
+                    <p className="text-[11px] text-white/40 mt-0.5">
+                      +${SMS_ADD_ON}/staff/mo · automated texts to your clients
+                    </p>
+                  </div>
+                </div>
+                {/* Toggle knob */}
+                <div className={cn(
+                  "relative w-10 h-6 rounded-full shrink-0 transition-all",
+                  includeSms ? "bg-violet-500" : "bg-white/20"
+                )}>
+                  <div className={cn(
+                    "absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all",
+                    includeSms ? "left-5" : "left-1"
+                  )} />
+                </div>
+              </button>
+            </div>
+
             {/* Price display */}
             <div className="relative z-10 bg-white/8 border border-white/10 rounded-2xl p-5 mb-6">
-              {/* Billing toggle inside card */}
-              <div className="flex items-center bg-white/8 rounded-xl p-1 mb-4 self-start w-fit">
+              {/* Billing toggle */}
+              <div className="flex items-center bg-white/8 rounded-xl p-1 mb-4 w-fit">
                 <button
                   onClick={() => setBilling("monthly")}
                   className={cn(
@@ -172,30 +213,40 @@ export function PricingSection() {
                 </button>
               </div>
 
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <p className="text-xs text-white/40 mb-1">
-                    {staffCount} staff × ${monthlyRate}/staff/mo
-                  </p>
-                  <div className="flex items-end gap-1">
-                    <span className="text-xs text-white/50 mb-1">AUD $</span>
-                    <span className="text-5xl font-black text-white leading-none">
-                      {monthlyTotal.toLocaleString()}
-                    </span>
-                    <span className="text-sm text-white/50 mb-1">/mo</span>
-                  </div>
-                  {billing === "annual" && (
-                    <p className="text-xs text-emerald-400 mt-1.5">
-                      Billed ${annualTotal.toLocaleString()}/yr · saves ${annualSaving.toLocaleString()}/yr
+              {isEnterprise ? (
+                <div className="text-center py-4">
+                  <p className="text-2xl font-black text-white">Let's talk</p>
+                  <p className="text-sm text-white/50 mt-1">Custom pricing for 31+ staff</p>
+                </div>
+              ) : (
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-xs text-white/40 mb-1">
+                      {staffCount} staff × ${billedRate}/staff/mo
+                      {includeSms && (
+                        <span className="text-violet-400"> (incl. SMS)</span>
+                      )}
                     </p>
-                  )}
+                    <div className="flex items-end gap-1">
+                      <span className="text-xs text-white/50 mb-1">AUD $</span>
+                      <span className="text-5xl font-black text-white leading-none">
+                        {monthlyTotal.toLocaleString()}
+                      </span>
+                      <span className="text-sm text-white/50 mb-1">/mo</span>
+                    </div>
+                    {billing === "annual" && (
+                      <p className="text-xs text-emerald-400 mt-1.5">
+                        Billed ${annualTotal.toLocaleString()}/yr · saves ${annualSaving.toLocaleString()}/yr
+                      </p>
+                    )}
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-white/40">Per staff</p>
+                    <p className="text-xl font-black text-[#6B8FD4]">${billedRate}</p>
+                    <p className="text-[10px] text-white/30">/mo</p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-xs text-white/40">Per staff</p>
-                  <p className="text-xl font-black text-[#6B8FD4]">${monthlyRate}</p>
-                  <p className="text-[10px] text-white/30">/mo</p>
-                </div>
-              </div>
+              )}
             </div>
 
             {/* CTA */}
@@ -211,16 +262,16 @@ export function PricingSection() {
             </p>
           </div>
 
-          {/* ── Right: what's included + SMS bundles ── */}
-          <div className="space-y-6">
+          {/* ── Right: what's included ── */}
+          <div className="space-y-5">
 
-            {/* Included features */}
+            {/* Base features */}
             <div className="bg-white border border-gray-100 rounded-2xl p-6">
               <h3 className="text-sm font-black text-gray-900 mb-4">
                 Everything included in every plan
               </h3>
               <ul className="space-y-2.5">
-                {INCLUDED_FEATURES.map((f) => (
+                {BASE_FEATURES.map((f) => (
                   <li key={f} className="flex items-start gap-2.5">
                     <Check className="w-4 h-4 text-[#1B3163] mt-0.5 shrink-0" />
                     <span className="text-sm text-gray-600 leading-snug">{f}</span>
@@ -229,100 +280,49 @@ export function PricingSection() {
               </ul>
             </div>
 
-            {/* SMS add-on callout */}
-            <div className="bg-violet-50 border border-violet-200 rounded-2xl p-5">
-              <div className="flex items-start gap-3 mb-1">
-                <MessageSquare className="w-5 h-5 text-violet-600 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-bold text-violet-900">SMS notifications are included</p>
-                  <p className="text-xs text-violet-600 mt-0.5 leading-relaxed">
-                    All plans include <strong>free</strong> in-app push notifications and email
-                    confirmations. Buy SMS credits as a separate top-up if you also want to reach
-                    clients via text — no monthly commitment.
-                  </p>
-                </div>
+            {/* SMS plan callout */}
+            <div className={cn(
+              "rounded-2xl border p-5 transition-all",
+              includeSms
+                ? "bg-violet-50 border-violet-200"
+                : "bg-gray-50 border-gray-200"
+            )}>
+              <div className="flex items-center gap-2 mb-3">
+                <MessageSquare className={cn("w-4 h-4 shrink-0", includeSms ? "text-violet-600" : "text-gray-400")} />
+                <p className={cn("text-sm font-bold", includeSms ? "text-violet-900" : "text-gray-500")}>
+                  SMS plan · +${SMS_ADD_ON}/staff/mo
+                </p>
+                {includeSms && (
+                  <span className="ml-auto text-[10px] font-black bg-violet-600 text-white px-2 py-0.5 rounded-full">
+                    Selected
+                  </span>
+                )}
               </div>
+              <ul className="space-y-2">
+                {SMS_FEATURES.map((f) => (
+                  <li key={f} className="flex items-start gap-2">
+                    <Zap className={cn("w-3.5 h-3.5 mt-0.5 shrink-0", includeSms ? "text-violet-500" : "text-gray-300")} />
+                    <span className={cn("text-sm leading-snug", includeSms ? "text-violet-700" : "text-gray-400")}>
+                      {f}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              {!includeSms && (
+                <button
+                  type="button"
+                  onClick={() => setIncludeSms(true)}
+                  className="mt-4 text-xs font-bold text-[#1B3163] hover:underline"
+                >
+                  Add SMS to your plan →
+                </button>
+              )}
             </div>
+
           </div>
         </div>
 
-        {/* ── SMS Credit Bundles ── */}
-        <div className="mt-14">
-          <div className="flex items-center gap-3 mb-2">
-            <MessageSquare className="w-5 h-5 text-violet-600" />
-            <h3 className="text-xl font-black text-gray-900">SMS Credit Top-ups</h3>
-            <span className="text-xs font-bold bg-violet-100 text-violet-700 px-2 py-1 rounded-full">
-              Optional add-on
-            </span>
-          </div>
-          <p className="text-sm text-gray-500 mb-6 max-w-2xl">
-            Credits never expire and work across all SMS types — reminders, confirmations, bulk
-            campaigns. Pricing reflects carrier delivery costs (Twilio AU network) plus platform
-            infrastructure. Larger bundles cost less per SMS.
-          </p>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {SMS_BUNDLES.map((b) => (
-              <div
-                key={b.credits}
-                className={cn(
-                  "relative rounded-2xl border p-4 flex flex-col",
-                  b.best
-                    ? "bg-[#0D1B2A] border-[#1B3163] shadow-xl"
-                    : "bg-white border-gray-100 hover:border-gray-200 hover:shadow-md transition-all"
-                )}
-              >
-                {b.best && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-black uppercase tracking-widest bg-violet-600 text-white px-3 py-1 rounded-full whitespace-nowrap">
-                    Best value
-                  </div>
-                )}
-
-                <p className={cn("text-lg font-black mb-0.5", b.best ? "text-white" : "text-gray-900")}>
-                  {b.credits >= 1_000 ? `${b.credits / 1_000}k` : b.credits} SMS
-                </p>
-
-                <div className="flex items-end gap-1 mb-2">
-                  <span className={cn("text-xs mb-0.5", b.best ? "text-white/50" : "text-gray-400")}>$</span>
-                  <span className={cn("text-3xl font-black", b.best ? "text-white" : "text-gray-900")}>
-                    {b.price.toLocaleString()}
-                  </span>
-                  <span className={cn("text-xs mb-0.5", b.best ? "text-white/50" : "text-gray-400")}>AUD</span>
-                </div>
-
-                <p className={cn("text-xs font-mono mb-1", b.best ? "text-[#6B8FD4]" : "text-gray-400")}>
-                  ${b.perSms} / SMS
-                </p>
-
-                {b.saving ? (
-                  <span
-                    className={cn(
-                      "text-[10px] font-bold px-2 py-0.5 rounded-full mt-auto self-start",
-                      b.best
-                        ? "bg-violet-500/30 text-violet-300"
-                        : "bg-emerald-50 text-emerald-700"
-                    )}
-                  >
-                    {b.saving}
-                  </span>
-                ) : (
-                  <span className={cn("text-[10px] mt-auto", b.best ? "text-white/20" : "text-gray-200")}>—</span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 flex items-start gap-2 text-xs text-gray-400 max-w-2xl">
-            <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-            <span>
-              SMS delivery rates vary slightly by carrier. Pricing is inclusive of Twilio network fees
-              for Australian mobile numbers. International SMS rates differ — contact us for bulk
-              international pricing. Credits do not expire.
-            </span>
-          </div>
-        </div>
-
-        {/* Enterprise + bottom note */}
+        {/* Enterprise callout */}
         <div className="mt-10 bg-[#0D1B2A] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-lg font-black text-white">30+ staff or multiple locations?</h3>
@@ -332,7 +332,7 @@ export function PricingSection() {
             </p>
           </div>
           <a
-            href="mailto:hello@getsquire.com"
+            href="mailto:hello@getkempt.com"
             className="shrink-0 px-6 py-3 bg-[#1B3163] text-white font-bold text-sm rounded-xl hover:bg-[#243F80] transition-colors whitespace-nowrap"
           >
             Contact us →
@@ -340,7 +340,7 @@ export function PricingSection() {
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          All prices in AUD · GST applies to Australian businesses · 14-day trial then first full month free
+          All prices in AUD · GST applies to Australian businesses · First month free, no credit card required
         </p>
       </div>
     </section>

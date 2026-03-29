@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils/cn";
 const FAQS = [
   {
     q: "How does the trial work?",
-    a: "Sign up and use GetSquire completely free for your first month — no credit card required. After that, you're billed based on the number of staff members in your account. Cancel before the trial ends and you'll never be charged.",
+    a: "Sign up and use GetKempt completely free for your first month — no credit card required. After that, you're billed based on the number of staff members in your account. Cancel before the trial ends and you'll never be charged.",
   },
   {
     q: "How is pricing calculated?",
@@ -18,12 +18,12 @@ const FAQS = [
     a: "Your bill is recalculated automatically at the start of each billing cycle based on your current active staff count. Adding a new staff member mid-month is pro-rated for the remaining days.",
   },
   {
-    q: "How do SMS credits work?",
-    a: "SMS credits are a separate top-up — you buy a bundle when you need one and they never expire. All plans already include unlimited in-app push notifications and transactional email confirmations for free. SMS is for clients who may not have the app installed and prefer text reminders. Larger bundles have a lower cost per message.",
+    q: "How does SMS work?",
+    a: "SMS is a simple monthly add-on of $30 per staff member. Enable it in the pricing calculator and it's included in your subscription — no separate credit bundles or top-ups. All plans already include unlimited in-app push notifications and transactional email confirmations for free. SMS is ideal for reaching clients who may not have the app installed.",
   },
   {
-    q: "Why are SMS credits priced the way they are?",
-    a: "SMS delivery in Australia is routed through Twilio's carrier network, which charges per message. Our bundle pricing reflects those carrier costs plus platform infrastructure. There's no markup hidden in a monthly subscription — you pay exactly for what you send.",
+    q: "Can I add or remove SMS later?",
+    a: "Yes. You can switch SMS on or off at any time from your account settings. Changes take effect at the start of your next billing cycle. There are no lock-in commitments on the SMS add-on.",
   },
   {
     q: "Can I cancel any time?",
@@ -38,8 +38,8 @@ const FAQS = [
     a: "Each staff member has their own weekly schedule with configurable work hours, break times, and date-specific overrides. The booking engine checks availability in real time before showing slots to clients — double-bookings are impossible.",
   },
   {
-    q: "Is GetSquire suitable for salons outside Australia?",
-    a: "Yes — GetSquire works anywhere in the world. All appointment times are stored in UTC and displayed in the shop's local timezone. Pricing is in AUD for now, with global currency support coming soon.",
+    q: "Is GetKempt suitable for salons outside Australia?",
+    a: "Yes — GetKempt works anywhere in the world. All appointment times are stored in UTC and displayed in the shop's local timezone. Pricing is in AUD for now, with global currency support coming soon.",
   },
   {
     q: "Can I import my existing clients?",
@@ -63,7 +63,7 @@ export function FaqSection() {
           </h2>
           <p className="mt-3 text-white/50 text-lg">
             Can't find your answer?{" "}
-            <a href="mailto:hello@getsquire.com" className="text-[#6B8FD4] hover:underline">
+            <a href="mailto:hello@getkempt.com" className="text-[#6B8FD4] hover:underline">
               Email us
             </a>
           </p>

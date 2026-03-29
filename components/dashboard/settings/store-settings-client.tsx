@@ -6,10 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Save, AlertCircle } from "lucide-react";
 import { storeSettingsSchema, type StoreSettingsSchema } from "@/lib/validations/store-settings";
 import { MOCK_STORE_SETTINGS } from "@/lib/mock/store-settings";
-import { SchedulingSection } from "./scheduling-section";
-import { HolidaysSection } from "./holidays-section";
-import { SurchargeSection } from "./surcharge-section";
-import { PoliciesSection } from "./policies-section";
+import { SchedulingSection }       from "./scheduling-section";
+import { PaymentsSection }         from "./payments-section";
+import { HolidaysSection }         from "./holidays-section";
+import { SurchargeSection }        from "./surcharge-section";
+import { CancellationFeesSection } from "./cancellation-fees-section";
+import { PoliciesSection }         from "./policies-section";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils/cn";
 
@@ -20,15 +22,31 @@ export function StoreSettingsClient() {
   const form = useForm<StoreSettingsSchema>({
     resolver: zodResolver(storeSettingsSchema),
     defaultValues: {
-      bookingWindowValue:     MOCK_STORE_SETTINGS.bookingWindowValue,
-      bookingWindowUnit:      MOCK_STORE_SETTINGS.bookingWindowUnit,
-      slotInterval:           MOCK_STORE_SETTINGS.slotInterval,
-      holidays:               MOCK_STORE_SETTINGS.holidays,
-      surchargeRules:         MOCK_STORE_SETTINGS.surchargeRules,
-      cancellationPolicy:     MOCK_STORE_SETTINGS.cancellationPolicy,
-      minCancellationHours:   MOCK_STORE_SETTINGS.minCancellationHours,
-      cancellationFeePercent: MOCK_STORE_SETTINGS.cancellationFeePercent,
-      privacyPolicy:          MOCK_STORE_SETTINGS.privacyPolicy,
+      /* Scheduling */
+      bookingWindowValue: MOCK_STORE_SETTINGS.bookingWindowValue,
+      bookingWindowUnit:  MOCK_STORE_SETTINGS.bookingWindowUnit,
+      slotInterval:       MOCK_STORE_SETTINGS.slotInterval,
+
+      /* Holidays & surcharges */
+      holidays:       MOCK_STORE_SETTINGS.holidays,
+      surchargeRules: MOCK_STORE_SETTINGS.surchargeRules,
+
+      /* Payments */
+      paymentMode:     MOCK_STORE_SETTINGS.paymentMode,
+      depositType:     MOCK_STORE_SETTINGS.depositType,
+      depositValue:    MOCK_STORE_SETTINGS.depositValue,
+      inStoreMethods:  MOCK_STORE_SETTINGS.inStoreMethods,
+      stripeConnected: MOCK_STORE_SETTINGS.stripeConnected,
+
+      /* Cancellation & no-show fees */
+      noShowFeeType:        MOCK_STORE_SETTINGS.noShowFeeType,
+      noShowFeeValue:       MOCK_STORE_SETTINGS.noShowFeeValue,
+      autoCharge:           MOCK_STORE_SETTINGS.autoCharge,
+      cancellationFeeRules: MOCK_STORE_SETTINGS.cancellationFeeRules,
+
+      /* Text policies */
+      cancellationPolicy: MOCK_STORE_SETTINGS.cancellationPolicy,
+      privacyPolicy:      MOCK_STORE_SETTINGS.privacyPolicy,
     },
   });
 
@@ -48,10 +66,12 @@ export function StoreSettingsClient() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      <SchedulingSection form={form} />
-      <HolidaysSection   form={form} />
-      <SurchargeSection  form={form} />
-      <PoliciesSection   form={form} />
+      <SchedulingSection       form={form} />
+      <PaymentsSection         form={form} />
+      <CancellationFeesSection form={form} />
+      <HolidaysSection         form={form} />
+      <SurchargeSection        form={form} />
+      <PoliciesSection         form={form} />
 
       {/* ── Sticky save bar ── */}
       <div

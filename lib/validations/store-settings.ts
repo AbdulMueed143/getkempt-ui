@@ -37,14 +37,26 @@ export const surchargeRuleSchema = z.object({
   { message: "End time must be after start time", path: ["timeEnd"] }
 );
 
+export const cancellationFeeRuleSchema = z.object({
+  id:          z.string(),
+  label:       z.string().min(1, "Label required").max(60),
+  withinHours: z.number({ message: "Required" }).int().min(1, "Must be at least 1 hour").max(720),
+  feeType:     z.enum(["percentage", "fixed_aud"]),
+  feeValue:    z.number().min(0.01, "Enter a fee amount").max(100000),
+}).refine(
+  (v) => v.feeType !== "percentage" || v.feeValue <= 100,
+  { message: "Percentage cannot exceed 100%", path: ["feeValue"] }
+);
+
 export const storeSettingsSchema = z.object({
+  /* Scheduling */
   bookingWindowValue: z
     .number({ message: "Required" })
     .int()
     .min(1, "Must be at least 1")
     .max(365, "Max 365"),
   bookingWindowUnit: z.enum(["days", "weeks", "months"]),
-  slotInterval:      z
+  slotInterval: z
     .number({ message: "Required" })
     .int()
     .min(5, "Minimum 5 minutes")
@@ -53,10 +65,37 @@ export const storeSettingsSchema = z.object({
   holidays:       z.array(holidaySchema),
   surchargeRules: z.array(surchargeRuleSchema),
 
-  cancellationPolicy:     z.string().max(3000),
-  minCancellationHours:   z.number().int().min(0).max(168),
-  cancellationFeePercent: z.number().min(0).max(100),
-  privacyPolicy:          z.string().max(5000),
-});
+  /* Payment setup */
+  paymentMode:    z.enum(["in_store", "deposit", "full_upfront"]),
+  depositType:    z.enum(["percentage", "fixed_aud"]),
+  depositValue:   z.number().min(0).max(100000),
+  inStoreMethods: z.array(z.enum(["card", "cash", "bank_transfer"])),
+  stripeConnected: z.boolean(),
+
+  /* No-show & cancellation fees */
+  noShowFeeType:        z.enum(["percentage", "fixed_aud", "none"]),
+  noShowFeeValue:       z.number().min(0).max(100000),
+  autoCharge:           z.boolean(),
+  cancellationFeeRules: z.array(cancellationFeeRuleSchema),
+
+  /* Text policies */
+  cancellationPolicy: z.string().max(3000),
+  privacyPolicy:      z.string().max(5000),
+}).refine(
+  (v) => {
+    if (v.paymentMode !== "in_store" && v.depositValue === 0) return false;
+    return true;
+  },
+  {
+    message: "Enter a deposit amount greater than 0",
+    path: ["depositValue"],
+  }
+).refine(
+  (v) => v.noShowFeeType === "none" || v.noShowFeeValue > 0,
+  { message: "Enter a no-show fee amount", path: ["noShowFeeValue"] }
+).refine(
+  (v) => v.noShowFeeType !== "percentage" || v.noShowFeeValue <= 100,
+  { message: "Percentage cannot exceed 100%", path: ["noShowFeeValue"] }
+);
 
 export type StoreSettingsSchema = z.infer<typeof storeSettingsSchema>;

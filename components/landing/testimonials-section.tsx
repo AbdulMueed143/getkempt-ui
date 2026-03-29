@@ -6,7 +6,7 @@ const TESTIMONIALS = [
     role:    "Owner, Heritage Barbershop",
     suburb:  "Fitzroy, VIC",
     rating:  5,
-    text:    "We used to manage bookings through a Google sheet and a WhatsApp group. GetSquire replaced all of that. My team knows their schedule, clients book themselves, and I can actually see who's shown up at the end of the day. Night and day difference.",
+    text:    "We used to manage bookings through a Google sheet and a WhatsApp group. GetKempt replaced all of that. My team knows their schedule, clients book themselves, and I can actually see who's shown up at the end of the day. Night and day difference.",
     emoji:   "✂️",
   },
   {
@@ -39,7 +39,7 @@ export function TestimonialsSection() {
           <h2 className="mt-4 text-3xl sm:text-5xl font-black text-[#0D1B2A] leading-tight">
             Melbourne shops
             <br />
-            <span className="text-[#1B3163]">trust GetSquire</span>
+            <span className="text-[#1B3163]">trust GetKempt</span>
           </h2>
         </div>
 

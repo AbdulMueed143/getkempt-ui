@@ -37,7 +37,7 @@ export function LandingNavbar() {
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image
             src="/assets/logo_partial_white.svg"
-            alt="GetSquire"
+            alt="GetKempt"
             width={120}
             height={32}
             className="h-8 w-auto"
