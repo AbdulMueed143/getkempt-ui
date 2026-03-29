@@ -1,4 +1,4 @@
-:HL["/_next/static/chunks/f5b831fdbb631d55.css","style"]
-:HL["/_next/static/media/0dc02305a3505331-s.p.36b9681c.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/_next/static/media/387c923d20582ec7-s.p.fae50b63.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"buildId":"r3JkcTZ2wPgPLyPHU0rD_","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"(dashboard)","paramType":null,"paramKey":"(dashboard)","hasRuntimePrefetch":false,"slots":{"children":{"name":"bookings","paramType":null,"paramKey":"bookings","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+:HL["/getkempt-ui/_next/static/chunks/f5b831fdbb631d55.css","style"]
+:HL["/getkempt-ui/_next/static/media/0dc02305a3505331-s.p.36b9681c.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/getkempt-ui/_next/static/media/387c923d20582ec7-s.p.fae50b63.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"buildId":"uz0P1LUYSjEOXhBuvqj6k","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"(dashboard)","paramType":null,"paramKey":"(dashboard)","hasRuntimePrefetch":false,"slots":{"children":{"name":"bookings","paramType":null,"paramKey":"bookings","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
