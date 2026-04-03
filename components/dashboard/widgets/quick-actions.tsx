@@ -1,10 +1,28 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { QUICK_ACTIONS } from "@/lib/mock/dashboard";
+import { useQuickActionStore, type QuickActionTarget } from "@/store/quick-action-store";
+
+/** Maps a quick-action id to the Zustand signal it sends before navigating. */
+const ACTION_SIGNALS: Record<string, QuickActionTarget | null> = {
+  "add-booking": "booking",
+  "add-staff":   "staff",
+  "add-service": "service",
+  "set-hours":   null, // direct navigation only, no slideover to open
+};
 
 export function QuickActions() {
+  const router  = useRouter();
+  const trigger = useQuickActionStore((s) => s.trigger);
+
+  function handleClick(actionId: string, href: string) {
+    const signal = ACTION_SIGNALS[actionId];
+    if (signal) trigger(signal);
+    router.push(href);
+  }
+
   return (
     <div
       className="bg-white rounded-2xl p-5"
@@ -19,15 +37,16 @@ export function QuickActions() {
           const Icon = action.icon;
           return (
             <li key={action.id}>
-              <Link
-                href={action.href}
-                className="flex items-center gap-3 p-3 rounded-xl transition-all group"
+              <button
+                type="button"
+                onClick={() => handleClick(action.id, action.href)}
+                className="w-full flex items-center gap-3 p-3 rounded-xl transition-all group text-left"
                 style={{ backgroundColor: "#F8F9FC" }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#F0F3FA";
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F0F3FA";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#F8F9FC";
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F8F9FC";
                 }}
               >
                 {/* Icon bubble */}
@@ -54,7 +73,7 @@ export function QuickActions() {
                   className="shrink-0 transition-transform group-hover:translate-x-0.5"
                   style={{ color: "#8E95A5" }}
                 />
-              </Link>
+              </button>
             </li>
           );
         })}

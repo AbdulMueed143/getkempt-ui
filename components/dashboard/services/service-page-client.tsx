@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search, Plus } from "lucide-react";
 import { ServiceStats } from "./service-stats";
 import { ServiceCard } from "./service-card";
@@ -12,6 +12,7 @@ import { CATEGORY_LABELS, type ServiceCategory } from "@/types/service";
 import type { ServiceSchema } from "@/lib/validations/service";
 import { useConfirm } from "@/hooks/use-confirm";
 import { useToast } from "@/hooks/use-toast";
+import { useQuickActionStore } from "@/store/quick-action-store";
 
 type CategoryFilter = ServiceCategory | "all";
 type StatusFilter   = "all" | "active" | "inactive";
@@ -38,6 +39,15 @@ export function ServicePageClient() {
   const [services,      setServices]      = useState<Service[]>(MOCK_SERVICES);
   const [slideoverOpen, setSlideoverOpen] = useState(false);
   const [editing,       setEditing]       = useState<Service | null>(null);
+
+  /* Open add-service slideover automatically when navigated from a quick action */
+  const { pendingAction, clear: clearPending } = useQuickActionStore();
+  useEffect(() => {
+    if (pendingAction === "service") {
+      setSlideoverOpen(true);
+      clearPending();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const [search,        setSearch]        = useState("");
   const [catFilter,     setCatFilter]     = useState<CategoryFilter>("all");
   const [statusFilter,  setStatusFilter]  = useState<StatusFilter>("all");

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search, Plus, SlidersHorizontal } from "lucide-react";
 import { StaffStats } from "./staff-stats";
 import { StaffCard } from "./staff-card";
@@ -10,6 +10,7 @@ import type { StaffMember, StaffRole, StaffStatus } from "@/types/staff";
 import type { StaffSchema } from "@/lib/validations/staff";
 import { useConfirm } from "@/hooks/use-confirm";
 import { useToast } from "@/hooks/use-toast";
+import { useQuickActionStore } from "@/store/quick-action-store";
 
 /* ── Filter option types ─────────────────────────── */
 type RoleFilter   = StaffRole | "all";
@@ -25,6 +26,15 @@ export function StaffPageClient() {
 
   const confirm = useConfirm();
   const toast   = useToast();
+
+  /* Open add-staff slideover automatically when navigated from a quick action */
+  const { pendingAction, clear: clearPending } = useQuickActionStore();
+  useEffect(() => {
+    if (pendingAction === "staff") {
+      setSlideoverOpen(true);
+      clearPending();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* ── Filtered list ───────────────────────────────── */
   const filtered = useMemo(() => {

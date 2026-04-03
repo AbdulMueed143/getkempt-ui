@@ -53,7 +53,7 @@ export function SchedulingSection({ form }: Props) {
   const deadlineDate = addDays(toWindowDays(Number(windowValue), windowUnit));
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+    <div id="scheduling" className="bg-white rounded-xl border border-gray-100 overflow-hidden">
       {/* Header */}
       <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-[#EEF1F8] flex items-center justify-center shrink-0">
@@ -67,7 +67,7 @@ export function SchedulingSection({ form }: Props) {
         </div>
       </div>
 
-      <div className="p-5 space-y-6">
+      <div className="p-5 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0 space-y-6">
         {/* ── Booking window ── */}
         <div className="space-y-2">
           <label className="text-xs font-semibold text-gray-700">

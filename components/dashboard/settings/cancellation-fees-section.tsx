@@ -130,7 +130,7 @@ export function CancellationFeesSection({ form }: Props) {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+    <div id="cancellation" className="bg-white rounded-xl border border-gray-100 overflow-hidden">
       {/* Header */}
       <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
@@ -179,7 +179,7 @@ export function CancellationFeesSection({ form }: Props) {
         </div>
       )}
 
-      <div className="p-5 space-y-6">
+      <div className="p-5 space-y-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0">
 
         {/* ── No-show fee ── */}
         <div>
@@ -512,8 +512,8 @@ export function CancellationFeesSection({ form }: Props) {
           )}
         </div>
 
-        {/* Info note */}
-        <div className="flex items-start gap-2 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 text-xs text-blue-700">
+        {/* Info note — spans both columns on desktop */}
+        <div className="lg:col-span-2 flex items-start gap-2 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 text-xs text-blue-700">
           <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-blue-500" />
           <span>
             Rules are evaluated from the tightest window outward — the first rule whose window

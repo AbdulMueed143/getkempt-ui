@@ -63,7 +63,7 @@ export function PoliciesSection({ form }: Props) {
   const privacyLen      = (watch("privacyPolicy") ?? "").length;
 
   return (
-    <div className="space-y-4">
+    <div id="policies" className="lg:grid lg:grid-cols-2 lg:gap-5 space-y-4 lg:space-y-0">
       {/* ── Cancellation Policy Text ── */}
       <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-3">

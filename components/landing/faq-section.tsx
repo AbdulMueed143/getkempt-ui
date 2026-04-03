@@ -51,19 +51,44 @@ export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-[#0D1B2A] py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <section id="faq" className="relative bg-[#0D1B2A] py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background textures */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Warm ambient glow */}
+        <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-[#C4A882]/[0.04] rounded-full blur-[150px]" />
+
+        {/* Brick texture */}
+        <div
+          className="absolute inset-0 opacity-[0.012]"
+          style={{
+            backgroundImage:
+              "linear-gradient(90deg, #C4A882 1px, transparent 1px), linear-gradient(#C4A882 1px, transparent 1px)",
+            backgroundSize: "48px 24px",
+          }}
+        />
+
+        {/* Noise grain */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundSize: "200px 200px",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-3xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
-          <span className="text-xs font-bold text-[#6B8FD4] uppercase tracking-widest bg-[#1B3163]/30 px-3 py-1.5 rounded-full">
+        <div className="text-center mb-16">
+          <span className="text-xs font-bold text-[#C4A882] uppercase tracking-[0.2em] bg-[#C4A882]/10 px-4 py-2 rounded-full">
             Got questions?
           </span>
-          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-white leading-tight">
-            Frequently asked
+          <h2 className="mt-6 text-3xl sm:text-5xl text-white leading-tight">
+            <span className="heading-serif">Frequently asked</span>
           </h2>
-          <p className="mt-3 text-white/50 text-lg">
-            Can't find your answer?{" "}
-            <a href="mailto:hello@getkempt.com" className="text-[#6B8FD4] hover:underline">
+          <p className="mt-4 text-white/40 text-lg">
+            Can&apos;t find your answer?{" "}
+            <a href="mailto:hello@getkempt.com" className="text-[#C4A882] hover:text-[#D5C4A8] hover:underline transition-colors">
               Email us
             </a>
           </p>
@@ -75,10 +100,10 @@ export function FaqSection() {
             <div
               key={idx}
               className={cn(
-                "rounded-2xl border transition-all duration-200",
+                "rounded-2xl border transition-all duration-300",
                 open === idx
-                  ? "bg-[#1B3163]/30 border-[#1B3163]/60"
-                  : "bg-white/5 border-white/10 hover:border-white/20"
+                  ? "bg-[#C4A882]/[0.06] border-[#C4A882]/20"
+                  : "bg-white/[0.02] border-white/[0.06] hover:border-[#C4A882]/15"
               )}
             >
               <button
@@ -88,28 +113,31 @@ export function FaqSection() {
               >
                 <span
                   className={cn(
-                    "text-sm font-semibold",
-                    open === idx ? "text-white" : "text-white/80"
+                    "text-sm font-semibold transition-colors",
+                    open === idx ? "text-white" : "text-white/70"
                   )}
                 >
                   {faq.q}
                 </span>
                 {open === idx ? (
-                  <Minus className="w-4 h-4 text-[#6B8FD4] shrink-0" />
+                  <Minus className="w-4 h-4 text-[#C4A882] shrink-0" />
                 ) : (
-                  <Plus className="w-4 h-4 text-white/40 shrink-0" />
+                  <Plus className="w-4 h-4 text-white/30 shrink-0" />
                 )}
               </button>
 
               {open === idx && (
                 <div className="px-5 pb-5">
-                  <p className="text-sm text-white/60 leading-relaxed">{faq.a}</p>
+                  <p className="text-sm text-white/50 leading-relaxed">{faq.a}</p>
                 </div>
               )}
             </div>
           ))}
         </div>
       </div>
+
+      {/* Bottom warm divider */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C4A882]/15 to-transparent" />
     </section>
   );
 }

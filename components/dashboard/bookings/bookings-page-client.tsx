@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   Plus, ChevronLeft, ChevronRight,
   Calendar, LayoutGrid, CalendarDays,
@@ -22,6 +22,7 @@ import {
   formatMonthYear, formatWeekRange, formatShortDate,
 } from "@/lib/utils/booking-slots";
 import { useToast } from "@/hooks/use-toast";
+import { useQuickActionStore } from "@/store/quick-action-store";
 import { cn } from "@/lib/utils/cn";
 
 type CalView = "day" | "week" | "month";
@@ -152,6 +153,15 @@ export function BookingsPageClient() {
   const [showCreate,   setShowCreate]   = useState(false);
   const [editBooking,  setEditBooking]  = useState<Booking | null>(null);
   const [detailBooking,setDetailBooking]= useState<Booking | null>(null);
+
+  /* Open create slideover automatically when navigated from a quick action */
+  const { pendingAction, clear: clearPending } = useQuickActionStore();
+  useEffect(() => {
+    if (pendingAction === "booking") {
+      setShowCreate(true);
+      clearPending();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* ── Navigation ── */
   function navigate(dir: 1 | -1) {

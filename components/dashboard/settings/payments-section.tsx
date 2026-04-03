@@ -79,7 +79,7 @@ export function PaymentsSection({ form }: Props) {
   })();
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+    <div id="payments" className="bg-white rounded-xl border border-gray-100 overflow-hidden">
       {/* Header */}
       <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-[#EEF1F8] flex items-center justify-center shrink-0">
@@ -93,7 +93,7 @@ export function PaymentsSection({ form }: Props) {
         </div>
       </div>
 
-      <div className="p-5 space-y-6">
+      <div className="p-5 space-y-6 lg:space-y-8">
 
         {/* ── Stripe Connect ── */}
         <div>

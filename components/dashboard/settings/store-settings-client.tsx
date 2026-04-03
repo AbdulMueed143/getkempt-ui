@@ -65,7 +65,7 @@ export function StoreSettingsClient() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 [&_[id]]:scroll-mt-20">
       <SchedulingSection       form={form} />
       <PaymentsSection         form={form} />
       <CancellationFeesSection form={form} />
