@@ -7,13 +7,7 @@ export const metadata = {
 
 export default function StoreProfilePage() {
   return (
-    <div className="max-w-3xl space-y-2">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Store Profile</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Manage your shop&apos;s public identity, contact details, and location
-        </p>
-      </div>
+    <div className="max-w-4xl mx-auto px-0 sm:px-0">
       <StoreProfileForm />
     </div>
   );

@@ -16,9 +16,10 @@ interface Props {
 
 const inputCls = (err?: boolean) =>
   cn(
-    "w-full text-sm text-gray-900 border rounded-xl px-3 py-2.5 bg-white transition-colors",
-    "focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:border-transparent placeholder:text-gray-400",
-    err ? "border-rose-300 bg-rose-50/30" : "border-gray-200 hover:border-gray-300"
+    "w-full text-sm text-[#0D1B2A] border rounded-2xl px-4 py-3 bg-white/80 backdrop-blur-sm transition-all duration-200",
+    "focus:outline-none focus:ring-2 focus:ring-[#C4A882]/50 focus:border-[#C4A882] focus:bg-white focus:shadow-sm",
+    "placeholder:text-[#8E95A5]",
+    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm"
   );
 
 function formatDate(dateStr: string): string {
@@ -38,7 +39,6 @@ export function HolidaysSection({ form }: Props) {
   const [showAdd, setShowAdd] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  /* New holiday draft state */
   const [draft, setDraft] = useState({
     name: "", date: "", appliesTo: "all" as "all",
     hasSurcharge: false, surchargeType: "percentage" as "percentage" | "fixed_aud",
@@ -67,47 +67,41 @@ export function HolidaysSection({ form }: Props) {
   }
 
   return (
-    <div id="holidays" className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-      {/* Header */}
-      <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-[#EEF1F8] flex items-center justify-center shrink-0">
-          <CalendarOff className="w-4 h-4 text-[#1B3163]" />
-        </div>
-        <div className="flex-1">
-          <h2 className="text-sm font-semibold text-gray-900">Holidays &amp; Closures</h2>
-          <p className="text-xs text-gray-400 mt-0.5">
-            Block off days your shop is closed; optionally apply a public holiday surcharge
-          </p>
-        </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <button
-            type="button"
-            onClick={handleAddVicHolidays}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#1B3163] bg-[#EEF1F8] hover:bg-[#D5DFF0] transition-colors"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Add VIC Public Holidays</span>
-            <span className="sm:hidden">VIC Holidays</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowAdd((v) => !v)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-[#1B3163] hover:bg-[#152748] transition-colors"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            Add
-          </button>
-        </div>
+    <div id="holidays" className="divide-y divide-[#F0F3FA]">
+      {/* Action bar */}
+      <div className="px-5 sm:px-6 py-4 flex items-center gap-2 flex-wrap">
+        <button
+          type="button"
+          onClick={handleAddVicHolidays}
+          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-[#0D1B2A] bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] border border-[#E8ECF4] hover:shadow-sm hover:border-[#C4A882]/40 transition-all duration-200"
+        >
+          <Sparkles className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Add VIC Public Holidays</span>
+          <span className="sm:hidden">VIC Holidays</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setShowAdd((v) => !v)}
+          className={cn(
+            "flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200",
+            showAdd
+              ? "bg-[#0D1B2A] text-white"
+              : "bg-[#0D1B2A] text-white hover:bg-[#C4A882] hover:text-[#0D1B2A]"
+          )}
+        >
+          <Plus className="w-3.5 h-3.5" />
+          Add Holiday
+        </button>
       </div>
 
       {/* Add holiday inline form */}
       {showAdd && (
-        <div className="px-5 py-4 border-b border-[#EEF1F8] bg-[#F8F9FD] space-y-3">
-          <p className="text-xs font-semibold text-gray-700">New Holiday / Closure</p>
+        <div className="px-5 sm:px-6 py-5 bg-gradient-to-br from-[#FDFCFA] to-[#F8F6F2] space-y-4">
+          <p className="text-xs font-bold text-[#0D1B2A]">New Holiday / Closure</p>
 
           <div className="grid sm:grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-gray-600">Name <span className="text-rose-500">*</span></label>
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-semibold text-[#6B7A99]">Name <span className="text-rose-400">*</span></label>
               <input
                 value={draft.name}
                 onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))}
@@ -115,8 +109,8 @@ export function HolidaysSection({ form }: Props) {
                 className={inputCls(!draft.name && showAdd)}
               />
             </div>
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-gray-600">Date <span className="text-rose-500">*</span></label>
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-semibold text-[#6B7A99]">Date <span className="text-rose-400">*</span></label>
               <input
                 type="date"
                 value={draft.date}
@@ -134,18 +128,18 @@ export function HolidaysSection({ form }: Props) {
               aria-checked={draft.hasSurcharge}
               onClick={() => setDraft((d) => ({ ...d, hasSurcharge: !d.hasSurcharge }))}
               className={cn(
-                "relative w-10 h-6 rounded-full transition-colors shrink-0",
-                draft.hasSurcharge ? "bg-[#1B3163]" : "bg-gray-200"
+                "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
+                draft.hasSurcharge ? "bg-[#0D1B2A]" : "bg-gray-200"
               )}
             >
               <span
                 className={cn(
-                  "absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-transform",
-                  draft.hasSurcharge ? "translate-x-5" : "translate-x-1"
+                  "absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200",
+                  draft.hasSurcharge ? "translate-x-6" : "translate-x-1"
                 )}
               />
             </button>
-            <span className="text-xs text-gray-700 font-medium">Apply surcharge on this day</span>
+            <span className="text-xs text-[#0D1B2A] font-medium">Apply surcharge on this day</span>
           </div>
 
           {draft.hasSurcharge && (
@@ -160,7 +154,7 @@ export function HolidaysSection({ form }: Props) {
               </select>
               <div className="relative w-28">
                 {draft.surchargeType === "fixed_aud" && (
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#8E95A5] pointer-events-none">$</span>
                 )}
                 <input
                   type="number"
@@ -168,10 +162,10 @@ export function HolidaysSection({ form }: Props) {
                   max={draft.surchargeType === "percentage" ? 100 : 9999}
                   value={draft.surchargeValue}
                   onChange={(e) => setDraft((d) => ({ ...d, surchargeValue: Number(e.target.value) }))}
-                  className={cn(inputCls(), draft.surchargeType === "fixed_aud" ? "pl-6" : "")}
+                  className={cn(inputCls(), draft.surchargeType === "fixed_aud" ? "pl-7" : "")}
                 />
                 {draft.surchargeType === "percentage" && (
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">%</span>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#8E95A5] pointer-events-none">%</span>
                 )}
               </div>
             </div>
@@ -182,14 +176,14 @@ export function HolidaysSection({ form }: Props) {
               type="button"
               onClick={handleAddHoliday}
               disabled={!draft.name || !draft.date}
-              className="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-[#1B3163] hover:bg-[#152748] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#0D1B2A] hover:bg-[#C4A882] hover:text-[#0D1B2A] disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200"
             >
               Add Holiday
             </button>
             <button
               type="button"
               onClick={() => setShowAdd(false)}
-              className="px-4 py-2 rounded-xl text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              className="px-5 py-2.5 rounded-xl text-sm text-[#8E95A5] hover:text-[#0D1B2A] transition-colors"
             >
               Cancel
             </button>
@@ -199,13 +193,15 @@ export function HolidaysSection({ form }: Props) {
 
       {/* Holiday list */}
       {fields.length === 0 ? (
-        <div className="py-10 text-center">
-          <CalendarOff className="w-8 h-8 text-gray-200 mx-auto mb-2" />
-          <p className="text-sm text-gray-400">No holidays added yet</p>
-          <p className="text-xs text-gray-300 mt-1">Add custom dates or import VIC public holidays above</p>
+        <div className="py-12 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] flex items-center justify-center mx-auto mb-3">
+            <CalendarOff className="w-7 h-7 text-[#C4C9D4]" />
+          </div>
+          <p className="text-sm text-[#8E95A5] font-medium">No holidays added yet</p>
+          <p className="text-[11px] text-[#C4C9D4] mt-1">Add custom dates or import VIC public holidays above</p>
         </div>
       ) : (
-        <ul className="divide-y divide-gray-50">
+        <ul className="divide-y divide-[#F0F3FA]">
           {fields
             .slice()
             .sort((a, b) => a.date.localeCompare(b.date))
@@ -215,32 +211,32 @@ export function HolidaysSection({ form }: Props) {
               const hasSurcharge = watch(`holidays.${realIdx}.hasSurcharge`);
 
               return (
-                <li key={field.id} className="px-4 py-3">
+                <li key={field.id} className="px-5 sm:px-6 py-4">
                   <div className="flex items-center gap-3">
                     {/* Date badge */}
-                    <div className="w-12 shrink-0 text-center">
-                      <div className="text-xs font-bold text-[#1B3163]">
-                        {field.date ? new Date(field.date + "T12:00:00").toLocaleDateString("en-AU", { month: "short" }).toUpperCase() : "—"}
+                    <div className="w-14 h-14 shrink-0 rounded-xl bg-gradient-to-br from-rose-50 to-pink-50 border border-rose-100/60 flex flex-col items-center justify-center">
+                      <div className="text-[10px] font-bold text-rose-500 uppercase tracking-wider">
+                        {field.date ? new Date(field.date + "T12:00:00").toLocaleDateString("en-AU", { month: "short" }) : "—"}
                       </div>
-                      <div className="text-lg font-bold text-gray-900 leading-none">
+                      <div className="text-xl font-bold text-[#0D1B2A] leading-none">
                         {field.date ? new Date(field.date + "T12:00:00").getDate() : "—"}
                       </div>
                     </div>
 
                     {/* Name & date */}
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-gray-800">{field.name}</p>
-                      <p className="text-xs text-gray-400">{formatDate(field.date)}</p>
+                      <p className="text-sm font-bold text-[#0D1B2A]">{field.name}</p>
+                      <p className="text-[11px] text-[#8E95A5] mt-0.5">{formatDate(field.date)}</p>
                     </div>
 
                     {/* Surcharge badge */}
                     {hasSurcharge ? (
-                      <span className="hidden sm:inline-flex text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-100 shrink-0">
+                      <span className="hidden sm:inline-flex text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-100 shrink-0">
                         +{watch(`holidays.${realIdx}.surchargeValue`)}
                         {watch(`holidays.${realIdx}.surchargeType`) === "percentage" ? "%" : " AUD"}
                       </span>
                     ) : (
-                      <span className="hidden sm:inline-flex text-xs text-gray-400 shrink-0">No surcharge</span>
+                      <span className="hidden sm:inline-flex text-[11px] text-[#C4C9D4] shrink-0">No surcharge</span>
                     )}
 
                     {/* Expand / delete */}
@@ -248,14 +244,14 @@ export function HolidaysSection({ form }: Props) {
                       <button
                         type="button"
                         onClick={() => setExpandedId(isExpanded ? null : field.id)}
-                        className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                        className="p-2 rounded-xl text-[#8E95A5] hover:text-[#6B7A99] hover:bg-[#F4F2EE] transition-all duration-200"
                       >
                         {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </button>
                       <button
                         type="button"
                         onClick={() => remove(realIdx)}
-                        className="p-1.5 rounded-lg text-gray-400 hover:text-rose-500 hover:bg-rose-50 transition-colors"
+                        className="p-2 rounded-xl text-[#8E95A5] hover:text-rose-500 hover:bg-rose-50 transition-all duration-200"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -264,10 +260,10 @@ export function HolidaysSection({ form }: Props) {
 
                   {/* Inline edit panel */}
                   {isExpanded && (
-                    <div className="mt-3 ml-15 pl-2 border-l-2 border-[#EEF1F8] space-y-3">
+                    <div className="mt-4 ml-17 pl-3 border-l-2 border-[#E8ECF4] space-y-3">
                       <div className="grid sm:grid-cols-2 gap-3">
-                        <div className="space-y-1">
-                          <label className="text-xs font-medium text-gray-600">Name</label>
+                        <div className="space-y-1.5">
+                          <label className="text-[11px] font-semibold text-[#6B7A99]">Name</label>
                           <input
                             {...register(`holidays.${realIdx}.name`)}
                             className={inputCls(!!errors.holidays?.[realIdx]?.name)}
@@ -279,8 +275,8 @@ export function HolidaysSection({ form }: Props) {
                             </p>
                           )}
                         </div>
-                        <div className="space-y-1">
-                          <label className="text-xs font-medium text-gray-600">Date</label>
+                        <div className="space-y-1.5">
+                          <label className="text-[11px] font-semibold text-[#6B7A99]">Date</label>
                           <input
                             type="date"
                             {...register(`holidays.${realIdx}.date`)}
@@ -299,18 +295,18 @@ export function HolidaysSection({ form }: Props) {
                             setValue(`holidays.${realIdx}.hasSurcharge`, !hasSurcharge, { shouldDirty: true })
                           }
                           className={cn(
-                            "relative w-10 h-6 rounded-full transition-colors shrink-0",
-                            hasSurcharge ? "bg-[#1B3163]" : "bg-gray-200"
+                            "relative w-11 h-6 rounded-full transition-colors duration-200 shrink-0",
+                            hasSurcharge ? "bg-[#0D1B2A]" : "bg-gray-200"
                           )}
                         >
                           <span
                             className={cn(
-                              "absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-transform",
-                              hasSurcharge ? "translate-x-5" : "translate-x-1"
+                              "absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200",
+                              hasSurcharge ? "translate-x-6" : "translate-x-1"
                             )}
                           />
                         </button>
-                        <span className="text-xs text-gray-700">Apply surcharge on this day</span>
+                        <span className="text-xs text-[#0D1B2A] font-medium">Apply surcharge on this day</span>
                       </div>
 
                       {hasSurcharge && (
@@ -329,7 +325,7 @@ export function HolidaysSection({ form }: Props) {
                               {...register(`holidays.${realIdx}.surchargeValue`, { valueAsNumber: true })}
                               className={cn(inputCls(!!errors.holidays?.[realIdx]?.surchargeValue))}
                             />
-                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">
+                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">
                               {watch(`holidays.${realIdx}.surchargeType`) === "percentage" ? "%" : "$"}
                             </span>
                           </div>

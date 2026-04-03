@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useFieldArray, type UseFormReturn } from "react-hook-form";
 import {
-  TriangleAlert, Plus, Trash2, Pencil, Check, X,
-  AlertCircle, ChevronDown, ChevronUp, Zap,
+  Plus, Trash2, Pencil, Check, X,
+  AlertCircle, Zap,
 } from "lucide-react";
 import type { StoreSettingsSchema } from "@/lib/validations/store-settings";
 import {
@@ -19,13 +19,13 @@ interface Props {
 
 const inputCls = (err?: boolean) =>
   cn(
-    "w-full text-sm text-gray-900 border rounded-xl px-3 py-2.5 bg-white transition-colors",
-    "focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:border-transparent placeholder:text-gray-400",
-    err ? "border-rose-300 bg-rose-50/30" : "border-gray-200 hover:border-gray-300"
+    "w-full text-sm text-[#0D1B2A] border rounded-2xl px-4 py-3 bg-white/80 backdrop-blur-sm transition-all duration-200",
+    "focus:outline-none focus:ring-2 focus:ring-[#C4A882]/50 focus:border-[#C4A882] focus:bg-white focus:shadow-sm",
+    "placeholder:text-[#8E95A5]",
+    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm"
   );
 
 const FEE_TYPES: FeeType[] = ["percentage", "fixed_aud", "none"];
-
 const NO_SHOW_FEE_TYPES: FeeType[] = ["percentage", "fixed_aud", "none"];
 
 function feeLabel(feeType: string, feeValue: number): string {
@@ -70,7 +70,6 @@ export function CancellationFeesSection({ form }: Props) {
   const [draft,       setDraft]       = useState<EditDraft>(emptyDraft());
   const [showTemplates, setShowTemplates] = useState(false);
 
-  // Sort rules ascending by withinHours for display
   const sortedIndexMap = [...fields]
     .map((f, i) => ({ ...f, idx: i }))
     .sort((a, b) => a.withinHours - b.withinHours);
@@ -130,69 +129,58 @@ export function CancellationFeesSection({ form }: Props) {
   }
 
   return (
-    <div id="cancellation" className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-      {/* Header */}
-      <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center shrink-0">
-            <TriangleAlert className="w-4 h-4 text-amber-600" />
-          </div>
-          <div>
-            <h2 className="text-sm font-semibold text-gray-900">Cancellation &amp; No-show Fees</h2>
-            <p className="text-xs text-gray-400 mt-0.5">
-              Set what you charge when clients cancel late or don't show up
-            </p>
-          </div>
+    <div id="cancellation" className="p-5 sm:p-6 space-y-6">
+
+      {/* ── Quick templates ── */}
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <label className="text-xs font-bold text-[#0D1B2A] tracking-wide">Quick setup</label>
+          <button
+            type="button"
+            onClick={() => setShowTemplates((v) => !v)}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200",
+              showTemplates
+                ? "bg-[#0D1B2A] text-white"
+                : "bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] text-[#0D1B2A] hover:shadow-sm border border-[#E8ECF4]"
+            )}
+          >
+            <Zap className="w-3.5 h-3.5" />
+            Templates
+          </button>
         </div>
 
-        {/* Quick templates button */}
-        <button
-          type="button"
-          onClick={() => setShowTemplates((v) => !v)}
-          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#EEF1F8] text-[#1B3163] hover:bg-[#D5DFF0] transition-colors"
-        >
-          <Zap className="w-3.5 h-3.5" />
-          Templates
-          {showTemplates ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-        </button>
-      </div>
-
-      {/* Quick templates panel */}
-      {showTemplates && (
-        <div className="px-5 py-3 bg-[#F8F9FC] border-b border-gray-100">
-          <p className="text-xs text-gray-500 mb-2 font-medium">
-            Select a preset — it will replace your current rules:
-          </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+        {showTemplates && (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
             {CANCELLATION_TEMPLATES.map((t, i) => (
               <button
                 key={t.label}
                 type="button"
                 onClick={() => applyTemplate(i)}
-                className="text-left px-3 py-2.5 rounded-xl bg-white border border-gray-200 hover:border-[#1B3163] hover:bg-[#EEF1F8] transition-all"
+                className="text-left px-4 py-3.5 rounded-2xl bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] border border-[#E8ECF4] hover:border-[#0D1B2A] hover:shadow-sm transition-all duration-200"
               >
-                <p className="text-xs font-bold text-gray-800">{t.label}</p>
-                <p className="text-[11px] text-gray-400 mt-0.5 leading-snug">{t.description}</p>
+                <p className="text-xs font-bold text-[#0D1B2A]">{t.label}</p>
+                <p className="text-[11px] text-[#8E95A5] mt-1 leading-snug">{t.description}</p>
               </button>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
-      <div className="p-5 space-y-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0 space-y-6">
 
         {/* ── No-show fee ── */}
         <div>
-          <label className="block text-xs font-semibold text-gray-700 mb-3">
+          <label className="block text-xs font-bold text-[#0D1B2A] tracking-wide mb-3">
             No-show fee
           </label>
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-3">
-            <p className="text-xs text-gray-500">
-              Charged when a client books but doesn't arrive and gives no notice.
+          <div className="bg-gradient-to-br from-amber-50/50 to-orange-50/30 border border-amber-100/60 rounded-2xl p-5 space-y-4">
+            <p className="text-[11px] text-[#8E95A5] leading-relaxed">
+              Charged when a client books but doesn&apos;t arrive and gives no notice.
             </p>
             <div className="flex flex-wrap gap-3 items-end">
-              <div className="space-y-1 flex-1 min-w-[120px]">
-                <label className="text-[11px] font-medium text-gray-600">Fee type</label>
+              <div className="space-y-1.5 flex-1 min-w-[120px]">
+                <label className="text-[11px] font-semibold text-[#6B7A99]">Fee type</label>
                 <select
                   value={noShowFeeType}
                   onChange={(e) => setValue("noShowFeeType", e.target.value as FeeType, { shouldDirty: true })}
@@ -205,8 +193,8 @@ export function CancellationFeesSection({ form }: Props) {
               </div>
 
               {noShowFeeType !== "none" && (
-                <div className="space-y-1 w-36">
-                  <label className="text-[11px] font-medium text-gray-600">
+                <div className="space-y-1.5 w-36">
+                  <label className="text-[11px] font-semibold text-[#6B7A99]">
                     {noShowFeeType === "percentage" ? "Percentage" : "Amount (AUD)"}
                   </label>
                   <div className="relative">
@@ -219,7 +207,7 @@ export function CancellationFeesSection({ form }: Props) {
                       onChange={(e) => setValue("noShowFeeValue", Number(e.target.value), { shouldDirty: true })}
                       className={cn(inputCls(!!errors.noShowFeeValue), "pr-12")}
                     />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none font-medium">
                       {noShowFeeType === "percentage" ? "%" : "$"}
                     </span>
                   </div>
@@ -237,31 +225,31 @@ export function CancellationFeesSection({ form }: Props) {
               type="button"
               onClick={() => setValue("autoCharge", !autoCharge, { shouldDirty: true })}
               className={cn(
-                "w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl border text-left transition-all",
+                "w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border text-left transition-all duration-200",
                 autoCharge
-                  ? "bg-[#EEF1F8] border-[#1B3163]/40"
-                  : "bg-white border-gray-200 hover:border-gray-300",
-                !stripeConnected && "opacity-50 cursor-not-allowed"
+                  ? "bg-white border-[#0D1B2A]/20 shadow-sm"
+                  : "bg-white/60 border-[#E8ECF4] hover:border-[#C4A882]/40",
+                !stripeConnected && "opacity-40 cursor-not-allowed"
               )}
               disabled={!stripeConnected}
             >
               <div>
-                <p className={cn("text-xs font-semibold", autoCharge ? "text-[#1B3163]" : "text-gray-700")}>
+                <p className="text-xs font-bold text-[#0D1B2A]">
                   Auto-charge card on file
                 </p>
-                <p className="text-[11px] text-gray-400 mt-0.5">
+                <p className="text-[11px] text-[#8E95A5] mt-0.5">
                   {stripeConnected
                     ? "Automatically charge the saved card when a no-show is recorded"
                     : "Requires Stripe to be connected"}
                 </p>
               </div>
               <div className={cn(
-                "relative w-9 h-5 rounded-full shrink-0 transition-all",
-                autoCharge && stripeConnected ? "bg-[#1B3163]" : "bg-gray-300"
+                "relative w-11 h-6 rounded-full shrink-0 transition-all duration-200",
+                autoCharge && stripeConnected ? "bg-[#0D1B2A]" : "bg-gray-200"
               )}>
                 <div className={cn(
-                  "absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all",
-                  autoCharge && stripeConnected ? "left-4" : "left-0.5"
+                  "absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-all duration-200",
+                  autoCharge && stripeConnected ? "left-6" : "left-1"
                 )} />
               </div>
             </button>
@@ -272,20 +260,20 @@ export function CancellationFeesSection({ form }: Props) {
         <div>
           <div className="flex items-center justify-between mb-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-700">
+              <label className="block text-xs font-bold text-[#0D1B2A] tracking-wide">
                 Cancellation fee rules
               </label>
-              <p className="text-[11px] text-gray-400 mt-0.5">
-                Rules apply tightest window first. Cancellations outside all rules are free.
+              <p className="text-[11px] text-[#8E95A5] mt-0.5">
+                Tightest window first. Outside all rules = free.
               </p>
             </div>
           </div>
 
           {/* Rules list */}
           {fields.length === 0 && !addingNew ? (
-            <div className="text-center py-6 bg-gray-50 rounded-xl border border-dashed border-gray-200">
-              <p className="text-sm text-gray-400">No rules — all cancellations are free</p>
-              <p className="text-xs text-gray-300 mt-1">Use a template above or add a custom rule below</p>
+            <div className="text-center py-8 bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] rounded-2xl border border-dashed border-[#E8ECF4]">
+              <p className="text-sm text-[#8E95A5] font-medium">No rules — all cancellations are free</p>
+              <p className="text-[11px] text-[#C4C9D4] mt-1">Use a template or add a custom rule below</p>
             </div>
           ) : (
             <div className="space-y-2">
@@ -293,18 +281,17 @@ export function CancellationFeesSection({ form }: Props) {
                 <div
                   key={rule.id}
                   className={cn(
-                    "rounded-xl border transition-all overflow-hidden",
+                    "rounded-2xl border transition-all duration-200 overflow-hidden",
                     editingId === rule.id
-                      ? "border-[#1B3163]/40 bg-[#EEF1F8]/40"
-                      : "border-gray-100 bg-gray-50"
+                      ? "border-[#0D1B2A]/30 bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] shadow-sm"
+                      : "border-[#E8ECF4] bg-gradient-to-br from-[#FDFCFA] to-[#F8F6F2]"
                   )}
                 >
                   {editingId === rule.id ? (
-                    /* ── Inline edit form ── */
                     <div className="p-4 space-y-3">
                       <div className="grid sm:grid-cols-2 gap-3">
-                        <div className="space-y-1">
-                          <label className="text-[11px] font-medium text-gray-600">Rule label</label>
+                        <div className="space-y-1.5">
+                          <label className="text-[11px] font-semibold text-[#6B7A99]">Rule label</label>
                           <input
                             type="text"
                             value={draft.label}
@@ -313,8 +300,8 @@ export function CancellationFeesSection({ form }: Props) {
                             className={inputCls()}
                           />
                         </div>
-                        <div className="space-y-1">
-                          <label className="text-[11px] font-medium text-gray-600">If cancelled within</label>
+                        <div className="space-y-1.5">
+                          <label className="text-[11px] font-semibold text-[#6B7A99]">If cancelled within</label>
                           <div className="relative">
                             <input
                               type="number"
@@ -323,11 +310,11 @@ export function CancellationFeesSection({ form }: Props) {
                               onChange={(e) => setDraft((d) => ({ ...d, withinHours: Number(e.target.value) }))}
                               className={cn(inputCls(), "pr-14")}
                             />
-                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">hours</span>
+                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">hours</span>
                           </div>
                         </div>
-                        <div className="space-y-1">
-                          <label className="text-[11px] font-medium text-gray-600">Fee type</label>
+                        <div className="space-y-1.5">
+                          <label className="text-[11px] font-semibold text-[#6B7A99]">Fee type</label>
                           <select
                             value={draft.feeType}
                             onChange={(e) => setDraft((d) => ({ ...d, feeType: e.target.value as "percentage" | "fixed_aud" }))}
@@ -338,8 +325,8 @@ export function CancellationFeesSection({ form }: Props) {
                             ))}
                           </select>
                         </div>
-                        <div className="space-y-1">
-                          <label className="text-[11px] font-medium text-gray-600">
+                        <div className="space-y-1.5">
+                          <label className="text-[11px] font-semibold text-[#6B7A99]">
                             {draft.feeType === "percentage" ? "Percentage" : "Amount (AUD)"}
                           </label>
                           <div className="relative">
@@ -352,7 +339,7 @@ export function CancellationFeesSection({ form }: Props) {
                               onChange={(e) => setDraft((d) => ({ ...d, feeValue: Number(e.target.value) }))}
                               className={cn(inputCls(), "pr-10")}
                             />
-                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">
+                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">
                               {draft.feeType === "percentage" ? "%" : "$"}
                             </span>
                           </div>
@@ -362,53 +349,49 @@ export function CancellationFeesSection({ form }: Props) {
                         <button
                           type="button"
                           onClick={() => saveEdit(idx)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#1B3163] text-white hover:bg-[#152748] transition-colors"
+                          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#0D1B2A] text-white hover:bg-[#C4A882] hover:text-[#0D1B2A] transition-all duration-200"
                         >
                           <Check className="w-3.5 h-3.5" /> Save
                         </button>
                         <button
                           type="button"
                           onClick={cancelEdit}
-                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-gray-200 text-gray-600 hover:border-gray-300 transition-colors"
+                          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-[#E8ECF4] text-[#6B7A99] hover:border-[#C4A882]/40 transition-all duration-200"
                         >
                           <X className="w-3.5 h-3.5" /> Cancel
                         </button>
                       </div>
                     </div>
                   ) : (
-                    /* ── Read-only row ── */
-                    <div className="flex items-center gap-3 px-4 py-3">
-                      {/* Timeline dot */}
+                    <div className="flex items-center gap-3 px-4 py-3.5">
                       <div className="flex flex-col items-center gap-0.5 shrink-0">
-                        <div className="w-2 h-2 rounded-full bg-amber-500" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 shadow-sm" />
                       </div>
-
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-xs font-semibold text-gray-800">
+                          <span className="text-xs font-bold text-[#0D1B2A]">
                             Within {hoursLabel(rule.withinHours)}
                           </span>
                           {rule.label && rule.label !== `Within ${hoursLabel(rule.withinHours)}` && (
-                            <span className="text-[10px] text-gray-400">({rule.label})</span>
+                            <span className="text-[10px] text-[#8E95A5]">({rule.label})</span>
                           )}
-                          <span className="text-[11px] text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-full">
+                          <span className="text-[11px] text-amber-700 font-bold bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-100">
                             {feeLabel(rule.feeType, rule.feeValue)}
                           </span>
                         </div>
                       </div>
-
                       <div className="flex items-center gap-1 shrink-0">
                         <button
                           type="button"
                           onClick={() => startEdit({ idx, ...rule })}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-[#1B3163] hover:bg-[#EEF1F8] transition-all"
+                          className="p-2 rounded-xl text-[#8E95A5] hover:text-[#0D1B2A] hover:bg-white transition-all duration-200"
                         >
                           <Pencil className="w-3.5 h-3.5" />
                         </button>
                         <button
                           type="button"
                           onClick={() => remove(idx)}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-rose-500 hover:bg-rose-50 transition-all"
+                          className="p-2 rounded-xl text-[#8E95A5] hover:text-rose-500 hover:bg-rose-50 transition-all duration-200"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -422,11 +405,11 @@ export function CancellationFeesSection({ form }: Props) {
 
           {/* Add new rule inline form */}
           {addingNew && (
-            <div className="mt-2 rounded-xl border border-[#1B3163]/40 bg-[#EEF1F8]/40 p-4 space-y-3">
-              <p className="text-xs font-semibold text-[#1B3163]">New rule</p>
+            <div className="mt-2 rounded-2xl border border-[#0D1B2A]/20 bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] p-4 space-y-3 shadow-sm">
+              <p className="text-xs font-bold text-[#0D1B2A]">New rule</p>
               <div className="grid sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-gray-600">Rule label</label>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold text-[#6B7A99]">Rule label</label>
                   <input
                     type="text"
                     value={draft.label}
@@ -435,8 +418,8 @@ export function CancellationFeesSection({ form }: Props) {
                     className={inputCls()}
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-gray-600">If cancelled within</label>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold text-[#6B7A99]">If cancelled within</label>
                   <div className="relative">
                     <input
                       type="number"
@@ -445,11 +428,11 @@ export function CancellationFeesSection({ form }: Props) {
                       onChange={(e) => setDraft((d) => ({ ...d, withinHours: Number(e.target.value) }))}
                       className={cn(inputCls(), "pr-14")}
                     />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">hours</span>
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">hours</span>
                   </div>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-gray-600">Fee type</label>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold text-[#6B7A99]">Fee type</label>
                   <select
                     value={draft.feeType}
                     onChange={(e) => setDraft((d) => ({ ...d, feeType: e.target.value as "percentage" | "fixed_aud" }))}
@@ -460,8 +443,8 @@ export function CancellationFeesSection({ form }: Props) {
                     ))}
                   </select>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-gray-600">
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold text-[#6B7A99]">
                     {draft.feeType === "percentage" ? "Percentage" : "Amount (AUD)"}
                   </label>
                   <div className="relative">
@@ -474,7 +457,7 @@ export function CancellationFeesSection({ form }: Props) {
                       onChange={(e) => setDraft((d) => ({ ...d, feeValue: Number(e.target.value) }))}
                       className={cn(inputCls(), "pr-10")}
                     />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">
                       {draft.feeType === "percentage" ? "%" : "$"}
                     </span>
                   </div>
@@ -484,14 +467,14 @@ export function CancellationFeesSection({ form }: Props) {
                 <button
                   type="button"
                   onClick={saveNew}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#1B3163] text-white hover:bg-[#152748] transition-colors"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#0D1B2A] text-white hover:bg-[#C4A882] hover:text-[#0D1B2A] transition-all duration-200"
                 >
                   <Check className="w-3.5 h-3.5" /> Add rule
                 </button>
                 <button
                   type="button"
                   onClick={cancelEdit}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-gray-200 text-gray-600 hover:border-gray-300 transition-colors"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-[#E8ECF4] text-[#6B7A99] hover:border-[#C4A882]/40 transition-all duration-200"
                 >
                   <X className="w-3.5 h-3.5" /> Cancel
                 </button>
@@ -504,23 +487,23 @@ export function CancellationFeesSection({ form }: Props) {
             <button
               type="button"
               onClick={() => { setDraft(emptyDraft()); setAddingNew(true); setEditingId(null); }}
-              className="mt-3 flex items-center gap-2 px-3 py-2 rounded-xl border border-dashed border-gray-300 text-xs font-semibold text-gray-500 hover:border-[#1B3163] hover:text-[#1B3163] hover:bg-[#EEF1F8] transition-all w-full justify-center"
+              className="mt-3 flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-dashed border-[#E8ECF4] text-xs font-semibold text-[#8E95A5] hover:border-[#C4A882] hover:text-[#0D1B2A] hover:bg-gradient-to-br hover:from-[#F8F6F2] hover:to-[#F4F2EE] transition-all duration-200 w-full justify-center"
             >
               <Plus className="w-3.5 h-3.5" />
               Add custom rule
             </button>
           )}
         </div>
+      </div>
 
-        {/* Info note — spans both columns on desktop */}
-        <div className="lg:col-span-2 flex items-start gap-2 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 text-xs text-blue-700">
-          <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-blue-500" />
-          <span>
-            Rules are evaluated from the tightest window outward — the first rule whose window
-            the cancellation falls within will apply. Cancellations made before all windows are
-            always free. Auto-charge requires Stripe to be connected.
-          </span>
-        </div>
+      {/* Info note */}
+      <div className="flex items-start gap-2.5 bg-gradient-to-r from-blue-50 to-indigo-50/30 border border-blue-100/60 rounded-2xl px-4 py-3.5 text-xs text-blue-700">
+        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-blue-500" />
+        <span className="leading-relaxed">
+          Rules are evaluated from the tightest window outward — the first rule whose window
+          the cancellation falls within will apply. Cancellations made before all windows are
+          always free. Auto-charge requires Stripe to be connected.
+        </span>
       </div>
     </div>
   );

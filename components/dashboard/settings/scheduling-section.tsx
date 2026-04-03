@@ -38,9 +38,10 @@ function slotExamples(interval: number): string {
 
 const inputCls = (err?: boolean) =>
   cn(
-    "w-full text-sm text-gray-900 border rounded-xl px-3 py-2.5 bg-white transition-colors",
-    "focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:border-transparent placeholder:text-gray-400",
-    err ? "border-rose-300 bg-rose-50/30" : "border-gray-200 hover:border-gray-300"
+    "w-full text-sm text-[#0D1B2A] border rounded-2xl px-4 py-3 bg-white/80 backdrop-blur-sm transition-all duration-200",
+    "focus:outline-none focus:ring-2 focus:ring-[#C4A882]/50 focus:border-[#C4A882] focus:bg-white focus:shadow-sm",
+    "placeholder:text-[#8E95A5]",
+    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm"
   );
 
 export function SchedulingSection({ form }: Props) {
@@ -53,26 +54,13 @@ export function SchedulingSection({ form }: Props) {
   const deadlineDate = addDays(toWindowDays(Number(windowValue), windowUnit));
 
   return (
-    <div id="scheduling" className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-      {/* Header */}
-      <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-[#EEF1F8] flex items-center justify-center shrink-0">
-          <CalendarRange className="w-4 h-4 text-[#1B3163]" />
-        </div>
-        <div>
-          <h2 className="text-sm font-semibold text-gray-900">Scheduling Limits</h2>
-          <p className="text-xs text-gray-400 mt-0.5">
-            Control how far in advance clients can book and the granularity of time slots
-          </p>
-        </div>
-      </div>
-
-      <div className="p-5 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0 space-y-6">
+    <div id="scheduling" className="p-5 sm:p-6 space-y-6">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0 space-y-6">
         {/* ── Booking window ── */}
-        <div className="space-y-2">
-          <label className="text-xs font-semibold text-gray-700">
+        <div className="space-y-3">
+          <label className="text-xs font-bold text-[#0D1B2A] tracking-wide">
             Booking Window
-            <span className="text-rose-500 ml-0.5">*</span>
+            <span className="text-rose-400 ml-0.5">*</span>
           </label>
 
           <div className="flex items-center gap-2">
@@ -93,7 +81,7 @@ export function SchedulingSection({ form }: Props) {
               <option value="weeks">weeks</option>
               <option value="months">months</option>
             </select>
-            <span className="text-sm text-gray-500">in advance</span>
+            <span className="text-sm text-[#8E95A5] font-medium">in advance</span>
           </div>
 
           {errors.bookingWindowValue && (
@@ -104,20 +92,20 @@ export function SchedulingSection({ form }: Props) {
           )}
 
           {/* Live preview */}
-          <div className="flex items-center gap-2 text-xs text-gray-500 bg-[#EEF1F8] rounded-lg px-3 py-2 mt-1">
-            <CalendarRange className="w-3.5 h-3.5 text-[#1B3163] shrink-0" />
-            <span>
+          <div className="flex items-center gap-2.5 text-xs bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-xl px-4 py-3 border border-blue-100/60">
+            <CalendarRange className="w-4 h-4 text-blue-600 shrink-0" />
+            <span className="text-blue-800">
               Clients can book until{" "}
-              <strong className="text-[#1B3163]">{deadlineDate}</strong>
+              <strong className="font-bold">{deadlineDate}</strong>
             </span>
           </div>
         </div>
 
         {/* ── Slot interval ── */}
-        <div className="space-y-2">
-          <label className="text-xs font-semibold text-gray-700">
+        <div className="space-y-3">
+          <label className="text-xs font-bold text-[#0D1B2A] tracking-wide">
             Time Slot Interval
-            <span className="text-rose-500 ml-0.5">*</span>
+            <span className="text-rose-400 ml-0.5">*</span>
           </label>
 
           {/* Segmented control */}
@@ -128,10 +116,10 @@ export function SchedulingSection({ form }: Props) {
                 type="button"
                 onClick={() => setValue("slotInterval", mins, { shouldDirty: true })}
                 className={cn(
-                  "px-3 py-1.5 rounded-lg text-sm font-medium border transition-all",
+                  "px-4 py-2 rounded-xl text-sm font-semibold border transition-all duration-200",
                   interval === mins
-                    ? "bg-[#1B3163] text-white border-[#1B3163] shadow-sm"
-                    : "bg-white text-gray-600 border-gray-200 hover:border-[#1B3163] hover:text-[#1B3163]"
+                    ? "bg-[#0D1B2A] text-white border-[#0D1B2A] shadow-sm scale-[1.02]"
+                    : "bg-white text-[#6B7A99] border-[#E8ECF4] hover:border-[#0D1B2A] hover:text-[#0D1B2A] hover:shadow-sm"
                 )}
               >
                 {mins} min
@@ -140,14 +128,14 @@ export function SchedulingSection({ form }: Props) {
           </div>
 
           {/* Live slot example */}
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-xs text-gray-500 bg-gray-50 rounded-lg px-3 py-2.5 border border-gray-100">
-              <Clock className="w-3.5 h-3.5 text-[#1B3163] shrink-0" />
-              <span className="font-medium text-gray-600">Example&nbsp;&nbsp;</span>
-              <span className="font-mono text-gray-700">{slotExamples(interval)}</span>
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2.5 text-xs bg-gradient-to-r from-[#F8F6F2] to-[#F4F2EE] rounded-xl px-4 py-3 border border-[#E8ECF4]">
+              <Clock className="w-4 h-4 text-[#0D1B2A] shrink-0" />
+              <span className="font-medium text-[#6B7A99]">Example&nbsp;&nbsp;</span>
+              <span className="font-mono text-[#0D1B2A] text-[11px]">{slotExamples(interval)}</span>
             </div>
-            <p className="text-xs text-gray-400 pl-1">
-              Slots are generated from your staff's working hours using this interval
+            <p className="text-[11px] text-[#8E95A5] pl-1">
+              Slots are generated from your staff&apos;s working hours using this interval
             </p>
           </div>
 
