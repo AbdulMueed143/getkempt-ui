@@ -5,7 +5,7 @@ import {
   Plus, ChevronLeft, ChevronRight,
   Calendar, LayoutGrid, CalendarDays,
   CheckCircle2, XCircle, Clock, AlertCircle,
-  Coffee,
+  Coffee, Users,
 } from "lucide-react";
 import { MonthView }  from "./month-view";
 import { WeekView }   from "./week-view";
@@ -22,6 +22,7 @@ import {
   weekStart, weekDays as getWeekDays, isSameDay,
   formatMonthYear, formatWeekRange, formatShortDate,
 } from "@/lib/utils/booking-slots";
+import { MOCK_STAFF } from "@/lib/mock/staff";
 import { useToast } from "@/hooks/use-toast";
 import { useQuickActionStore } from "@/store/quick-action-store";
 import { cn } from "@/lib/utils/cn";
@@ -312,15 +313,21 @@ export function BookingsPageClient() {
   const toast   = useToast();
   const today   = new Date();
 
-  const [bookings, setBookings] = useState<Booking[]>(MOCK_BOOKINGS);
-  const [breaks,   setBreaks]   = useState<BreakTime[]>([]);
-  const [view,     setView]     = useState<CalView>("day");
-  const [curDate,  setCurDate]  = useState(today);
+  const [bookings,    setBookings]    = useState<Booking[]>(MOCK_BOOKINGS);
+  const [breaks,      setBreaks]      = useState<BreakTime[]>([]);
+  const [view,        setView]        = useState<CalView>("day");
+  const [curDate,     setCurDate]     = useState(today);
+  const [staffFilter, setStaffFilter] = useState<string>("all");
 
   const [showCreate,    setShowCreate]    = useState(false);
   const [showBreak,     setShowBreak]     = useState(false);
   const [editBooking,   setEditBooking]   = useState<Booking | null>(null);
   const [detailBooking, setDetailBooking] = useState<Booking | null>(null);
+
+  /* ── Filtered bookings ── */
+  const filteredBookings = staffFilter === "all"
+    ? bookings
+    : bookings.filter((b) => b.staffId === staffFilter);
 
   /* Open create slideover automatically when navigated from a quick action */
   const { pendingAction, clear: clearPending } = useQuickActionStore();
@@ -508,12 +515,53 @@ export function BookingsPageClient() {
         </button>
       </div>
 
+      {/* ── Staff filter chips ── */}
+      <div className="flex items-center gap-1.5 px-1 py-1.5 shrink-0 overflow-x-auto">
+        <button
+          type="button"
+          onClick={() => setStaffFilter("all")}
+          className={cn(
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-all shrink-0",
+            staffFilter === "all"
+              ? "bg-[#0D1B2A] text-white border-[#0D1B2A]"
+              : "bg-white text-[#8E95A5] border-[#E8ECF4] hover:border-[#C4A882]"
+          )}
+        >
+          <Users className="w-3 h-3" />
+          All Staff
+        </button>
+        {MOCK_STAFF.map((s) => {
+          const color = STAFF_CAL_COLORS[s.id] ?? "#0D1B2A";
+          const active = staffFilter === s.id;
+          return (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => setStaffFilter(active ? "all" : s.id)}
+              className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-all shrink-0",
+                active
+                  ? "text-white border-transparent"
+                  : "bg-white text-[#6B7A99] border-[#E8ECF4] hover:border-[#C4A882]"
+              )}
+              style={active ? { backgroundColor: color, borderColor: color } : undefined}
+            >
+              <span
+                className="w-2 h-2 rounded-full shrink-0"
+                style={{ backgroundColor: color }}
+              />
+              {s.firstName}
+            </button>
+          );
+        })}
+      </div>
+
       {/* ── Calendar body ── */}
-      <div className="flex-1 min-h-0 overflow-hidden bg-white rounded-xl border border-[#E8ECF4] mt-1 mb-0 md:mb-0">
+      <div className="flex-1 min-h-0 overflow-hidden bg-white rounded-xl border border-[#E8ECF4] mt-0.5 mb-0 md:mb-0">
         {view === "month" && (
           <MonthView
             currentDate={curDate}
-            bookings={bookings}
+            bookings={filteredBookings}
             onDayClick={(d) => { setCurDate(d); setView("day"); }}
             onBooking={setDetailBooking}
           />
@@ -522,7 +570,7 @@ export function BookingsPageClient() {
         {view === "week" && (
           <WeekView
             monday={monday}
-            bookings={bookings}
+            bookings={filteredBookings}
             onBooking={setDetailBooking}
           />
         )}
@@ -530,7 +578,7 @@ export function BookingsPageClient() {
         {view === "day" && (
           <DayView
             date={curDate}
-            bookings={bookings}
+            bookings={filteredBookings}
             onBooking={setDetailBooking}
           />
         )}
