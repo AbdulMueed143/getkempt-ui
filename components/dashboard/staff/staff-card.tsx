@@ -4,7 +4,7 @@ import { ROLE_LABELS } from "@/types/staff";
 
 /* ── Role badge colours ──────────────────────────── */
 const ROLE_STYLE: Record<StaffRole, { color: string; bg: string }> = {
-  owner:   { color: "#1B3163", bg: "#EEF1F8" },
+  owner:   { color: "#0D1B2A", bg: "#E8ECF4" },
   manager: { color: "#92400E", bg: "#FEF3C7" },
   staff:   { color: "#1D4ED8", bg: "#DBEAFE" },
 };
@@ -34,28 +34,25 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
 
   return (
     <article
-      className="bg-white rounded-2xl overflow-hidden flex flex-col group transition-shadow hover:shadow-md"
-      style={{ border: "1px solid #E8ECF4", boxShadow: "0 1px 3px rgba(27,49,99,0.06)" }}
+      className="bg-white rounded-2xl overflow-hidden flex flex-col group transition-all duration-200 hover:shadow-lg border border-[#E8ECF4] shadow-sm"
     >
       {/* ── Coloured header strip ──────────────────── */}
       <div
         className="relative h-20 flex items-end px-5 pb-0"
-        style={{ backgroundColor: `${member.avatarColor}18` }}
+        style={{ backgroundColor: `${member.avatarColor}12` }}
       >
         {/* Action buttons — appear on hover */}
         <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
             onClick={() => onEdit(member)}
-            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors"
-            style={{ backgroundColor: "white", border: "1px solid #E8ECF4", color: "#1B3163" }}
+            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors bg-white border border-[#E8ECF4] text-[#0D1B2A] hover:bg-[#F0F3FA]"
             title="Edit staff member"
           >
             <Pencil size={13} />
           </button>
           <button
             onClick={() => onDelete(member.id)}
-            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors"
-            style={{ backgroundColor: "white", border: "1px solid #E8ECF4", color: "#DC2626" }}
+            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors bg-white border border-[#E8ECF4] text-red-500 hover:bg-red-50"
             title="Remove staff member"
           >
             <Trash2 size={13} />
@@ -64,8 +61,8 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
 
         {/* Avatar — overlaps the strip + card body */}
         <div
-          className="w-14 h-14 rounded-2xl overflow-hidden shrink-0 translate-y-7"
-          style={{ boxShadow: `0 4px 12px ${member.avatarColor}40` }}
+          className="w-14 h-14 rounded-2xl overflow-hidden shrink-0 translate-y-7 ring-3 ring-white"
+          style={{ boxShadow: `0 4px 12px ${member.avatarColor}30` }}
         >
           {member.avatarImage ? (
             <img
@@ -89,11 +86,11 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
         {/* Name + role + status */}
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <h3 className="font-semibold text-base leading-tight truncate" style={{ color: "#1B3163" }}>
+            <h3 className="font-semibold text-base leading-tight truncate text-[#0D1B2A]">
               {member.firstName} {member.lastName}
             </h3>
             {member.specialization && (
-              <p className="text-xs mt-0.5 truncate" style={{ color: "#8E95A5" }}>
+              <p className="text-xs mt-0.5 truncate text-[#8E95A5]">
                 {member.specialization}
               </p>
             )}
@@ -108,7 +105,7 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
               {ROLE_LABELS[member.role]}
             </span>
             {/* Status dot */}
-            <span className="flex items-center gap-1 text-[11px]" style={{ color: "#8E95A5" }}>
+            <span className="flex items-center gap-1 text-[11px] text-[#8E95A5]">
               <span
                 className="w-1.5 h-1.5 rounded-full"
                 style={{ backgroundColor: statusStyle.color }}
@@ -120,7 +117,7 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
 
         {/* Bio */}
         {member.bio && (
-          <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "#6B7A99" }}>
+          <p className="text-xs leading-relaxed line-clamp-2 text-[#6B7A99]">
             {member.bio}
           </p>
         )}
@@ -129,18 +126,16 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
         <div className="space-y-1.5">
           <a
             href={`mailto:${member.email}`}
-            className="flex items-center gap-2 text-xs transition-colors"
-            style={{ color: "#6B7A99" }}
+            className="flex items-center gap-2 text-xs text-[#6B7A99] hover:text-[#0D1B2A] transition-colors"
           >
-            <Mail size={13} className="shrink-0" style={{ color: "#9FB2D9" }} />
+            <Mail size={13} className="shrink-0 text-[#9FB2D9]" />
             <span className="truncate">{member.email}</span>
           </a>
           <a
             href={`tel:${member.phone}`}
-            className="flex items-center gap-2 text-xs"
-            style={{ color: "#6B7A99" }}
+            className="flex items-center gap-2 text-xs text-[#6B7A99] hover:text-[#0D1B2A] transition-colors"
           >
-            <Phone size={13} className="shrink-0" style={{ color: "#9FB2D9" }} />
+            <Phone size={13} className="shrink-0 text-[#9FB2D9]" />
             <span>{member.phone}</span>
           </a>
         </div>
@@ -151,17 +146,13 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
             {visibleServices.map((s) => (
               <span
                 key={s}
-                className="text-[10px] font-medium px-2 py-0.5 rounded-full"
-                style={{ backgroundColor: "#F0F3FA", color: "#1B3163" }}
+                className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#F4F2EE] text-[#0D1B2A]"
               >
                 {s}
               </span>
             ))}
             {extraServices > 0 && (
-              <span
-                className="text-[10px] font-medium px-2 py-0.5 rounded-full"
-                style={{ backgroundColor: "#E8ECF4", color: "#8E95A5" }}
-              >
+              <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#E8ECF4] text-[#8E95A5]">
                 +{extraServices} more
               </span>
             )}
@@ -169,17 +160,14 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
         )}
 
         {/* Pay info */}
-        <div
-          className="text-xs pt-3"
-          style={{ borderTop: "1px solid #F0F3FA", color: "#8E95A5" }}
-        >
+        <div className="text-xs pt-3 border-t border-[#F0F3FA] text-[#8E95A5]">
           {member.commissionType === "salary" && "Salary"}
           {member.commissionType === "hourly" && member.commissionRate != null &&
             `$${member.commissionRate}/hr`}
           {member.commissionType === "commission" && member.commissionRate != null &&
             `${member.commissionRate}% commission`}
-          <span className="ml-2" style={{ color: "#C4C9D4" }}>·</span>
-          <span className="ml-2">Since {new Date(member.startDate).toLocaleDateString("en-AU", { month: "short", year: "numeric" })}</span>
+          <span className="mx-2 text-[#C4C9D4]">·</span>
+          <span>Since {new Date(member.startDate).toLocaleDateString("en-AU", { month: "short", year: "numeric" })}</span>
         </div>
       </div>
     </article>

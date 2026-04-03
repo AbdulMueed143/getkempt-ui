@@ -34,12 +34,8 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
 
   return (
     <article
-      className="bg-white rounded-2xl flex flex-col group transition-shadow hover:shadow-md overflow-hidden"
-      style={{
-        border:    "1px solid #E8ECF4",
-        boxShadow: "0 1px 3px rgba(27,49,99,0.06)",
-        opacity:   isInactive ? 0.72 : 1,
-      }}
+      className="bg-white rounded-2xl flex flex-col group transition-all duration-200 hover:shadow-lg overflow-hidden border border-[#E8ECF4] shadow-sm"
+      style={{ opacity: isInactive ? 0.72 : 1 }}
     >
       {/* ── Header: cover image or brand accent strip ── */}
       {pkg.image ? (
@@ -52,7 +48,7 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </div>
       ) : (
-        <div className="h-1.5 w-full shrink-0" style={{ backgroundColor: "#1B3163" }} />
+        <div className="h-1.5 w-full shrink-0 bg-gradient-to-r from-[#0D1B2A] to-[#1B3163]" />
       )}
 
       <div className="flex flex-col flex-1 px-5 pt-4 pb-5 gap-3.5">
@@ -64,17 +60,11 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
             {/* Status badges */}
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
               {isInactive ? (
-                <span
-                  className="text-[10px] font-medium px-2 py-0.5 rounded-full"
-                  style={{ color: "#8E95A5", backgroundColor: "#F3F4F6" }}
-                >
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full text-[#8E95A5] bg-[#F3F4F6]">
                   Inactive
                 </span>
               ) : (
-                <span
-                  className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                  style={{ color: "#16A34A", backgroundColor: "#DCFCE7" }}
-                >
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full text-[#16A34A] bg-[#DCFCE7]">
                   Active
                 </span>
               )}
@@ -86,7 +76,7 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
               </span>
             </div>
 
-            <h3 className="font-bold text-base leading-tight" style={{ color: "#1B3163" }}>
+            <h3 className="font-bold text-base leading-tight text-[#0D1B2A]">
               {pkg.name}
             </h3>
           </div>
@@ -95,16 +85,14 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
           <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
             <button
               onClick={() => onEdit(pkg)}
-              className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ backgroundColor: "#F0F3FA", border: "1px solid #E8ECF4", color: "#1B3163" }}
+              className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#F4F2EE] border border-[#E8ECF4] text-[#0D1B2A] hover:bg-[#E8ECF4] transition-colors"
               title="Edit package"
             >
               <Pencil size={13} />
             </button>
             <button
               onClick={() => onDelete(pkg.id)}
-              className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ backgroundColor: "#FEF2F2", border: "1px solid #FECACA", color: "#DC2626" }}
+              className="w-7 h-7 rounded-lg flex items-center justify-center bg-red-50 border border-red-200 text-red-500 hover:bg-red-100 transition-colors"
               title="Delete package"
             >
               <Trash2 size={13} />
@@ -114,7 +102,7 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
 
         {/* ── Description ───────────────────────────── */}
         {pkg.description && (
-          <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "#6B7A99" }}>
+          <p className="text-xs leading-relaxed line-clamp-2 text-[#6B7A99]">
             {pkg.description}
           </p>
         )}
@@ -135,53 +123,44 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
               );
             })
           ) : (
-            <span className="text-xs italic" style={{ color: "#8E95A5" }}>No services linked</span>
+            <span className="text-xs italic text-[#8E95A5]">No services linked</span>
           )}
         </div>
 
         {/* ── Meta row ──────────────────────────────── */}
         <div className="flex items-center gap-4 flex-wrap">
-          <span className="flex items-center gap-1.5 text-xs" style={{ color: "#8E95A5" }}>
-            <Clock size={13} style={{ color: "#9FB2D9" }} />
+          <span className="flex items-center gap-1.5 text-xs text-[#8E95A5]">
+            <Clock size={13} className="text-[#9FB2D9]" />
             {formatDuration(effectiveDur)}
             {pkg.customDurationMinutes != null && (
-              <span
-                className="text-[10px] px-1.5 py-0.5 rounded"
-                style={{ backgroundColor: "#FEF3C7", color: "#92400E" }}
-              >
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#FEF3C7] text-[#92400E]">
                 custom
               </span>
             )}
           </span>
           {pkg.staffIds.length > 0 && (
-            <span className="flex items-center gap-1.5 text-xs" style={{ color: "#8E95A5" }}>
-              <Users size={13} style={{ color: "#9FB2D9" }} />
+            <span className="flex items-center gap-1.5 text-xs text-[#8E95A5]">
+              <Users size={13} className="text-[#9FB2D9]" />
               {pkg.staffIds.length} staff
             </span>
           )}
         </div>
 
         {/* ── Pricing footer ────────────────────────── */}
-        <div
-          className="flex items-end justify-between pt-3 mt-auto"
-          style={{ borderTop: "1px solid #F0F3FA" }}
-        >
+        <div className="flex items-end justify-between pt-3 mt-auto border-t border-[#F0F3FA]">
           <div>
             {isDiscounted && (
-              <p className="text-xs line-through" style={{ color: "#8E95A5" }}>
+              <p className="text-xs line-through text-[#8E95A5]">
                 ${formatPrice(base)}
               </p>
             )}
-            <p className="text-xl font-bold" style={{ color: "#1B3163" }}>
+            <p className="text-xl font-bold text-[#0D1B2A]">
               ${formatPrice(finalPrice)}
             </p>
           </div>
 
           {isDiscounted && (
-            <span
-              className="text-xs font-semibold px-2.5 py-1 rounded-xl"
-              style={{ backgroundColor: "#DCFCE7", color: "#15803D" }}
-            >
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-xl bg-[#DCFCE7] text-[#15803D]">
               Save ${formatPrice(saving.amount)} &nbsp;·&nbsp; {saving.percentage}% off
             </span>
           )}

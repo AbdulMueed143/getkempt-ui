@@ -107,22 +107,19 @@ export function ClientsPageClient() {
   /* ── Render ─────────────────────────────────────────────── */
   return (
     <>
-      <div className="space-y-5">
+      <div className="space-y-5 max-w-[1400px] mx-auto">
 
         {/* ── Page header ──────────────────────────── */}
-        <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold" style={{ color: "#1B3163" }}>All Clients</h1>
-            <p className="text-sm mt-0.5" style={{ color: "#8E95A5" }}>
+            <h1 className="text-2xl font-bold text-[#0D1B2A]">All Clients</h1>
+            <p className="text-sm mt-0.5 text-[#8E95A5]">
               {MOCK_CLIENTS.length} clients across all staff members
             </p>
           </div>
           <button
             onClick={() => openBroadcast("all")}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all"
-            style={{ backgroundColor: "#1B3163", color: "#EAEAEA" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#142548"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#1B3163"; }}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-[#C4A882] text-[#0D1B2A] hover:bg-[#0D1B2A] hover:text-white shadow-sm"
           >
             <Send size={15} />
             Send Campaign
@@ -136,13 +133,12 @@ export function ClientsPageClient() {
         <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
           {/* Search */}
           <div className="relative flex-1" style={{ minWidth: 200 }}>
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "#9FB2D9" }} />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#9FB2D9]" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by name, email or phone…"
-              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4"
-              style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8ECF4", color: "#1B3163", outline: "none" }}
+              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 transition-all duration-200 placeholder:text-[#8E95A5]"
             />
           </div>
 
@@ -150,8 +146,8 @@ export function ClientsPageClient() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            className="rounded-xl text-sm py-2.5 px-3 appearance-none"
-            style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8ECF4", color: "#1B3163", outline: "none", minWidth: 160 }}
+            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
+            style={{ minWidth: 160 }}
           >
             {STATUS_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
@@ -160,8 +156,8 @@ export function ClientsPageClient() {
           <select
             value={staffFilter}
             onChange={(e) => setStaffFilter(e.target.value)}
-            className="rounded-xl text-sm py-2.5 px-3 appearance-none"
-            style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8ECF4", color: "#1B3163", outline: "none", minWidth: 160 }}
+            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
+            style={{ minWidth: 160 }}
           >
             <option value="all">All staff</option>
             {MOCK_STAFF.map((s) => (
@@ -172,26 +168,21 @@ export function ClientsPageClient() {
 
         {/* ── Selection action bar ──────────────────── */}
         {selectedCount > 0 && (
-          <div
-            className="flex items-center justify-between gap-4 px-4 py-3 rounded-2xl"
-            style={{ backgroundColor: "#EEF1F8", border: "1px solid #C7D2E8" }}
-          >
-            <span className="text-sm font-medium" style={{ color: "#1B3163" }}>
+          <div className="flex items-center justify-between gap-4 px-4 py-3 rounded-2xl bg-[#F4F2EE] border border-[#E8ECF4]">
+            <span className="text-sm font-medium text-[#0D1B2A]">
               {selectedCount} client{selectedCount !== 1 ? "s" : ""} selected
             </span>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => openBroadcast("selected")}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
-                style={{ backgroundColor: "#1B3163", color: "#EAEAEA" }}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-[#0D1B2A] text-white hover:bg-[#1B3163] transition-colors"
               >
                 <Send size={14} />
                 Send to selected
               </button>
               <button
                 onClick={handleClearAll}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm"
-                style={{ backgroundColor: "#FFFFFF", color: "#8E95A5", border: "1px solid #E8ECF4" }}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm bg-white text-[#8E95A5] border border-[#E8ECF4] hover:bg-[#F0F3FA] transition-colors"
               >
                 <ClearIcon size={13} />
                 Clear
@@ -203,7 +194,7 @@ export function ClientsPageClient() {
         {/* ── Quick audience shortcuts ──────────────── */}
         {selectedCount === 0 && (
           <div className="flex flex-wrap gap-2">
-            <span className="text-xs font-medium py-1" style={{ color: "#8E95A5" }}>Quick send to:</span>
+            <span className="text-xs font-medium py-1 text-[#8E95A5]">Quick send to:</span>
             <ShortcutChip
               label={`All ${MOCK_CLIENTS.length} clients`}
               onClick={() => openBroadcast("all")}
@@ -249,10 +240,7 @@ function ShortcutChip({ label, onClick }: { label: string; onClick: () => void }
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all"
-      style={{ backgroundColor: "#F0F3FA", color: "#1B3163", border: "1px solid #E8ECF4" }}
-      onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#EEF1F8"; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F0F3FA"; }}
+      className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all bg-[#F4F2EE] text-[#0D1B2A] border border-[#E8ECF4] hover:bg-[#E8ECF4]"
     >
       <Send size={10} />
       {label}

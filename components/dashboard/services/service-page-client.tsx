@@ -120,21 +120,18 @@ export function ServicePageClient() {
   /* ── Render ────────────────────────────────────── */
   return (
     <>
-      <div className="space-y-6">
+      <div className="space-y-6 max-w-[1400px] mx-auto">
         {/* ── Page header ──────────────────────────── */}
-        <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold" style={{ color: "#1B3163" }}>Services</h1>
-            <p className="text-sm mt-0.5" style={{ color: "#8E95A5" }}>
+            <h1 className="text-2xl font-bold text-[#0D1B2A]">Services</h1>
+            <p className="text-sm mt-0.5 text-[#8E95A5]">
               Manage your booking menu — pricing, timing, and availability.
             </p>
           </div>
           <button
             onClick={handleAdd}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all"
-            style={{ backgroundColor: "#1B3163", color: "#EAEAEA" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#142548"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#1B3163"; }}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-[#C4A882] text-[#0D1B2A] hover:bg-[#0D1B2A] hover:text-white shadow-sm"
           >
             <Plus size={16} />
             Add Service
@@ -148,13 +145,12 @@ export function ServicePageClient() {
         <div className="flex flex-col sm:flex-row gap-3">
           {/* Search */}
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "#9FB2D9" }} />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#9FB2D9]" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search services…"
-              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4"
-              style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8ECF4", color: "#1B3163", outline: "none" }}
+              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 transition-all duration-200 placeholder:text-[#8E95A5]"
             />
           </div>
 
@@ -162,8 +158,8 @@ export function ServicePageClient() {
           <select
             value={catFilter}
             onChange={(e) => setCatFilter(e.target.value as CategoryFilter)}
-            className="rounded-xl text-sm py-2.5 px-3 appearance-none"
-            style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8ECF4", color: "#1B3163", outline: "none", minWidth: 160 }}
+            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
+            style={{ minWidth: 160 }}
           >
             {CATEGORY_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -174,8 +170,8 @@ export function ServicePageClient() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            className="rounded-xl text-sm py-2.5 px-3 appearance-none"
-            style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8ECF4", color: "#1B3163", outline: "none", minWidth: 140 }}
+            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
+            style={{ minWidth: 140 }}
           >
             <option value="all">All statuses</option>
             <option value="active">Active</option>
@@ -185,8 +181,8 @@ export function ServicePageClient() {
 
         {/* ── Service grid ─────────────────────────── */}
         {filtered.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-sm" style={{ color: "#8E95A5" }}>
+          <div className="text-center py-16 bg-white rounded-2xl border border-[#E8ECF4]">
+            <p className="text-sm text-[#8E95A5]">
               {search || catFilter !== "all" || statusFilter !== "all"
                 ? "No services match your filters."
                 : "No services yet. Add your first one!"}

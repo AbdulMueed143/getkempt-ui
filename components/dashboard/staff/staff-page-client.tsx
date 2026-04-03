@@ -110,27 +110,18 @@ export function StaffPageClient() {
       <div className="space-y-6 max-w-[1400px] mx-auto">
 
         {/* ── Page header ─────────────────────────── */}
-        <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold" style={{ color: "#1B3163" }}>
+            <h2 className="text-2xl font-bold text-[#0D1B2A]">
               Staff
             </h2>
-            <p className="text-sm mt-0.5" style={{ color: "#8E95A5" }}>
+            <p className="text-sm mt-0.5 text-[#8E95A5]">
               Manage your team, roles and access levels
             </p>
           </div>
           <button
             onClick={openAdd}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
-            style={{ backgroundColor: "#D5B584", color: "#1B3163" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#1B3163";
-              (e.currentTarget as HTMLButtonElement).style.color = "#EAEAEA";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#D5B584";
-              (e.currentTarget as HTMLButtonElement).style.color = "#1B3163";
-            }}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-[#C4A882] text-[#0D1B2A] hover:bg-[#0D1B2A] hover:text-white shadow-sm"
           >
             <Plus size={16} />
             Add Staff Member
@@ -141,36 +132,25 @@ export function StaffPageClient() {
         <StaffStats staff={staff} />
 
         {/* ── Search + filter bar ──────────────────── */}
-        <div
-          className="bg-white rounded-2xl px-5 py-4 flex flex-col sm:flex-row gap-3 items-start sm:items-center"
-          style={{ border: "1px solid #E8ECF4", boxShadow: "0 1px 3px rgba(27,49,99,0.06)" }}
-        >
+        <div className="bg-white rounded-2xl px-5 py-4 flex flex-col sm:flex-row gap-3 items-start sm:items-center border border-[#E8ECF4] shadow-sm">
           {/* Search */}
           <div className="relative flex-1 w-full sm:w-auto">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "#9FB2D9" }} />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#9FB2D9]" />
             <input
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by name, email or specialization…"
-              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 transition-all"
-              style={{
-                backgroundColor: "#F0F3FA",
-                border: "1px solid transparent",
-                color: "#1B3163",
-                outline: "none",
-              }}
-              onFocus={(e) => { e.currentTarget.style.border = "1px solid #1B3163"; }}
-              onBlur={(e)  => { e.currentTarget.style.border = "1px solid transparent"; }}
+              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 transition-all duration-200 bg-[#F4F2EE] border border-transparent text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 focus:bg-white placeholder:text-[#8E95A5]"
             />
           </div>
 
           {/* Divider */}
-          <div className="hidden sm:block w-px h-6" style={{ backgroundColor: "#E8ECF4" }} />
+          <div className="hidden sm:block w-px h-6 bg-[#E8ECF4]" />
 
           {/* Filters */}
           <div className="flex items-center gap-2 flex-wrap">
-            <SlidersHorizontal size={14} style={{ color: "#8E95A5" }} />
+            <SlidersHorizontal size={14} className="text-[#8E95A5]" />
 
             {/* Role filter */}
             <FilterSelect
@@ -198,8 +178,7 @@ export function StaffPageClient() {
             {(search || roleFilter !== "all" || statusFilter !== "all") && (
               <button
                 onClick={() => { setSearch(""); setRoleFilter("all"); setStatusFilter("all"); }}
-                className="text-xs px-3 py-1.5 rounded-lg transition-colors"
-                style={{ color: "#8E95A5", backgroundColor: "#F0F3FA" }}
+                className="text-xs px-3 py-1.5 rounded-lg transition-colors text-[#8E95A5] bg-[#F4F2EE] hover:bg-[#E8ECF4]"
               >
                 Clear
               </button>
@@ -209,9 +188,9 @@ export function StaffPageClient() {
 
         {/* ── Staff grid ───────────────────────────── */}
         {filtered.length === 0 ? (
-          <div className="bg-white rounded-2xl py-16 text-center" style={{ border: "1px solid #E8ECF4" }}>
-            <p className="text-base font-semibold" style={{ color: "#1B3163" }}>No staff found</p>
-            <p className="text-sm mt-1" style={{ color: "#8E95A5" }}>
+          <div className="bg-white rounded-2xl py-16 text-center border border-[#E8ECF4]">
+            <p className="text-base font-semibold text-[#0D1B2A]">No staff found</p>
+            <p className="text-sm mt-1 text-[#8E95A5]">
               Try adjusting your search or filters
             </p>
           </div>
@@ -230,7 +209,7 @@ export function StaffPageClient() {
 
         {/* Result count */}
         {filtered.length > 0 && (
-          <p className="text-xs text-right" style={{ color: "#8E95A5" }}>
+          <p className="text-xs text-right text-[#8E95A5]">
             Showing {filtered.length} of {staff.length} members
           </p>
         )}
@@ -259,13 +238,7 @@ function FilterSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="text-xs rounded-lg py-1.5 px-3 appearance-none cursor-pointer"
-      style={{
-        backgroundColor: "#F0F3FA",
-        border: "1px solid #E8ECF4",
-        color: "#1B3163",
-        outline: "none",
-      }}
+      className="text-xs rounded-lg py-1.5 px-3 appearance-none cursor-pointer bg-[#F4F2EE] border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
     >
       {children}
     </select>

@@ -13,7 +13,7 @@ export function DashboardShell({ children, pageTitle }: DashboardShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ backgroundColor: "#F0F3FA" }}>
+    <div className="flex h-screen overflow-hidden bg-[#F4F2EE]">
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}

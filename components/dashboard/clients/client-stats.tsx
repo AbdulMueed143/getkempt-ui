@@ -17,8 +17,8 @@ export function ClientStats({ clients }: ClientStatsProps) {
       icon:      <Users size={18} />,
       label:     "Total Clients",
       value:     total,
-      iconColor: "#1B3163",
-      iconBg:    "#EEF1F8",
+      iconColor: "#0D1B2A",
+      iconBg:    "#E8ECF4",
     },
     {
       icon:      <UserCheck size={18} />,
@@ -50,8 +50,7 @@ export function ClientStats({ clients }: ClientStatsProps) {
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3"
-          style={{ border: "1px solid #E8ECF4" }}
+          className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3 border border-[#E8ECF4] shadow-sm hover:shadow-md transition-shadow duration-200"
         >
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
@@ -60,12 +59,12 @@ export function ClientStats({ clients }: ClientStatsProps) {
             {stat.icon}
           </div>
           <div className="min-w-0">
-            <p className="text-xs truncate" style={{ color: "#8E95A5" }}>{stat.label}</p>
-            <p className="text-lg font-bold leading-tight" style={{ color: "#1B3163" }}>
+            <p className="text-xs truncate text-[#8E95A5]">{stat.label}</p>
+            <p className="text-lg font-bold leading-tight text-[#0D1B2A]">
               {stat.value}
             </p>
             {stat.sub && (
-              <p className="text-[10px] truncate" style={{ color: "#9FB2D9" }}>{stat.sub}</p>
+              <p className="text-[10px] truncate text-[#9FB2D9]">{stat.sub}</p>
             )}
           </div>
         </div>
