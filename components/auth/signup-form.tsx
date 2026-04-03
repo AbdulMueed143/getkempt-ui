@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Mail, Lock, User, Building2 } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Building2, Shield, Sparkles } from "lucide-react";
 import { signupSchema, type SignupSchema } from "@/lib/validations/auth";
 import { useAuth } from "@/hooks/use-auth";
 import { FormField } from "@/components/ui/form-field";
@@ -35,15 +35,25 @@ export function SignupForm() {
 
   return (
     <div className="space-y-7">
-      <div className="space-y-1.5">
-        <h1 className="font-serif text-3xl text-soft-ivory">Join Get Kempt.</h1>
-        <p className="text-cool-gray text-sm">
+      {/* Heading */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 mb-1">
+          <div className="w-7 h-7 rounded-lg bg-[#C4A882]/10 border border-[#C4A882]/15 flex items-center justify-center">
+            <Sparkles className="w-3.5 h-3.5 text-[#C4A882]" />
+          </div>
+          <span className="text-xs text-[#C4A882] font-medium tracking-wider uppercase">Free for 30 days</span>
+        </div>
+        <h1 className="font-serif text-3xl text-soft-ivory leading-tight">
+          Join Get Kempt.
+        </h1>
+        <p className="text-cool-gray text-sm leading-relaxed">
           For barbershops, salons, studios & beyond — set up in minutes.
         </p>
       </div>
 
+      {/* Server error */}
       {error && (
-        <div className="rounded-lg bg-red-500/10 border border-red-500/20 px-4 py-3 text-red-400 text-sm">
+        <div className="rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-3 text-red-400 text-sm">
           {error}
         </div>
       )}
@@ -153,11 +163,11 @@ export function SignupForm() {
           label={
             <span>
               I agree to the{" "}
-              <Link href="/terms" className="text-warm-sand hover:underline">
+              <Link href="/terms" className="text-[#C4A882] hover:text-[#D5C4A8] hover:underline transition-colors duration-300">
                 Terms of Service
               </Link>{" "}
               and{" "}
-              <Link href="/privacy" className="text-warm-sand hover:underline">
+              <Link href="/privacy" className="text-[#C4A882] hover:text-[#D5C4A8] hover:underline transition-colors duration-300">
                 Privacy Policy
               </Link>
             </span>
@@ -180,11 +190,21 @@ export function SignupForm() {
         </Button>
       </form>
 
+      {/* Trust signals */}
+      <div className="flex items-center justify-center gap-4 text-white/20">
+        <div className="flex items-center gap-1.5">
+          <Shield className="w-3.5 h-3.5" />
+          <span className="text-[11px]">Encrypted & secure</span>
+        </div>
+        <div className="w-[1px] h-3 bg-white/10" />
+        <span className="text-[11px]">No credit card required</span>
+      </div>
+
       <p className="text-center text-sm text-cool-gray">
         Already have an account?{" "}
         <Link
           href={ROUTES.LOGIN}
-          className="text-warm-sand hover:text-warm-sand/80 font-medium transition-colors"
+          className="text-[#C4A882] hover:text-[#D5C4A8] font-medium transition-colors duration-300"
         >
           Sign in
         </Link>

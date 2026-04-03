@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Lock } from "lucide-react";
+import { Eye, EyeOff, Lock, Shield } from "lucide-react";
 import { resetPasswordSchema, type ResetPasswordSchema } from "@/lib/validations/auth";
 import { useAuth } from "@/hooks/use-auth";
 import { FormField } from "@/components/ui/form-field";
@@ -32,15 +32,15 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   return (
     <div className="space-y-8">
-      <div className="space-y-1.5">
-        <h1 className="font-serif text-3xl text-soft-ivory">New password.</h1>
+      <div className="space-y-2">
+        <h1 className="font-serif text-3xl text-soft-ivory leading-tight">New password.</h1>
         <p className="text-cool-gray text-sm leading-relaxed">
           Make it strong — at least 8 characters, one uppercase, one number.
         </p>
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-500/10 border border-red-500/20 px-4 py-3 text-red-400 text-sm">
+        <div className="rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-3 text-red-400 text-sm">
           {error}
         </div>
       )}
@@ -97,6 +97,12 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           Update password
         </Button>
       </form>
+
+      {/* Trust signal */}
+      <div className="flex items-center justify-center gap-2 text-white/25">
+        <Shield className="w-3.5 h-3.5" />
+        <span className="text-[11px]">Your password is encrypted end-to-end</span>
+      </div>
     </div>
   );
 }

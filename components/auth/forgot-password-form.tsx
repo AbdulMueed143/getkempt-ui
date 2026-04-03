@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Mail, CheckCircle2 } from "lucide-react";
+import { Mail, CheckCircle2, Shield } from "lucide-react";
 import { forgotPasswordSchema, type ForgotPasswordSchema } from "@/lib/validations/auth";
 import { useAuth } from "@/hooks/use-auth";
 import { FormField } from "@/components/ui/form-field";
@@ -36,8 +36,8 @@ export function ForgotPasswordForm() {
     return (
       <div className="space-y-6 text-center">
         <div className="flex justify-center">
-          <div className="w-16 h-16 rounded-full bg-warm-sand/10 flex items-center justify-center">
-            <CheckCircle2 size={32} className="text-warm-sand" />
+          <div className="w-16 h-16 rounded-full bg-[#C4A882]/10 border border-[#C4A882]/15 flex items-center justify-center">
+            <CheckCircle2 size={32} className="text-[#C4A882]" />
           </div>
         </div>
         <div className="space-y-2">
@@ -52,14 +52,14 @@ export function ForgotPasswordForm() {
           Didn&apos;t receive it?{" "}
           <button
             onClick={() => setSent(false)}
-            className="text-warm-sand hover:underline"
+            className="text-[#C4A882] hover:text-[#D5C4A8] hover:underline transition-colors duration-300"
           >
             Resend the link
           </button>
         </p>
         <Link
           href={ROUTES.LOGIN}
-          className="block text-sm text-cool-gray hover:text-soft-ivory transition-colors"
+          className="block text-sm text-cool-gray hover:text-soft-ivory transition-colors duration-300"
         >
           ← Back to sign in
         </Link>
@@ -69,15 +69,15 @@ export function ForgotPasswordForm() {
 
   return (
     <div className="space-y-8">
-      <div className="space-y-1.5">
-        <h1 className="font-serif text-3xl text-soft-ivory">Reset password.</h1>
+      <div className="space-y-2">
+        <h1 className="font-serif text-3xl text-soft-ivory leading-tight">Reset password.</h1>
         <p className="text-cool-gray text-sm leading-relaxed">
           Enter your email and we&apos;ll send you a link to get back in.
         </p>
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-500/10 border border-red-500/20 px-4 py-3 text-red-400 text-sm">
+        <div className="rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-3 text-red-400 text-sm">
           {error}
         </div>
       )}
@@ -104,9 +104,15 @@ export function ForgotPasswordForm() {
         </Button>
       </form>
 
+      {/* Trust signal */}
+      <div className="flex items-center justify-center gap-2 text-white/25">
+        <Shield className="w-3.5 h-3.5" />
+        <span className="text-[11px]">We&apos;ll never share your email</span>
+      </div>
+
       <Link
         href={ROUTES.LOGIN}
-        className="block text-center text-sm text-cool-gray hover:text-soft-ivory transition-colors"
+        className="block text-center text-sm text-cool-gray hover:text-soft-ivory transition-colors duration-300"
       >
         ← Back to sign in
       </Link>

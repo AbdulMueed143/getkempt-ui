@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Shield } from "lucide-react";
 import { loginSchema, type LoginSchema } from "@/lib/validations/auth";
 import { useAuth } from "@/hooks/use-auth";
 import { FormField } from "@/components/ui/form-field";
@@ -28,16 +28,18 @@ export function LoginForm() {
   return (
     <div className="space-y-8">
       {/* Heading */}
-      <div className="space-y-1.5">
-        <h1 className="font-serif text-3xl text-soft-ivory">Welcome back.</h1>
-        <p className="text-cool-gray text-sm">
-          Sign in to your Get Kempt account.
+      <div className="space-y-2">
+        <h1 className="font-serif text-3xl text-soft-ivory leading-tight">
+          Welcome back.
+        </h1>
+        <p className="text-cool-gray text-sm leading-relaxed">
+          Sign in to your Get Kempt account and get back to what matters.
         </p>
       </div>
 
       {/* Server error */}
       {error && (
-        <div className="rounded-lg bg-red-500/10 border border-red-500/20 px-4 py-3 text-red-400 text-sm">
+        <div className="rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-3 text-red-400 text-sm">
           {error}
         </div>
       )}
@@ -78,7 +80,7 @@ export function LoginForm() {
           <div className="flex justify-end">
             <Link
               href={ROUTES.FORGOT_PASSWORD}
-              className="text-xs text-warm-sand hover:text-warm-sand/80 transition-colors"
+              className="text-xs text-[#C4A882] hover:text-[#D5C4A8] transition-colors duration-300"
             >
               Forgot password?
             </Link>
@@ -100,17 +102,24 @@ export function LoginForm() {
         </Button>
       </form>
 
+      {/* Trust signal */}
+      <div className="flex items-center justify-center gap-2 text-white/25">
+        <Shield className="w-3.5 h-3.5" />
+        <span className="text-[11px]">Your data is encrypted and secure</span>
+      </div>
+
+      {/* Divider */}
       <div className="relative flex items-center gap-4">
-        <div className="flex-1 h-px bg-white/8" />
+        <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent to-[#C4A882]/10" />
         <span className="text-cool-gray text-xs shrink-0">or</span>
-        <div className="flex-1 h-px bg-white/8" />
+        <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent to-[#C4A882]/10" />
       </div>
 
       <p className="text-center text-sm text-cool-gray">
         New to Get Kempt?{" "}
         <Link
           href={ROUTES.SIGNUP}
-          className="text-warm-sand hover:text-warm-sand/80 font-medium transition-colors"
+          className="text-[#C4A882] hover:text-[#D5C4A8] font-medium transition-colors duration-300"
         >
           Create an account
         </Link>
