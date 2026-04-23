@@ -22,8 +22,8 @@ const inputCls = (err?: boolean) =>
   cn(
     "w-full text-sm text-[#0D1B2A] border rounded-2xl px-4 py-3 bg-white/80 backdrop-blur-sm transition-all duration-200",
     "focus:outline-none focus:ring-2 focus:ring-[#C4A882]/50 focus:border-[#C4A882] focus:bg-white focus:shadow-sm",
-    "placeholder:text-[#8E95A5]",
-    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm"
+    "placeholder:text-[#6B7280]",
+    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8E4DA] hover:border-[#C4A882]/40 hover:shadow-sm"
   );
 
 const PAYMENT_MODES: PaymentMode[] = ["in_store", "deposit", "full_upfront"];
@@ -110,13 +110,13 @@ export function PaymentsSection({ form }: Props) {
             </button>
           </div>
         ) : (
-          <div className="flex items-start gap-4 bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] border border-[#E8ECF4] rounded-2xl px-5 py-5">
+          <div className="flex items-start gap-4 bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] border border-[#E8E4DA] rounded-2xl px-5 py-5">
             <div className="w-11 h-11 rounded-xl bg-[#635BFF] flex items-center justify-center shrink-0 shadow-lg shadow-[#635BFF]/20">
               <span className="text-white text-base font-black">S</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-bold text-[#0D1B2A]">Connect Stripe</p>
-              <p className="text-xs text-[#8E95A5] mt-1 leading-relaxed">
+              <p className="text-xs text-[#6B7280] mt-1 leading-relaxed">
                 Required to collect deposits or full payments at booking.
                 Takes 2 minutes — funds go directly to your bank account.
               </p>
@@ -161,8 +161,8 @@ export function PaymentsSection({ form }: Props) {
                 className={cn(
                   "relative flex flex-col items-start gap-2 rounded-2xl border p-4 sm:p-5 text-left transition-all duration-200",
                   selected
-                    ? "border-[#0D1B2A] bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] ring-1 ring-[#C4A882]/20 shadow-sm"
-                    : "border-[#E8ECF4] bg-white hover:border-[#C4A882]/40 hover:shadow-sm",
+                    ? "border-[#0D1B2A] bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] ring-1 ring-[#C4A882]/20 shadow-sm"
+                    : "border-[#E8E4DA] bg-white hover:border-[#C4A882]/40 hover:shadow-sm",
                   disabled && "opacity-40 cursor-not-allowed"
                 )}
               >
@@ -170,7 +170,7 @@ export function PaymentsSection({ form }: Props) {
                 <p className="text-sm font-bold text-[#0D1B2A]">
                   {PAYMENT_MODE_LABELS[mode]}
                 </p>
-                <p className="text-[11px] text-[#8E95A5] leading-snug">
+                <p className="text-[11px] text-[#6B7280] leading-snug">
                   {PAYMENT_MODE_DESCRIPTIONS[mode]}
                 </p>
                 {requiresStripe && !stripeConnected && (
@@ -203,7 +203,7 @@ export function PaymentsSection({ form }: Props) {
                 className={cn(inputCls(!!errors.depositValue), "pr-16")}
                 placeholder="25"
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none font-medium">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] pointer-events-none font-medium">
                 {depositType === "percentage" ? "%" : "AUD"}
               </span>
             </div>
@@ -246,8 +246,8 @@ export function PaymentsSection({ form }: Props) {
                 className={cn(
                   "flex items-center gap-2.5 px-4 py-3 rounded-2xl border text-sm font-medium transition-all duration-200",
                   active
-                    ? "bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] border-[#0D1B2A] text-[#0D1B2A] shadow-sm"
-                    : "bg-white border-[#E8ECF4] text-[#8E95A5] hover:border-[#C4A882]/40 hover:shadow-sm"
+                    ? "bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] border-[#0D1B2A] text-[#0D1B2A] shadow-sm"
+                    : "bg-white border-[#E8E4DA] text-[#6B7280] hover:border-[#C4A882]/40 hover:shadow-sm"
                 )}
               >
                 <span className="text-base">{IN_STORE_METHOD_ICONS[method]}</span>
@@ -257,7 +257,7 @@ export function PaymentsSection({ form }: Props) {
             );
           })}
         </div>
-        <p className="text-[11px] text-[#8E95A5] mt-2.5 pl-1">
+        <p className="text-[11px] text-[#6B7280] mt-2.5 pl-1">
           These are shown to clients on the confirmation page and booking receipts.
         </p>
       </div>

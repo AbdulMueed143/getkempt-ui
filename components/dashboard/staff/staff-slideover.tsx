@@ -136,20 +136,20 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
         {/* Header */}
         <div
           className="flex items-center justify-between px-6 py-5 shrink-0"
-          style={{ borderBottom: "1px solid #E8ECF4" }}
+          style={{ borderBottom: "1px solid #E8E4DA" }}
         >
           <div>
             <h2 className="text-lg font-bold" style={{ color: "#1B3163" }}>
               {editing ? "Edit Staff Member" : "Add Staff Member"}
             </h2>
-            <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+            <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
               {editing ? "Update details below" : "Fill in the details to add a new team member"}
             </p>
           </div>
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-xl flex items-center justify-center transition-colors"
-            style={{ backgroundColor: "#F0F3FA", color: "#1B3163" }}
+            style={{ backgroundColor: "#F0EEE6", color: "#1B3163" }}
             aria-label="Close panel"
           >
             <X size={16} />
@@ -165,7 +165,7 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
 
               {/* Profile photo */}
               <div className="mb-4">
-                <label className="block text-xs font-medium uppercase tracking-wide mb-2" style={{ color: "#8E95A5" }}>
+                <label className="block text-xs font-medium uppercase tracking-wide mb-2" style={{ color: "#6B7280" }}>
                   Profile Photo
                 </label>
                 <div className="flex items-start gap-4">
@@ -216,8 +216,8 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
                   rows={3}
                   className="w-full rounded-lg text-sm px-4 py-2.5 resize-none transition-all"
                   style={{
-                    backgroundColor: "#F8F9FC",
-                    border: "1px solid #E8ECF4",
+                    backgroundColor: "#FAF8F3",
+                    border: "1px solid #E8E4DA",
                     color: "#1B3163",
                   }}
                   {...register("bio")}
@@ -239,8 +239,8 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
                         key={role}
                         className="flex items-start gap-3 p-3 rounded-xl cursor-pointer transition-all"
                         style={{
-                          border: `1.5px solid ${field.value === role ? "#1B3163" : "#E8ECF4"}`,
-                          backgroundColor: field.value === role ? "#EEF1F8" : "#F8F9FC",
+                          border: `1.5px solid ${field.value === role ? "#1B3163" : "#E8E4DA"}`,
+                          backgroundColor: field.value === role ? "#EEF1F8" : "#FAF8F3",
                         }}
                       >
                         <input
@@ -254,7 +254,7 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
                           <p className="text-sm font-semibold" style={{ color: "#1B3163" }}>
                             {ROLE_LABELS[role]}
                           </p>
-                          <p className="text-xs mt-0.5 leading-snug" style={{ color: "#8E95A5" }}>
+                          <p className="text-xs mt-0.5 leading-snug" style={{ color: "#6B7280" }}>
                             {ROLE_DESCRIPTIONS[role]}
                           </p>
                         </div>
@@ -354,13 +354,13 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
         {/* Footer */}
         <div
           className="flex items-center justify-end gap-3 px-6 py-4 shrink-0"
-          style={{ borderTop: "1px solid #E8ECF4" }}
+          style={{ borderTop: "1px solid #E8E4DA" }}
         >
           <button
             type="button"
             onClick={onClose}
             className="px-5 py-2.5 rounded-xl text-sm font-medium transition-colors"
-            style={{ backgroundColor: "#F0F3FA", color: "#1B3163", border: "1px solid #E8ECF4" }}
+            style={{ backgroundColor: "#F0EEE6", color: "#1B3163", border: "1px solid #E8E4DA" }}
           >
             Cancel
           </button>
@@ -391,7 +391,7 @@ function FormSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0F3FA" }}>
+    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0EEE6" }}>
       <div className="flex items-center gap-2 mb-1">
         <span style={{ color: "#1B3163" }}>{icon}</span>
         <h3 className="text-sm font-semibold" style={{ color: "#1B3163" }}>
@@ -413,7 +413,7 @@ function FieldWrap({
 }) {
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#8E95A5" }}>
+      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6B7280" }}>
         {label}{required && <span className="text-[#D5B584] ml-1">*</span>}
       </label>
       {children}
@@ -447,13 +447,13 @@ const FieldInput = React.forwardRef<HTMLInputElement, FieldInputProps>(
         style={{
           paddingLeft: icon ? "2.25rem" : "1rem",
           paddingRight: "1rem",
-          backgroundColor: "#F8F9FC",
-          border: `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`,
+          backgroundColor: "#FAF8F3",
+          border: `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`,
           color: "#1B3163",
           outline: "none",
         }}
         onFocus={(e) => { e.currentTarget.style.border = "1px solid #1B3163"; e.currentTarget.style.backgroundColor = "white"; }}
-        onBlur={(e) => { e.currentTarget.style.border = `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`; e.currentTarget.style.backgroundColor = "#F8F9FC"; }}
+        onBlur={(e) => { e.currentTarget.style.border = `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`; e.currentTarget.style.backgroundColor = "#FAF8F3"; }}
         {...props}
       />
     </div>
@@ -471,8 +471,8 @@ const FieldSelect = React.forwardRef<HTMLSelectElement, FieldSelectProps>(
       ref={ref}
       className="w-full rounded-lg text-sm py-2.5 px-4 appearance-none transition-all"
       style={{
-        backgroundColor: "#F8F9FC",
-        border: `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`,
+        backgroundColor: "#FAF8F3",
+        border: `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`,
         color: "#1B3163",
         outline: "none",
       }}

@@ -21,8 +21,8 @@ const inputCls = (err?: boolean) =>
   cn(
     "w-full text-sm text-[#0D1B2A] border rounded-2xl px-4 py-3 bg-white/80 backdrop-blur-sm transition-all duration-200",
     "focus:outline-none focus:ring-2 focus:ring-[#C4A882]/50 focus:border-[#C4A882] focus:bg-white focus:shadow-sm",
-    "placeholder:text-[#8E95A5]",
-    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm"
+    "placeholder:text-[#6B7280]",
+    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8E4DA] hover:border-[#C4A882]/40 hover:shadow-sm"
   );
 
 const FEE_TYPES: FeeType[] = ["percentage", "fixed_aud", "none"];
@@ -142,7 +142,7 @@ export function CancellationFeesSection({ form }: Props) {
               "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200",
               showTemplates
                 ? "bg-[#0D1B2A] text-white"
-                : "bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] text-[#0D1B2A] hover:shadow-sm border border-[#E8ECF4]"
+                : "bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] text-[#0D1B2A] hover:shadow-sm border border-[#E8E4DA]"
             )}
           >
             <Zap className="w-3.5 h-3.5" />
@@ -157,10 +157,10 @@ export function CancellationFeesSection({ form }: Props) {
                 key={t.label}
                 type="button"
                 onClick={() => applyTemplate(i)}
-                className="text-left px-4 py-3.5 rounded-2xl bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] border border-[#E8ECF4] hover:border-[#0D1B2A] hover:shadow-sm transition-all duration-200"
+                className="text-left px-4 py-3.5 rounded-2xl bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] border border-[#E8E4DA] hover:border-[#0D1B2A] hover:shadow-sm transition-all duration-200"
               >
                 <p className="text-xs font-bold text-[#0D1B2A]">{t.label}</p>
-                <p className="text-[11px] text-[#8E95A5] mt-1 leading-snug">{t.description}</p>
+                <p className="text-[11px] text-[#6B7280] mt-1 leading-snug">{t.description}</p>
               </button>
             ))}
           </div>
@@ -175,7 +175,7 @@ export function CancellationFeesSection({ form }: Props) {
             No-show fee
           </label>
           <div className="bg-gradient-to-br from-amber-50/50 to-orange-50/30 border border-amber-100/60 rounded-2xl p-5 space-y-4">
-            <p className="text-[11px] text-[#8E95A5] leading-relaxed">
+            <p className="text-[11px] text-[#6B7280] leading-relaxed">
               Charged when a client books but doesn&apos;t arrive and gives no notice.
             </p>
             <div className="flex flex-wrap gap-3 items-end">
@@ -207,7 +207,7 @@ export function CancellationFeesSection({ form }: Props) {
                       onChange={(e) => setValue("noShowFeeValue", Number(e.target.value), { shouldDirty: true })}
                       className={cn(inputCls(!!errors.noShowFeeValue), "pr-12")}
                     />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none font-medium">
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] pointer-events-none font-medium">
                       {noShowFeeType === "percentage" ? "%" : "$"}
                     </span>
                   </div>
@@ -228,7 +228,7 @@ export function CancellationFeesSection({ form }: Props) {
                 "w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border text-left transition-all duration-200",
                 autoCharge
                   ? "bg-white border-[#0D1B2A]/20 shadow-sm"
-                  : "bg-white/60 border-[#E8ECF4] hover:border-[#C4A882]/40",
+                  : "bg-white/60 border-[#E8E4DA] hover:border-[#C4A882]/40",
                 !stripeConnected && "opacity-40 cursor-not-allowed"
               )}
               disabled={!stripeConnected}
@@ -237,7 +237,7 @@ export function CancellationFeesSection({ form }: Props) {
                 <p className="text-xs font-bold text-[#0D1B2A]">
                   Auto-charge card on file
                 </p>
-                <p className="text-[11px] text-[#8E95A5] mt-0.5">
+                <p className="text-[11px] text-[#6B7280] mt-0.5">
                   {stripeConnected
                     ? "Automatically charge the saved card when a no-show is recorded"
                     : "Requires Stripe to be connected"}
@@ -263,7 +263,7 @@ export function CancellationFeesSection({ form }: Props) {
               <label className="block text-xs font-bold text-[#0D1B2A] tracking-wide">
                 Cancellation fee rules
               </label>
-              <p className="text-[11px] text-[#8E95A5] mt-0.5">
+              <p className="text-[11px] text-[#6B7280] mt-0.5">
                 Tightest window first. Outside all rules = free.
               </p>
             </div>
@@ -271,8 +271,8 @@ export function CancellationFeesSection({ form }: Props) {
 
           {/* Rules list */}
           {fields.length === 0 && !addingNew ? (
-            <div className="text-center py-8 bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] rounded-2xl border border-dashed border-[#E8ECF4]">
-              <p className="text-sm text-[#8E95A5] font-medium">No rules — all cancellations are free</p>
+            <div className="text-center py-8 bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] rounded-2xl border border-dashed border-[#E8E4DA]">
+              <p className="text-sm text-[#6B7280] font-medium">No rules — all cancellations are free</p>
               <p className="text-[11px] text-[#C4C9D4] mt-1">Use a template or add a custom rule below</p>
             </div>
           ) : (
@@ -283,8 +283,8 @@ export function CancellationFeesSection({ form }: Props) {
                   className={cn(
                     "rounded-2xl border transition-all duration-200 overflow-hidden",
                     editingId === rule.id
-                      ? "border-[#0D1B2A]/30 bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] shadow-sm"
-                      : "border-[#E8ECF4] bg-gradient-to-br from-[#FDFCFA] to-[#F8F6F2]"
+                      ? "border-[#0D1B2A]/30 bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] shadow-sm"
+                      : "border-[#E8E4DA] bg-gradient-to-br from-[#FDFCFA] to-[#F8F6F2]"
                   )}
                 >
                   {editingId === rule.id ? (
@@ -310,7 +310,7 @@ export function CancellationFeesSection({ form }: Props) {
                               onChange={(e) => setDraft((d) => ({ ...d, withinHours: Number(e.target.value) }))}
                               className={cn(inputCls(), "pr-14")}
                             />
-                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">hours</span>
+                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] pointer-events-none">hours</span>
                           </div>
                         </div>
                         <div className="space-y-1.5">
@@ -339,7 +339,7 @@ export function CancellationFeesSection({ form }: Props) {
                               onChange={(e) => setDraft((d) => ({ ...d, feeValue: Number(e.target.value) }))}
                               className={cn(inputCls(), "pr-10")}
                             />
-                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">
+                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] pointer-events-none">
                               {draft.feeType === "percentage" ? "%" : "$"}
                             </span>
                           </div>
@@ -356,7 +356,7 @@ export function CancellationFeesSection({ form }: Props) {
                         <button
                           type="button"
                           onClick={cancelEdit}
-                          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-[#E8ECF4] text-[#6B7A99] hover:border-[#C4A882]/40 transition-all duration-200"
+                          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-[#E8E4DA] text-[#6B7A99] hover:border-[#C4A882]/40 transition-all duration-200"
                         >
                           <X className="w-3.5 h-3.5" /> Cancel
                         </button>
@@ -373,7 +373,7 @@ export function CancellationFeesSection({ form }: Props) {
                             Within {hoursLabel(rule.withinHours)}
                           </span>
                           {rule.label && rule.label !== `Within ${hoursLabel(rule.withinHours)}` && (
-                            <span className="text-[10px] text-[#8E95A5]">({rule.label})</span>
+                            <span className="text-[10px] text-[#6B7280]">({rule.label})</span>
                           )}
                           <span className="text-[11px] text-amber-700 font-bold bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-100">
                             {feeLabel(rule.feeType, rule.feeValue)}
@@ -384,14 +384,14 @@ export function CancellationFeesSection({ form }: Props) {
                         <button
                           type="button"
                           onClick={() => startEdit({ idx, ...rule })}
-                          className="p-2 rounded-xl text-[#8E95A5] hover:text-[#0D1B2A] hover:bg-white transition-all duration-200"
+                          className="p-2 rounded-xl text-[#6B7280] hover:text-[#0D1B2A] hover:bg-white transition-all duration-200"
                         >
                           <Pencil className="w-3.5 h-3.5" />
                         </button>
                         <button
                           type="button"
                           onClick={() => remove(idx)}
-                          className="p-2 rounded-xl text-[#8E95A5] hover:text-rose-500 hover:bg-rose-50 transition-all duration-200"
+                          className="p-2 rounded-xl text-[#6B7280] hover:text-rose-500 hover:bg-rose-50 transition-all duration-200"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -405,7 +405,7 @@ export function CancellationFeesSection({ form }: Props) {
 
           {/* Add new rule inline form */}
           {addingNew && (
-            <div className="mt-2 rounded-2xl border border-[#0D1B2A]/20 bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] p-4 space-y-3 shadow-sm">
+            <div className="mt-2 rounded-2xl border border-[#0D1B2A]/20 bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] p-4 space-y-3 shadow-sm">
               <p className="text-xs font-bold text-[#0D1B2A]">New rule</p>
               <div className="grid sm:grid-cols-2 gap-3">
                 <div className="space-y-1.5">
@@ -428,7 +428,7 @@ export function CancellationFeesSection({ form }: Props) {
                       onChange={(e) => setDraft((d) => ({ ...d, withinHours: Number(e.target.value) }))}
                       className={cn(inputCls(), "pr-14")}
                     />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">hours</span>
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] pointer-events-none">hours</span>
                   </div>
                 </div>
                 <div className="space-y-1.5">
@@ -457,7 +457,7 @@ export function CancellationFeesSection({ form }: Props) {
                       onChange={(e) => setDraft((d) => ({ ...d, feeValue: Number(e.target.value) }))}
                       className={cn(inputCls(), "pr-10")}
                     />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] pointer-events-none">
                       {draft.feeType === "percentage" ? "%" : "$"}
                     </span>
                   </div>
@@ -474,7 +474,7 @@ export function CancellationFeesSection({ form }: Props) {
                 <button
                   type="button"
                   onClick={cancelEdit}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-[#E8ECF4] text-[#6B7A99] hover:border-[#C4A882]/40 transition-all duration-200"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-[#E8E4DA] text-[#6B7A99] hover:border-[#C4A882]/40 transition-all duration-200"
                 >
                   <X className="w-3.5 h-3.5" /> Cancel
                 </button>
@@ -487,7 +487,7 @@ export function CancellationFeesSection({ form }: Props) {
             <button
               type="button"
               onClick={() => { setDraft(emptyDraft()); setAddingNew(true); setEditingId(null); }}
-              className="mt-3 flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-dashed border-[#E8ECF4] text-xs font-semibold text-[#8E95A5] hover:border-[#C4A882] hover:text-[#0D1B2A] hover:bg-gradient-to-br hover:from-[#F8F6F2] hover:to-[#F4F2EE] transition-all duration-200 w-full justify-center"
+              className="mt-3 flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-dashed border-[#E8E4DA] text-xs font-semibold text-[#6B7280] hover:border-[#C4A882] hover:text-[#0D1B2A] hover:bg-gradient-to-br hover:from-[#F8F6F2] hover:to-[#F5F3EE] transition-all duration-200 w-full justify-center"
             >
               <Plus className="w-3.5 h-3.5" />
               Add custom rule

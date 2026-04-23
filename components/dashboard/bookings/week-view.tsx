@@ -63,14 +63,14 @@ export function WeekView({ monday, bookings, onBooking }: WeekViewProps) {
   return (
     <div className="flex flex-col h-full overflow-hidden">
       {/* ── Week summary header ── */}
-      <div className="px-4 py-3 border-b border-[#E8ECF4] shrink-0 bg-[#FDFCFA]">
+      <div className="px-4 py-3 border-b border-[#E8E4DA] shrink-0 bg-[#FDFCFA]">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs text-[#8E95A5]">This week</p>
+            <p className="text-xs text-[#6B7280]">This week</p>
             <p className="text-lg font-bold text-[#0D1B2A]">{weekTotal} bookings</p>
           </div>
           <div className="text-right">
-            <p className="text-xs text-[#8E95A5]">Revenue</p>
+            <p className="text-xs text-[#6B7280]">Revenue</p>
             <p className="text-lg font-bold text-[#0D1B2A]">${weekRevenue}</p>
           </div>
         </div>
@@ -85,13 +85,13 @@ export function WeekView({ monday, bookings, onBooking }: WeekViewProps) {
                 <div
                   className={cn(
                     "w-full max-w-[32px] rounded-t-md transition-all",
-                    isToday ? "bg-[#C4A882]" : bks.length > 0 ? "bg-[#0D1B2A]/20" : "bg-[#E8ECF4]"
+                    isToday ? "bg-[#C4A882]" : bks.length > 0 ? "bg-[#0D1B2A]/20" : "bg-[#E8E4DA]"
                   )}
                   style={{ height: `${height}px` }}
                 />
                 <span className={cn(
                   "text-[9px] font-bold uppercase",
-                  isToday ? "text-[#C4A882]" : "text-[#8E95A5]"
+                  isToday ? "text-[#C4A882]" : "text-[#6B7280]"
                 )}>
                   {day.toLocaleDateString("en-AU", { weekday: "narrow" })}
                 </span>
@@ -115,19 +115,19 @@ export function WeekView({ monday, bookings, onBooking }: WeekViewProps) {
                   "rounded-xl border transition-all",
                   isToday
                     ? "border-[#C4A882] bg-[#FDFCFA] shadow-sm"
-                    : "border-[#E8ECF4] bg-white",
+                    : "border-[#E8E4DA] bg-white",
                   isPast && bks.length === 0 && "opacity-50"
                 )}
               >
                 {/* Day header */}
                 <div className={cn(
                   "flex items-center gap-3 px-3 py-2.5 border-b",
-                  isToday ? "border-[#C4A882]/20" : "border-[#F0F3FA]"
+                  isToday ? "border-[#C4A882]/20" : "border-[#F0EEE6]"
                 )}>
                   <div
                     className={cn(
                       "w-10 h-10 rounded-lg flex flex-col items-center justify-center shrink-0",
-                      isToday ? "bg-[#0D1B2A] text-white" : "bg-[#F4F2EE] text-[#0D1B2A]"
+                      isToday ? "bg-[#0D1B2A] text-white" : "bg-[#F5F3EE] text-[#0D1B2A]"
                     )}
                   >
                     <span className="text-[8px] font-bold uppercase leading-none">
@@ -142,10 +142,10 @@ export function WeekView({ monday, bookings, onBooking }: WeekViewProps) {
                     </p>
                     <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                       {bks.length === 0 ? (
-                        <span className="text-[10px] text-[#8E95A5]">No bookings</span>
+                        <span className="text-[10px] text-[#6B7280]">No bookings</span>
                       ) : (
                         <>
-                          <span className="text-[10px] text-[#8E95A5]">{bks.length} bookings</span>
+                          <span className="text-[10px] text-[#6B7280]">{bks.length} bookings</span>
                           {confirmed > 0 && (
                             <span className="flex items-center gap-0.5 text-[10px] text-[#0D1B2A]">
                               <CheckCircle2 size={9} />{confirmed}
@@ -186,7 +186,7 @@ export function WeekView({ monday, bookings, onBooking }: WeekViewProps) {
                           onClick={() => onBooking(booking)}
                           className={cn(
                             "w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-left transition-all",
-                            "hover:bg-[#F4F2EE] active:scale-[0.99]",
+                            "hover:bg-[#F5F3EE] active:scale-[0.99]",
                             isCancelled && "opacity-50"
                           )}
                         >
@@ -205,11 +205,11 @@ export function WeekView({ monday, bookings, onBooking }: WeekViewProps) {
                           <div className="flex-1 min-w-0">
                             <p className={cn(
                               "text-xs font-semibold truncate",
-                              isCancelled ? "line-through text-[#8E95A5]" : "text-[#0D1B2A]"
+                              isCancelled ? "line-through text-[#6B7280]" : "text-[#0D1B2A]"
                             )}>
                               {booking.clientName}
                             </p>
-                            <p className="text-[10px] text-[#8E95A5] truncate">
+                            <p className="text-[10px] text-[#6B7280] truncate">
                               {booking.serviceName} · {booking.staffName.split(" ")[0]}
                             </p>
                           </div>
@@ -229,7 +229,7 @@ export function WeekView({ monday, bookings, onBooking }: WeekViewProps) {
 
                     {/* Overflow indicator */}
                     {bks.length > 6 && (
-                      <p className="text-center text-[10px] text-[#8E95A5] py-1">
+                      <p className="text-center text-[10px] text-[#6B7280] py-1">
                         +{bks.length - 6} more booking{bks.length - 6 !== 1 ? "s" : ""}
                       </p>
                     )}
@@ -249,7 +249,7 @@ export function WeekView({ monday, bookings, onBooking }: WeekViewProps) {
 
         {/* Week summary footer */}
         <div className="text-center py-4 px-3">
-          <p className="text-xs text-[#8E95A5]">
+          <p className="text-xs text-[#6B7280]">
             {weekTotal} bookings · ${weekRevenue} total revenue
           </p>
         </div>

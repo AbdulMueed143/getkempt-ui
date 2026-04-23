@@ -125,7 +125,7 @@ export function ServicePageClient() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-[#0D1B2A]">Services</h1>
-            <p className="text-sm mt-0.5 text-[#8E95A5]">
+            <p className="text-sm mt-0.5 text-[#6B7280]">
               Manage your booking menu — pricing, timing, and availability.
             </p>
           </div>
@@ -150,7 +150,7 @@ export function ServicePageClient() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search services…"
-              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 transition-all duration-200 placeholder:text-[#8E95A5]"
+              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 transition-all duration-200 placeholder:text-[#6B7280]"
             />
           </div>
 
@@ -158,7 +158,7 @@ export function ServicePageClient() {
           <select
             value={catFilter}
             onChange={(e) => setCatFilter(e.target.value as CategoryFilter)}
-            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
+            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
             style={{ minWidth: 160 }}
           >
             {CATEGORY_OPTIONS.map((opt) => (
@@ -170,7 +170,7 @@ export function ServicePageClient() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
+            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
             style={{ minWidth: 140 }}
           >
             <option value="all">All statuses</option>
@@ -181,8 +181,8 @@ export function ServicePageClient() {
 
         {/* ── Service grid ─────────────────────────── */}
         {filtered.length === 0 ? (
-          <div className="text-center py-16 bg-white rounded-2xl border border-[#E8ECF4]">
-            <p className="text-sm text-[#8E95A5]">
+          <div className="text-center py-16 bg-white rounded-2xl border border-[#E8E4DA]">
+            <p className="text-sm text-[#6B7280]">
               {search || catFilter !== "all" || statusFilter !== "all"
                 ? "No services match your filters."
                 : "No services yet. Add your first one!"}

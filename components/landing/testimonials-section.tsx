@@ -86,7 +86,7 @@ export function TestimonialsSection() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-[#0D1B2A]">{t.name}</p>
-                  <p className="text-xs text-[#8E95A5]">{t.role}</p>
+                  <p className="text-xs text-[#6B7280]">{t.role}</p>
                   <p className="text-xs text-[#C4A882] font-medium">{t.suburb}</p>
                 </div>
               </div>
@@ -104,7 +104,7 @@ export function TestimonialsSection() {
           ].map((s) => (
             <div key={s.label} className="text-center group">
               <p className="text-3xl font-black text-[#1B3163] heading-serif group-hover:text-[#C4A882] transition-colors duration-300">{s.value}</p>
-              <p className="text-sm text-[#8E95A5] mt-1">{s.label}</p>
+              <p className="text-sm text-[#6B7280] mt-1">{s.label}</p>
             </div>
           ))}
         </div>

@@ -38,7 +38,7 @@ export function PackageStats({ packages, services }: PackageStatsProps) {
       label:     "Total Packages",
       value:     total,
       iconColor: "#0D1B2A",
-      iconBg:    "#E8ECF4",
+      iconBg:    "#E8E4DA",
     },
     {
       icon:      <CheckCircle2 size={18} />,
@@ -69,7 +69,7 @@ export function PackageStats({ packages, services }: PackageStatsProps) {
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3 border border-[#E8ECF4] shadow-sm hover:shadow-md transition-shadow duration-200"
+          className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3 border border-[#E8E4DA] shadow-sm hover:shadow-md transition-shadow duration-200"
         >
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
@@ -78,7 +78,7 @@ export function PackageStats({ packages, services }: PackageStatsProps) {
             {stat.icon}
           </div>
           <div className="min-w-0">
-            <p className="text-xs truncate text-[#8E95A5]">{stat.label}</p>
+            <p className="text-xs truncate text-[#6B7280]">{stat.label}</p>
             <p className="text-lg font-bold leading-tight truncate text-[#0D1B2A]">
               {stat.value}
             </p>

@@ -4,9 +4,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Save, AlertCircle, Settings2, ChevronDown,
-  CalendarRange, CreditCard, TriangleAlert,
-  CalendarOff, Percent, FileText,
+  Save,
+  ChevronDown,
+  CalendarRange,
+  CreditCard,
+  TriangleAlert,
+  CalendarOff,
+  Percent,
+  FileText,
+  SlidersHorizontal,
 } from "lucide-react";
 import { storeSettingsSchema, type StoreSettingsSchema } from "@/lib/validations/store-settings";
 import { MOCK_STORE_SETTINGS } from "@/lib/mock/store-settings";
@@ -19,61 +25,55 @@ import { PoliciesSection }         from "./policies-section";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils/cn";
 
-/* ── Section definitions ─────────────────────────────────────── */
+/* ─────────────────────────────────────────────────
+   Section definitions — unified visual language.
+   Each section has a single subtle accent colour
+   (drawn from the brand palette) that tints the
+   icon tile when expanded. No emojis, no rainbow
+   gradients — consistent, professional treatment.
+   ───────────────────────────────────────────────── */
 const SECTIONS = [
   {
     id: "scheduling",
     label: "Scheduling",
-    description: "Booking windows & time slots",
+    description: "Booking windows & time-slot intervals",
     icon: CalendarRange,
-    gradient: "from-blue-500 to-indigo-600",
-    lightBg: "from-blue-50 to-indigo-50/30",
-    emoji: "📅",
+    accent: "#1B3163", // royal indigo
   },
   {
     id: "payments",
     label: "Payments",
-    description: "Payment modes & deposits",
+    description: "Deposits, payment mode & in-store methods",
     icon: CreditCard,
-    gradient: "from-emerald-500 to-teal-600",
-    lightBg: "from-emerald-50 to-teal-50/30",
-    emoji: "💳",
+    accent: "#C4A882", // warm sand
   },
   {
     id: "cancellation",
-    label: "Cancellation",
-    description: "No-show & cancellation fees",
+    label: "Cancellation & no-show fees",
+    description: "Tiered fees based on cancellation window",
     icon: TriangleAlert,
-    gradient: "from-amber-500 to-orange-600",
-    lightBg: "from-amber-50 to-orange-50/30",
-    emoji: "⚠️",
+    accent: "#A16207", // amber-800 (warm warning)
   },
   {
     id: "holidays",
-    label: "Holidays",
-    description: "Closures & public holidays",
+    label: "Holidays & closures",
+    description: "Public holidays and planned time off",
     icon: CalendarOff,
-    gradient: "from-rose-500 to-pink-600",
-    lightBg: "from-rose-50 to-pink-50/30",
-    emoji: "🏖️",
+    accent: "#86B0A5", // sage taupe
   },
   {
     id: "surcharges",
     label: "Surcharges",
-    description: "Weekend & after-hours pricing",
+    description: "Weekend, holiday & after-hours pricing",
     icon: Percent,
-    gradient: "from-violet-500 to-purple-600",
-    lightBg: "from-violet-50 to-purple-50/30",
-    emoji: "💲",
+    accent: "#2A4A7F", // deeper indigo
   },
   {
     id: "policies",
     label: "Policies",
-    description: "Cancellation & privacy text",
+    description: "Cancellation & privacy policy text",
     icon: FileText,
-    gradient: "from-slate-500 to-gray-600",
-    lightBg: "from-slate-50 to-gray-50/30",
-    emoji: "📄",
+    accent: "#4B5563", // slate
   },
 ] as const;
 
@@ -83,7 +83,7 @@ export function StoreSettingsClient() {
   const toast = useToast();
   const [isSaving, setIsSaving] = useState(false);
   const [openSections, setOpenSections] = useState<Set<SectionId>>(
-    new Set(["scheduling"])
+    new Set(["scheduling"]),
   );
 
   const form = useForm<StoreSettingsSchema>({
@@ -113,13 +113,17 @@ export function StoreSettingsClient() {
   function toggleSection(id: SectionId) {
     setOpenSections((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
+  }
+
+  function expandAll() {
+    setOpenSections(new Set(SECTIONS.map((s) => s.id)));
+  }
+  function collapseAll() {
+    setOpenSections(new Set());
   }
 
   async function onSubmit(data: StoreSettingsSchema) {
@@ -144,59 +148,74 @@ export function StoreSettingsClient() {
     }
   }
 
+  const allOpen = openSections.size === SECTIONS.length;
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-0">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 pb-24">
 
       {/* ═══════════════════════════════════════════════════════════
-          HEADER BANNER
+          PAGE HEADER — clean, on-brand, no cheesy gradients
           ═══════════════════════════════════════════════════════════ */}
-      <div className="relative overflow-hidden rounded-none sm:rounded-2xl mb-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0D1B2A] via-[#1B3163] to-[#2A4A7F]" />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2em0wIDJjLTQuNDE4IDAtOC0zLjU4Mi04LThzMy41ODItOCA4LTggOCAzLjU4MiA4IDgtMy41ODIgOC04IDh6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
-
-        <div className="relative px-5 sm:px-8 py-6 sm:py-8">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg">
-              <Settings2 className="w-6 h-6 sm:w-7 sm:h-7 text-white/80" />
-            </div>
-            <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                Store Settings
-              </h1>
-              <p className="text-sm text-white/50 mt-0.5">
-                Booking windows, payments, holidays, surcharges &amp; policies
-              </p>
-            </div>
+      <header className="flex items-start justify-between gap-4 flex-wrap pt-1">
+        <div className="flex items-start gap-3.5 min-w-0">
+          <div
+            className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+            style={{
+              backgroundColor: "#EEF1F8",
+              border: "1px solid #CBD5ED",
+            }}
+          >
+            <SlidersHorizontal size={20} className="text-[#1B3163]" strokeWidth={2.25} />
+          </div>
+          <div className="min-w-0">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#C4A882] mb-0.5">
+              Configuration
+            </p>
+            <h1 className="text-[22px] md:text-[26px] font-extrabold font-sans text-[#0B1220] leading-tight tracking-tight">
+              Store Settings
+            </h1>
+            <p className="text-sm text-[#4B5563] font-medium mt-1">
+              Scheduling windows, payments, holidays, surcharges &amp; policies.
+            </p>
           </div>
         </div>
-      </div>
+
+        {/* Expand / collapse control (desktop) */}
+        <button
+          type="button"
+          onClick={allOpen ? collapseAll : expandAll}
+          className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 h-9 rounded-lg bg-white border border-[#E8E4DA] text-[#4B5563] hover:text-[#0B1220] hover:border-[#C4A882]/40 transition-colors"
+        >
+          {allOpen ? "Collapse all" : "Expand all"}
+        </button>
+      </header>
 
       {/* ═══════════════════════════════════════════════════════════
-          MOBILE QUICK-JUMP PILLS
+          MOBILE QUICK-JUMP PILLS — icon-based, no emojis
           ═══════════════════════════════════════════════════════════ */}
-      <div className="lg:hidden flex items-center gap-2 overflow-x-auto pb-4 px-1 scrollbar-hide">
+      <div className="lg:hidden flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-1 px-1 pb-1">
         {SECTIONS.map((section) => {
           const isOpen = openSections.has(section.id);
+          const SectionIcon = section.icon;
           return (
             <button
               key={section.id}
               type="button"
               onClick={() => {
                 if (!isOpen) toggleSection(section.id);
-                // Scroll to section
                 document.getElementById(`section-${section.id}`)?.scrollIntoView({
                   behavior: "smooth",
                   block: "start",
                 });
               }}
               className={cn(
-                "flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-all duration-200 shrink-0 whitespace-nowrap border",
+                "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-semibold transition-all duration-200 shrink-0 whitespace-nowrap border",
                 isOpen
-                  ? "bg-[#0D1B2A] text-white border-[#0D1B2A] shadow-sm"
-                  : "bg-white text-[#6B7A99] border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm"
+                  ? "bg-[#0B1220] text-white border-[#0B1220]"
+                  : "bg-white text-[#4B5563] border-[#E8E4DA]"
               )}
             >
-              <span className="text-sm leading-none">{section.emoji}</span>
+              <SectionIcon size={13} />
               {section.label}
             </button>
           );
@@ -206,20 +225,20 @@ export function StoreSettingsClient() {
       {/* ═══════════════════════════════════════════════════════════
           ACCORDION SECTIONS
           ═══════════════════════════════════════════════════════════ */}
-      <div className="space-y-3 px-1 sm:px-0 pb-24">
+      <div className="space-y-3">
         {SECTIONS.map((section) => {
           const isOpen = openSections.has(section.id);
           const SectionIcon = section.icon;
 
           return (
-            <div
+            <section
               key={section.id}
               id={`section-${section.id}`}
               className={cn(
-                "rounded-2xl border overflow-hidden transition-all duration-300 scroll-mt-20",
+                "bg-white rounded-2xl border overflow-hidden transition-all duration-200 scroll-mt-20",
                 isOpen
-                  ? "border-[#E8ECF4] shadow-sm bg-white"
-                  : "border-[#E8ECF4]/80 bg-white hover:shadow-sm hover:border-[#E8ECF4]"
+                  ? "border-[#E8E4DA] shadow-sm"
+                  : "border-[#E8E4DA] hover:border-[#C4A882]/30"
               )}
             >
               {/* Accordion header */}
@@ -227,60 +246,61 @@ export function StoreSettingsClient() {
                 type="button"
                 onClick={() => toggleSection(section.id)}
                 className={cn(
-                  "w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 sm:py-5 text-left transition-all duration-200",
-                  isOpen && "border-b border-[#F0F3FA]"
-                )}
-              >
-                {/* Icon with gradient */}
-                <div className={cn(
-                  "w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 shadow-sm",
+                  "w-full flex items-center gap-4 px-5 py-4 text-left transition-colors",
                   isOpen
-                    ? `bg-gradient-to-br ${section.gradient}`
-                    : "bg-gradient-to-br from-[#F4F2EE] to-[#E8E2D8]"
-                )}>
-                  <SectionIcon className={cn(
-                    "w-5 h-5 transition-colors duration-300",
-                    isOpen ? "text-white" : "text-[#6B7A99]"
-                  )} />
+                    ? "bg-white border-b border-[#F0EEE6]"
+                    : "bg-white hover:bg-[#FAF8F3]"
+                )}
+                aria-expanded={isOpen}
+                aria-controls={`panel-${section.id}`}
+              >
+                {/* Icon tile — unified brand treatment, accent only */}
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200"
+                  style={{
+                    backgroundColor: isOpen ? `${section.accent}14` : "#F5F3EE",
+                    border: `1px solid ${isOpen ? `${section.accent}30` : "#E8E4DA"}`,
+                  }}
+                >
+                  <SectionIcon
+                    size={18}
+                    strokeWidth={2.25}
+                    style={{ color: isOpen ? section.accent : "#6B7280" }}
+                  />
                 </div>
 
-                {/* Label & description */}
+                {/* Label + description */}
                 <div className="flex-1 min-w-0">
-                  <h2 className={cn(
-                    "text-sm sm:text-base font-bold transition-colors",
-                    isOpen ? "text-[#0D1B2A]" : "text-[#0D1B2A]/80"
-                  )}>
+                  <h2 className="text-[15px] font-bold text-[#0B1220] leading-tight truncate">
                     {section.label}
                   </h2>
-                  <p className="text-[11px] sm:text-xs text-[#8E95A5] mt-0.5 truncate">
+                  <p className="text-[12px] text-[#6B7280] mt-0.5 font-medium truncate">
                     {section.description}
                   </p>
                 </div>
 
                 {/* Chevron */}
-                <div className={cn(
-                  "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300",
-                  isOpen ? "bg-[#F4F2EE] rotate-180" : "bg-transparent"
-                )}>
-                  <ChevronDown className={cn(
-                    "w-4 h-4 transition-colors",
-                    isOpen ? "text-[#0D1B2A]" : "text-[#C4C9D4]"
-                  )} />
-                </div>
+                <ChevronDown
+                  size={18}
+                  strokeWidth={2.25}
+                  className={cn(
+                    "shrink-0 transition-all duration-200",
+                    isOpen ? "rotate-180 text-[#0B1220]" : "text-[#9CA3AF]",
+                  )}
+                />
               </button>
 
               {/* Accordion content */}
               <div
+                id={`panel-${section.id}`}
                 className={cn(
                   "transition-all duration-300 ease-in-out overflow-hidden",
-                  isOpen ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0"
+                  isOpen ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0",
                 )}
               >
-                <div className="p-0">
-                  {renderSectionContent(section.id)}
-                </div>
+                <div>{renderSectionContent(section.id)}</div>
               </div>
-            </div>
+            </section>
           );
         })}
       </div>
@@ -293,13 +313,21 @@ export function StoreSettingsClient() {
           "fixed bottom-0 left-0 right-0 z-30 transition-all duration-300 ease-out",
           isDirty
             ? "translate-y-0 opacity-100"
-            : "translate-y-full opacity-0 pointer-events-none"
+            : "translate-y-full opacity-0 pointer-events-none",
         )}
       >
         <div className="max-w-4xl mx-auto px-4 pb-4 sm:pb-5">
-          <div className="bg-[#0D1B2A] rounded-2xl shadow-2xl shadow-[#0D1B2A]/20 border border-white/5 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between gap-3">
-            <p className="text-xs sm:text-sm text-white/70 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          <div
+            className="rounded-2xl px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-between gap-3"
+            style={{
+              backgroundColor: "#0B1220",
+              border: "1px solid rgba(196,168,130,0.15)",
+              boxShadow:
+                "0 12px 32px rgba(11,18,32,0.28), 0 4px 8px rgba(11,18,32,0.18)",
+            }}
+          >
+            <p className="text-xs sm:text-sm text-white/85 flex items-center gap-2 font-medium">
+              <span className="w-2 h-2 rounded-full bg-[#C4A882] animate-pulse" />
               <span className="hidden sm:inline">You have unsaved changes</span>
               <span className="sm:hidden">Unsaved changes</span>
             </p>
@@ -308,28 +336,28 @@ export function StoreSettingsClient() {
               disabled={isSaving}
               className={cn(
                 "flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200",
-                "bg-gradient-to-r from-[#C4A882] to-[#E8D5B7] text-[#0D1B2A]",
-                "hover:shadow-lg hover:shadow-[#C4A882]/30 hover:scale-[1.02]",
-                "focus:outline-none focus:ring-2 focus:ring-[#C4A882] focus:ring-offset-2 focus:ring-offset-[#0D1B2A]",
-                "active:scale-[0.98]",
-                isSaving && "opacity-60 cursor-not-allowed"
+                "bg-gradient-to-r from-[#C4A882] to-[#D5B584] text-[#0B1220]",
+                "hover:shadow-lg hover:shadow-[#C4A882]/30 hover:brightness-[1.02]",
+                "focus:outline-none focus:ring-2 focus:ring-[#C4A882] focus:ring-offset-2 focus:ring-offset-[#0B1220]",
+                isSaving && "opacity-60 cursor-not-allowed",
               )}
             >
               {isSaving ? (
                 <>
-                  <span className="w-4 h-4 border-2 border-[#0D1B2A]/30 border-t-[#0D1B2A] rounded-full animate-spin" />
+                  <span className="w-4 h-4 border-2 border-[#0B1220]/30 border-t-[#0B1220] rounded-full animate-spin" />
                   Saving…
                 </>
               ) : (
                 <>
-                  <Save className="w-4 h-4" />
-                  Save Settings
+                  <Save size={15} strokeWidth={2.5} />
+                  Save changes
                 </>
               )}
             </button>
           </div>
         </div>
       </div>
+
     </form>
   );
 }

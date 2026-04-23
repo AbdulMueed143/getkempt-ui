@@ -13,7 +13,7 @@ export function DashboardShell({ children, pageTitle }: DashboardShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#F4F2EE]">
+    <div className="app-surface flex h-screen overflow-hidden">
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -28,7 +28,7 @@ export function DashboardShell({ children, pageTitle }: DashboardShellProps) {
         />
 
         {/* Scrollable content */}
-        <main className="flex-1 overflow-y-auto p-5 lg:p-7">
+        <main className="flex-1 overflow-y-auto px-4 py-5 lg:px-8 lg:py-7">
           {children}
         </main>
       </div>

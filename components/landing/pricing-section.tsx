@@ -314,8 +314,8 @@ export function PricingSection() {
                 : "bg-white/60 border-[#E8E2D8]"
             )}>
               <div className="flex items-center gap-2 mb-3">
-                <MessageSquare className={cn("w-4 h-4 shrink-0", includeSms ? "text-violet-600" : "text-[#8E95A5]")} />
-                <p className={cn("text-sm font-bold", includeSms ? "text-violet-900" : "text-[#8E95A5]")}>
+                <MessageSquare className={cn("w-4 h-4 shrink-0", includeSms ? "text-violet-600" : "text-[#6B7280]")} />
+                <p className={cn("text-sm font-bold", includeSms ? "text-violet-900" : "text-[#6B7280]")}>
                   SMS plan · +${SMS_ADD_ON}/staff/mo
                 </p>
                 {includeSms && (
@@ -374,7 +374,7 @@ export function PricingSection() {
           </a>
         </div>
 
-        <p className="text-center text-xs text-[#8E95A5] mt-6">
+        <p className="text-center text-xs text-[#6B7280] mt-6">
           All prices in AUD · GST applies to Australian businesses · First month free, no credit card required
         </p>
       </div>

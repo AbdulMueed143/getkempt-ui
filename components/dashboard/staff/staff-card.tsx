@@ -4,7 +4,7 @@ import { ROLE_LABELS } from "@/types/staff";
 
 /* ── Role badge colours ──────────────────────────── */
 const ROLE_STYLE: Record<StaffRole, { color: string; bg: string }> = {
-  owner:   { color: "#0D1B2A", bg: "#E8ECF4" },
+  owner:   { color: "#0D1B2A", bg: "#E8E4DA" },
   manager: { color: "#92400E", bg: "#FEF3C7" },
   staff:   { color: "#1D4ED8", bg: "#DBEAFE" },
 };
@@ -13,7 +13,7 @@ const ROLE_STYLE: Record<StaffRole, { color: string; bg: string }> = {
 const STATUS_STYLE: Record<StaffStatus, { color: string; label: string }> = {
   active:   { color: "#16A34A", label: "Active" },
   on_leave: { color: "#D97706", label: "On Leave" },
-  inactive: { color: "#8E95A5", label: "Inactive" },
+  inactive: { color: "#6B7280", label: "Inactive" },
 };
 
 /* ── Max services shown before "+N more" ─────────── */
@@ -34,7 +34,7 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
 
   return (
     <article
-      className="bg-white rounded-2xl overflow-hidden flex flex-col group transition-all duration-200 hover:shadow-lg border border-[#E8ECF4] shadow-sm"
+      className="bg-white rounded-2xl overflow-hidden flex flex-col group transition-all duration-200 hover:shadow-lg border border-[#E8E4DA] shadow-sm"
     >
       {/* ── Coloured header strip ──────────────────── */}
       <div
@@ -45,14 +45,14 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
         <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
             onClick={() => onEdit(member)}
-            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors bg-white border border-[#E8ECF4] text-[#0D1B2A] hover:bg-[#F0F3FA]"
+            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors bg-white border border-[#E8E4DA] text-[#0D1B2A] hover:bg-[#F0EEE6]"
             title="Edit staff member"
           >
             <Pencil size={13} />
           </button>
           <button
             onClick={() => onDelete(member.id)}
-            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors bg-white border border-[#E8ECF4] text-red-500 hover:bg-red-50"
+            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors bg-white border border-[#E8E4DA] text-red-500 hover:bg-red-50"
             title="Remove staff member"
           >
             <Trash2 size={13} />
@@ -90,7 +90,7 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
               {member.firstName} {member.lastName}
             </h3>
             {member.specialization && (
-              <p className="text-xs mt-0.5 truncate text-[#8E95A5]">
+              <p className="text-xs mt-0.5 truncate text-[#6B7280]">
                 {member.specialization}
               </p>
             )}
@@ -105,7 +105,7 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
               {ROLE_LABELS[member.role]}
             </span>
             {/* Status dot */}
-            <span className="flex items-center gap-1 text-[11px] text-[#8E95A5]">
+            <span className="flex items-center gap-1 text-[11px] text-[#6B7280]">
               <span
                 className="w-1.5 h-1.5 rounded-full"
                 style={{ backgroundColor: statusStyle.color }}
@@ -146,13 +146,13 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
             {visibleServices.map((s) => (
               <span
                 key={s}
-                className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#F4F2EE] text-[#0D1B2A]"
+                className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#F5F3EE] text-[#0D1B2A]"
               >
                 {s}
               </span>
             ))}
             {extraServices > 0 && (
-              <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#E8ECF4] text-[#8E95A5]">
+              <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#E8E4DA] text-[#6B7280]">
                 +{extraServices} more
               </span>
             )}
@@ -160,7 +160,7 @@ export function StaffCard({ member, onEdit, onDelete }: StaffCardProps) {
         )}
 
         {/* Pay info */}
-        <div className="text-xs pt-3 border-t border-[#F0F3FA] text-[#8E95A5]">
+        <div className="text-xs pt-3 border-t border-[#F0EEE6] text-[#6B7280]">
           {member.commissionType === "salary" && "Salary"}
           {member.commissionType === "hourly" && member.commissionRate != null &&
             `$${member.commissionRate}/hr`}

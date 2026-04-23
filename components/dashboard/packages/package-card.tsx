@@ -34,7 +34,7 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
 
   return (
     <article
-      className="bg-white rounded-2xl flex flex-col group transition-all duration-200 hover:shadow-lg overflow-hidden border border-[#E8ECF4] shadow-sm"
+      className="bg-white rounded-2xl flex flex-col group transition-all duration-200 hover:shadow-lg overflow-hidden border border-[#E8E4DA] shadow-sm"
       style={{ opacity: isInactive ? 0.72 : 1 }}
     >
       {/* ── Header: cover image or brand accent strip ── */}
@@ -60,7 +60,7 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
             {/* Status badges */}
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
               {isInactive ? (
-                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full text-[#8E95A5] bg-[#F3F4F6]">
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full text-[#6B7280] bg-[#F3F4F6]">
                   Inactive
                 </span>
               ) : (
@@ -68,7 +68,7 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
                   Active
                 </span>
               )}
-              <span className="flex items-center gap-1 text-[10px]" style={{ color: pkg.onlineBookingEnabled ? "#16A34A" : "#8E95A5" }}>
+              <span className="flex items-center gap-1 text-[10px]" style={{ color: pkg.onlineBookingEnabled ? "#16A34A" : "#6B7280" }}>
                 {pkg.onlineBookingEnabled
                   ? <Wifi size={10} />
                   : <WifiOff size={10} />}
@@ -85,7 +85,7 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
           <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
             <button
               onClick={() => onEdit(pkg)}
-              className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#F4F2EE] border border-[#E8ECF4] text-[#0D1B2A] hover:bg-[#E8ECF4] transition-colors"
+              className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#F5F3EE] border border-[#E8E4DA] text-[#0D1B2A] hover:bg-[#E8E4DA] transition-colors"
               title="Edit package"
             >
               <Pencil size={13} />
@@ -123,13 +123,13 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
               );
             })
           ) : (
-            <span className="text-xs italic text-[#8E95A5]">No services linked</span>
+            <span className="text-xs italic text-[#6B7280]">No services linked</span>
           )}
         </div>
 
         {/* ── Meta row ──────────────────────────────── */}
         <div className="flex items-center gap-4 flex-wrap">
-          <span className="flex items-center gap-1.5 text-xs text-[#8E95A5]">
+          <span className="flex items-center gap-1.5 text-xs text-[#6B7280]">
             <Clock size={13} className="text-[#9FB2D9]" />
             {formatDuration(effectiveDur)}
             {pkg.customDurationMinutes != null && (
@@ -139,7 +139,7 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
             )}
           </span>
           {pkg.staffIds.length > 0 && (
-            <span className="flex items-center gap-1.5 text-xs text-[#8E95A5]">
+            <span className="flex items-center gap-1.5 text-xs text-[#6B7280]">
               <Users size={13} className="text-[#9FB2D9]" />
               {pkg.staffIds.length} staff
             </span>
@@ -147,10 +147,10 @@ export function PackageCard({ pkg, services, onEdit, onDelete }: PackageCardProp
         </div>
 
         {/* ── Pricing footer ────────────────────────── */}
-        <div className="flex items-end justify-between pt-3 mt-auto border-t border-[#F0F3FA]">
+        <div className="flex items-end justify-between pt-3 mt-auto border-t border-[#F0EEE6]">
           <div>
             {isDiscounted && (
-              <p className="text-xs line-through text-[#8E95A5]">
+              <p className="text-xs line-through text-[#6B7280]">
                 ${formatPrice(base)}
               </p>
             )}

@@ -106,7 +106,7 @@ export function PackagePageClient() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-[#0D1B2A]">Packages</h1>
-            <p className="text-sm mt-0.5 text-[#8E95A5]">
+            <p className="text-sm mt-0.5 text-[#6B7280]">
               Bundle services into discounted offerings to increase bookings and average spend.
             </p>
           </div>
@@ -133,14 +133,14 @@ export function PackagePageClient() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search packages…"
-              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 transition-all duration-200 placeholder:text-[#8E95A5]"
+              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 transition-all duration-200 placeholder:text-[#6B7280]"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
+            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
             style={{ minWidth: 140 }}
           >
             <option value="all">All statuses</option>
@@ -151,8 +151,8 @@ export function PackagePageClient() {
 
         {/* ── Package grid ─────────────────────────── */}
         {filtered.length === 0 ? (
-          <div className="text-center py-16 bg-white rounded-2xl border border-[#E8ECF4]">
-            <p className="text-sm text-[#8E95A5]">
+          <div className="text-center py-16 bg-white rounded-2xl border border-[#E8E4DA]">
+            <p className="text-sm text-[#6B7280]">
               {search || statusFilter !== "all"
                 ? "No packages match your filters."
                 : "No packages yet. Create your first bundle!"}

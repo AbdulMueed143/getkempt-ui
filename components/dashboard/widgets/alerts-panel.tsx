@@ -2,19 +2,49 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { AlertTriangle, Info, CheckCircle2, XCircle, X } from "lucide-react";
+import { AlertTriangle, Info, CheckCircle2, XCircle, X, Bell } from "lucide-react";
 import { ALERTS } from "@/lib/mock/dashboard";
 import type { AlertItem, AlertSeverity } from "@/types/dashboard";
 
 /* ── Severity config ─────────────────────────────── */
 const SEVERITY_CONFIG: Record<
   AlertSeverity,
-  { icon: typeof Info; color: string; bg: string; border: string }
+  {
+    icon: typeof Info;
+    color: string;
+    bg: string;
+    border: string;
+    iconBg: string;
+  }
 > = {
-  warning: { icon: AlertTriangle, color: "#D97706", bg: "#FFFBEB", border: "#FDE68A" },
-  error:   { icon: XCircle,       color: "#DC2626", bg: "#FEF2F2", border: "#FECACA" },
-  info:    { icon: Info,          color: "#2563EB", bg: "#EFF6FF", border: "#BFDBFE" },
-  success: { icon: CheckCircle2,  color: "#16A34A", bg: "#F0FDF4", border: "#BBF7D0" },
+  warning: {
+    icon: AlertTriangle,
+    color: "#A16207",
+    bg: "#FFFBEB",
+    border: "#FDE68A",
+    iconBg: "#FEF3C7",
+  },
+  error: {
+    icon: XCircle,
+    color: "#B91C1C",
+    bg: "#FEF2F2",
+    border: "#FECACA",
+    iconBg: "#FEE2E2",
+  },
+  info: {
+    icon: Info,
+    color: "#1D4ED8",
+    bg: "#EFF6FF",
+    border: "#BFDBFE",
+    iconBg: "#DBEAFE",
+  },
+  success: {
+    icon: CheckCircle2,
+    color: "#047857",
+    bg: "#ECFDF5",
+    border: "#A7F3D0",
+    iconBg: "#D1FAE5",
+  },
 };
 
 export function AlertsPanel() {
@@ -26,27 +56,49 @@ export function AlertsPanel() {
   return (
     <div
       className="bg-white rounded-2xl p-5 flex flex-col"
-      style={{ border: "1px solid #E8ECF4", boxShadow: "0 1px 3px rgba(27,49,99,0.06)" }}
+      style={{
+        border: "1px solid #E8E4DA",
+        boxShadow:
+          "0 1px 2px rgba(11,18,32,0.04), 0 1px 3px rgba(11,18,32,0.04)",
+      }}
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <h2 className="text-base font-semibold" style={{ color: "#1B3163" }}>
-            Alerts
-          </h2>
-          {unreadCount > 0 && (
-            <span
-              className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
-              style={{ backgroundColor: "#D5B584", color: "#1B3163" }}
-            >
-              {unreadCount}
-            </span>
-          )}
+        <div className="flex items-center gap-3">
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+            style={{
+              backgroundColor: "#FFFBEB",
+              border: "1px solid #FDE68A",
+            }}
+          >
+            <Bell size={16} className="text-[#A16207]" strokeWidth={2.25} />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-[15px] font-bold text-[#0B1220] leading-tight">
+                Alerts
+              </h2>
+              {unreadCount > 0 && (
+                <span
+                  className="text-[9px] font-black px-1.5 py-0.5 rounded-md leading-none"
+                  style={{
+                    background: "linear-gradient(135deg, #C4A882, #D5B584)",
+                    color: "#0B1220",
+                  }}
+                >
+                  {unreadCount} NEW
+                </span>
+              )}
+            </div>
+            <p className="text-[11px] font-medium text-[#6B7280] mt-0.5">
+              Things that need your attention
+            </p>
+          </div>
         </div>
         {visible.length > 0 && (
           <button
-            className="text-xs transition-colors"
-            style={{ color: "#8E95A5" }}
+            className="text-[11px] font-semibold text-[#4B5563] hover:text-[#0B1220] transition-colors"
             onClick={() => setDismissed(new Set(ALERTS.map((a) => a.id)))}
           >
             Clear all
@@ -56,11 +108,17 @@ export function AlertsPanel() {
 
       {/* List */}
       {visible.length === 0 ? (
-        <div className="flex-1 flex flex-col items-center justify-center py-8 gap-2">
-          <CheckCircle2 size={28} style={{ color: "#16A34A" }} />
-          <p className="text-sm font-medium" style={{ color: "#8E95A5" }}>
-            All clear — no alerts
+        <div className="flex-1 flex flex-col items-center justify-center py-10 gap-2">
+          <div
+            className="w-12 h-12 rounded-full flex items-center justify-center"
+            style={{ backgroundColor: "#ECFDF5", border: "1px solid #A7F3D0" }}
+          >
+            <CheckCircle2 size={22} className="text-[#047857]" />
+          </div>
+          <p className="text-sm font-semibold text-[#0B1220]">
+            You&apos;re all caught up
           </p>
+          <p className="text-xs text-[#6B7280]">No alerts right now.</p>
         </div>
       ) : (
         <ul className="space-y-2">
@@ -68,7 +126,9 @@ export function AlertsPanel() {
             <AlertRow
               key={alert.id}
               alert={alert}
-              onDismiss={() => setDismissed((prev) => new Set([...prev, alert.id]))}
+              onDismiss={() =>
+                setDismissed((prev) => new Set([...prev, alert.id]))
+              }
             />
           ))}
         </ul>
@@ -90,36 +150,41 @@ function AlertRow({
 
   return (
     <li
-      className="flex gap-3 p-3 rounded-xl"
+      className="flex gap-3 p-3.5 rounded-xl transition-all hover:shadow-sm"
       style={{
         backgroundColor: config.bg,
         border: `1px solid ${config.border}`,
-        opacity: alert.read ? 0.75 : 1,
+        opacity: alert.read ? 0.8 : 1,
       }}
     >
       {/* Severity icon */}
-      <Icon size={16} className="shrink-0 mt-0.5" style={{ color: config.color }} />
+      <div
+        className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+        style={{ backgroundColor: config.iconBg }}
+      >
+        <Icon size={15} style={{ color: config.color }} strokeWidth={2.25} />
+      </div>
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-1">
-          <p className="text-xs font-semibold" style={{ color: "#1B3163" }}>
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-[13px] font-bold text-[#0B1220] leading-tight">
             {alert.title}
           </p>
-          <span className="text-[10px] shrink-0 ml-1" style={{ color: "#8E95A5" }}>
+          <span className="text-[10px] font-medium shrink-0 text-[#6B7280]">
             {alert.time}
           </span>
         </div>
-        <p className="text-xs mt-0.5" style={{ color: "#6B7A99" }}>
+        <p className="text-xs mt-1 text-[#4B5563] leading-snug">
           {alert.description}
         </p>
         {alert.actionLabel && alert.actionHref && (
           <Link
             href={alert.actionHref}
-            className="text-[11px] font-semibold mt-1.5 inline-block"
+            className="inline-flex items-center gap-1 text-[11px] font-bold mt-2 hover:underline"
             style={{ color: config.color }}
           >
-            {alert.actionLabel} →
+            {alert.actionLabel} <span aria-hidden>→</span>
           </Link>
         )}
       </div>
@@ -127,8 +192,7 @@ function AlertRow({
       {/* Dismiss */}
       <button
         onClick={onDismiss}
-        className="shrink-0 p-0.5 rounded transition-opacity opacity-50 hover:opacity-100"
-        style={{ color: "#8E95A5" }}
+        className="shrink-0 p-1 h-fit rounded-md transition-all opacity-60 hover:opacity-100 hover:bg-black/5 text-[#4B5563]"
         aria-label="Dismiss alert"
       >
         <X size={13} />

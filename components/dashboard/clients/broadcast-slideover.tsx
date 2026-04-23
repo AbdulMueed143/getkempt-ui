@@ -170,18 +170,18 @@ export function BroadcastSlideover({
         {/* ── Header ──────────────────────────────── */}
         <div
           className="flex items-center justify-between px-6 py-5 shrink-0"
-          style={{ borderBottom: "1px solid #E8ECF4" }}
+          style={{ borderBottom: "1px solid #E8E4DA" }}
         >
           <div>
             <h2 className="text-lg font-bold" style={{ color: "#1B3163" }}>Send Campaign</h2>
-            <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+            <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
               Reach your clients via email — the backend handles delivery
             </p>
           </div>
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: "#F0F3FA", color: "#1B3163" }}
+            style={{ backgroundColor: "#F0EEE6", color: "#1B3163" }}
             aria-label="Close"
           >
             <X size={16} />
@@ -210,8 +210,8 @@ export function BroadcastSlideover({
                         disabled && "opacity-40 cursor-not-allowed"
                       )}
                       style={{
-                        border:          `1.5px solid ${isActive ? "#1B3163" : "#E8ECF4"}`,
-                        backgroundColor: isActive ? "#EEF1F8" : "#F8F9FC",
+                        border:          `1.5px solid ${isActive ? "#1B3163" : "#E8E4DA"}`,
+                        backgroundColor: isActive ? "#EEF1F8" : "#FAF8F3",
                       }}
                     >
                       <input
@@ -226,7 +226,7 @@ export function BroadcastSlideover({
                         {opt.count != null && (
                           <span
                             className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full tabular-nums"
-                            style={{ backgroundColor: isActive ? "#1B3163" : "#E8ECF4", color: isActive ? "#EAEAEA" : "#6B7A99" }}
+                            style={{ backgroundColor: isActive ? "#1B3163" : "#E8E4DA", color: isActive ? "#EAEAEA" : "#6B7A99" }}
                           >
                             {opt.count}
                           </span>
@@ -235,7 +235,7 @@ export function BroadcastSlideover({
                       <p className="text-xs font-semibold" style={{ color: isActive ? "#1B3163" : "#374151" }}>
                         {opt.label}
                       </p>
-                      <p className="text-[11px] leading-snug" style={{ color: "#8E95A5" }}>
+                      <p className="text-[11px] leading-snug" style={{ color: "#6B7280" }}>
                         {opt.desc}
                       </p>
                     </label>
@@ -246,12 +246,12 @@ export function BroadcastSlideover({
               {/* Staff selector — shown when audience = "staff" */}
               {audience === "staff" && (
                 <div className="space-y-1">
-                  <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#8E95A5" }}>
+                  <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6B7280" }}>
                     Select staff member <span style={{ color: "#D5B584" }}>*</span>
                   </label>
                   <select
                     className="w-full rounded-xl text-sm py-2.5 px-3 appearance-none"
-                    style={{ backgroundColor: "#F8F9FC", border: `1px solid ${errors.staffId ? "#EF4444" : "#E8ECF4"}`, color: "#1B3163", outline: "none" }}
+                    style={{ backgroundColor: "#FAF8F3", border: `1px solid ${errors.staffId ? "#EF4444" : "#E8E4DA"}`, color: "#1B3163", outline: "none" }}
                     {...register("staffId")}
                     defaultValue=""
                   >
@@ -288,11 +288,11 @@ export function BroadcastSlideover({
               <FieldWrap label="Channel" required>
                 <div
                   className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm"
-                  style={{ backgroundColor: "#F8F9FC", border: "1px solid #E8ECF4", color: "#1B3163" }}
+                  style={{ backgroundColor: "#FAF8F3", border: "1px solid #E8E4DA", color: "#1B3163" }}
                 >
                   <Mail size={14} />
                   <span className="font-medium">Email</span>
-                  <span className="text-xs ml-auto" style={{ color: "#8E95A5" }}>SMS & push notifications coming soon</span>
+                  <span className="text-xs ml-auto" style={{ color: "#6B7280" }}>SMS & push notifications coming soon</span>
                 </div>
               </FieldWrap>
 
@@ -300,7 +300,7 @@ export function BroadcastSlideover({
                   <input
                   placeholder="e.g. Special offer just for you!"
                   className="w-full rounded-lg text-sm px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:bg-white"
-                  style={{ backgroundColor: "#F8F9FC", border: `1px solid ${errors.subject ? "#EF4444" : "#E8ECF4"}`, color: "#1B3163" }}
+                  style={{ backgroundColor: "#FAF8F3", border: `1px solid ${errors.subject ? "#EF4444" : "#E8E4DA"}`, color: "#1B3163" }}
                   {...register("subject")}
                 />
               </FieldWrap>
@@ -313,20 +313,20 @@ export function BroadcastSlideover({
                     maxLength={MAX_MSG_CHARS}
                     className="w-full rounded-lg text-sm px-4 py-2.5 resize-none focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:bg-white"
                     style={{
-                      backgroundColor: "#F8F9FC",
-                      border:          `1px solid ${errors.message ? "#EF4444" : "#E8ECF4"}`,
+                      backgroundColor: "#FAF8F3",
+                      border:          `1px solid ${errors.message ? "#EF4444" : "#E8E4DA"}`,
                       color:           "#1B3163",
                     }}
                     {...register("message")}
                   />
                   <span
                     className="absolute bottom-2.5 right-3 text-[10px] tabular-nums"
-                    style={{ color: message.length > MAX_MSG_CHARS * 0.9 ? "#D97706" : "#8E95A5" }}
+                    style={{ color: message.length > MAX_MSG_CHARS * 0.9 ? "#D97706" : "#6B7280" }}
                   >
                     {MAX_MSG_CHARS - message.length} remaining
                   </span>
                 </div>
-                <p className="text-[11px] flex items-center gap-1" style={{ color: "#8E95A5" }}>
+                <p className="text-[11px] flex items-center gap-1" style={{ color: "#6B7280" }}>
                   <span>💡</span>
                   Use <code className="text-[10px] px-1 rounded" style={{ backgroundColor: "#EEF1F8", color: "#1B3163" }}>{"{{firstName}}"}</code> to personalise each message
                 </p>
@@ -338,7 +338,7 @@ export function BroadcastSlideover({
 
               <div className="space-y-2">
                 <label className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors"
-                  style={{ border: `1.5px solid ${!isScheduled ? "#1B3163" : "#E8ECF4"}`, backgroundColor: !isScheduled ? "#EEF1F8" : "#F8F9FC" }}>
+                  style={{ border: `1.5px solid ${!isScheduled ? "#1B3163" : "#E8E4DA"}`, backgroundColor: !isScheduled ? "#EEF1F8" : "#FAF8F3" }}>
                   <input
                     type="radio"
                     className="accent-[#1B3163]"
@@ -349,14 +349,14 @@ export function BroadcastSlideover({
                     <p className="text-sm font-medium" style={{ color: !isScheduled ? "#1B3163" : "#374151" }}>
                       Send immediately
                     </p>
-                    <p className="text-xs" style={{ color: "#8E95A5" }}>
+                    <p className="text-xs" style={{ color: "#6B7280" }}>
                       Campaign is queued as soon as you confirm
                     </p>
                   </div>
                 </label>
 
                 <label className="flex items-start gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors"
-                  style={{ border: `1.5px solid ${isScheduled ? "#1B3163" : "#E8ECF4"}`, backgroundColor: isScheduled ? "#EEF1F8" : "#F8F9FC" }}>
+                  style={{ border: `1.5px solid ${isScheduled ? "#1B3163" : "#E8E4DA"}`, backgroundColor: isScheduled ? "#EEF1F8" : "#FAF8F3" }}>
                   <input
                     type="radio"
                     className="accent-[#1B3163] mt-0.5"
@@ -368,7 +368,7 @@ export function BroadcastSlideover({
                       <p className="text-sm font-medium" style={{ color: isScheduled ? "#1B3163" : "#374151" }}>
                         Schedule for later
                       </p>
-                      <p className="text-xs" style={{ color: "#8E95A5" }}>
+                      <p className="text-xs" style={{ color: "#6B7280" }}>
                         Pick a date and time — backend handles delivery
                       </p>
                     </div>
@@ -376,7 +376,7 @@ export function BroadcastSlideover({
                       <input
                         type="datetime-local"
                         className="w-full rounded-lg text-sm px-3 py-2"
-                        style={{ backgroundColor: "white", border: "1px solid #E8ECF4", color: "#1B3163", outline: "none" }}
+                        style={{ backgroundColor: "white", border: "1px solid #E8E4DA", color: "#1B3163", outline: "none" }}
                         min={new Date().toISOString().slice(0, 16)}
                         {...register("scheduledAt")}
                       />
@@ -392,9 +392,9 @@ export function BroadcastSlideover({
         {/* ── Footer ──────────────────────────────── */}
         <div
           className="flex items-center justify-between gap-3 px-6 py-4 shrink-0"
-          style={{ borderTop: "1px solid #E8ECF4" }}
+          style={{ borderTop: "1px solid #E8E4DA" }}
         >
-          <div className="text-xs" style={{ color: "#8E95A5" }}>
+          <div className="text-xs" style={{ color: "#6B7280" }}>
             {recipientCount > 0
               ? `~${recipientCount} recipients`
               : "Select an audience above"}
@@ -404,7 +404,7 @@ export function BroadcastSlideover({
               type="button"
               onClick={onClose}
               className="px-4 py-2.5 rounded-xl text-sm font-medium"
-              style={{ backgroundColor: "#F0F3FA", color: "#1B3163", border: "1px solid #E8ECF4" }}
+              style={{ backgroundColor: "#F0EEE6", color: "#1B3163", border: "1px solid #E8E4DA" }}
             >
               Cancel
             </button>
@@ -438,7 +438,7 @@ function SlidSection({
   icon: React.ReactNode; title: string; children: React.ReactNode;
 }) {
   return (
-    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0F3FA" }}>
+    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0EEE6" }}>
       <div className="flex items-center gap-2">
         <span style={{ color: "#1B3163" }}>{icon}</span>
         <h3 className="text-sm font-semibold" style={{ color: "#1B3163" }}>{title}</h3>
@@ -455,7 +455,7 @@ function FieldWrap({
 }) {
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#8E95A5" }}>
+      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6B7280" }}>
         {label}{required && <span className="text-[#D5B584] ml-1">*</span>}
       </label>
       {children}

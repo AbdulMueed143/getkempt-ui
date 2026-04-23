@@ -17,7 +17,7 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
 
   return (
     <article
-      className="bg-white rounded-2xl overflow-hidden flex flex-col group transition-all duration-200 hover:shadow-lg border border-[#E8ECF4] shadow-sm"
+      className="bg-white rounded-2xl overflow-hidden flex flex-col group transition-all duration-200 hover:shadow-lg border border-[#E8E4DA] shadow-sm"
       style={{ opacity: isInactive ? 0.7 : 1 }}
     >
       {/* ── Header: cover image or colour strip ─────── */}
@@ -55,7 +55,7 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
                 </span>
               )}
               {isInactive && (
-                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full text-[#8E95A5] bg-[#F3F4F6]">
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full text-[#6B7280] bg-[#F3F4F6]">
                   Inactive
                 </span>
               )}
@@ -69,7 +69,7 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
           <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
             <button
               onClick={() => onEdit(service)}
-              className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#F4F2EE] border border-[#E8ECF4] text-[#0D1B2A] hover:bg-[#E8ECF4] transition-colors"
+              className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#F5F3EE] border border-[#E8E4DA] text-[#0D1B2A] hover:bg-[#E8E4DA] transition-colors"
               title="Edit service"
             >
               <Pencil size={13} />
@@ -94,21 +94,21 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
         {/* Key metrics row */}
         <div className="flex items-center gap-4 flex-wrap">
           {/* Duration */}
-          <span className="flex items-center gap-1.5 text-xs text-[#8E95A5]">
+          <span className="flex items-center gap-1.5 text-xs text-[#6B7280]">
             <Clock size={13} className="text-[#9FB2D9]" />
             {service.durationMinutes} min
           </span>
 
           {/* Buffer */}
           {service.bufferMinutes > 0 && (
-            <span className="flex items-center gap-1.5 text-xs text-[#8E95A5]">
+            <span className="flex items-center gap-1.5 text-xs text-[#6B7280]">
               <Timer size={13} className="text-[#9FB2D9]" />
               +{service.bufferMinutes} min buffer
             </span>
           )}
 
           {/* Online booking */}
-          <span className="flex items-center gap-1.5 text-xs" style={{ color: service.onlineBookingEnabled ? "#16A34A" : "#8E95A5" }}>
+          <span className="flex items-center gap-1.5 text-xs" style={{ color: service.onlineBookingEnabled ? "#16A34A" : "#6B7280" }}>
             {service.onlineBookingEnabled
               ? <Wifi size={13} />
               : <WifiOff size={13} />}
@@ -125,14 +125,14 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
         )}
 
         {/* Footer: price */}
-        <div className="flex items-center justify-between pt-3 mt-auto border-t border-[#F0F3FA]">
+        <div className="flex items-center justify-between pt-3 mt-auto border-t border-[#F0EEE6]">
           <div className="flex items-baseline gap-0.5">
             <DollarSign size={14} className="text-[#0D1B2A]" />
             <span className="text-xl font-bold text-[#0D1B2A]">
               {service.price.toFixed(2)}
             </span>
           </div>
-          <span className="text-xs text-[#8E95A5]">
+          <span className="text-xs text-[#6B7280]">
             {service.staffIds.length > 0
               ? `${service.staffIds.length} staff`
               : "No staff assigned"}

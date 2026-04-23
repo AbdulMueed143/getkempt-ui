@@ -115,7 +115,7 @@ export function StaffPageClient() {
             <h2 className="text-2xl font-bold text-[#0D1B2A]">
               Staff
             </h2>
-            <p className="text-sm mt-0.5 text-[#8E95A5]">
+            <p className="text-sm mt-0.5 text-[#6B7280]">
               Manage your team, roles and access levels
             </p>
           </div>
@@ -132,7 +132,7 @@ export function StaffPageClient() {
         <StaffStats staff={staff} />
 
         {/* ── Search + filter bar ──────────────────── */}
-        <div className="bg-white rounded-2xl px-5 py-4 flex flex-col sm:flex-row gap-3 items-start sm:items-center border border-[#E8ECF4] shadow-sm">
+        <div className="bg-white rounded-2xl px-5 py-4 flex flex-col sm:flex-row gap-3 items-start sm:items-center border border-[#E8E4DA] shadow-sm">
           {/* Search */}
           <div className="relative flex-1 w-full sm:w-auto">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#9FB2D9]" />
@@ -141,16 +141,16 @@ export function StaffPageClient() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by name, email or specialization…"
-              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 transition-all duration-200 bg-[#F4F2EE] border border-transparent text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 focus:bg-white placeholder:text-[#8E95A5]"
+              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 transition-all duration-200 bg-[#F5F3EE] border border-transparent text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 focus:bg-white placeholder:text-[#6B7280]"
             />
           </div>
 
           {/* Divider */}
-          <div className="hidden sm:block w-px h-6 bg-[#E8ECF4]" />
+          <div className="hidden sm:block w-px h-6 bg-[#E8E4DA]" />
 
           {/* Filters */}
           <div className="flex items-center gap-2 flex-wrap">
-            <SlidersHorizontal size={14} className="text-[#8E95A5]" />
+            <SlidersHorizontal size={14} className="text-[#6B7280]" />
 
             {/* Role filter */}
             <FilterSelect
@@ -178,7 +178,7 @@ export function StaffPageClient() {
             {(search || roleFilter !== "all" || statusFilter !== "all") && (
               <button
                 onClick={() => { setSearch(""); setRoleFilter("all"); setStatusFilter("all"); }}
-                className="text-xs px-3 py-1.5 rounded-lg transition-colors text-[#8E95A5] bg-[#F4F2EE] hover:bg-[#E8ECF4]"
+                className="text-xs px-3 py-1.5 rounded-lg transition-colors text-[#6B7280] bg-[#F5F3EE] hover:bg-[#E8E4DA]"
               >
                 Clear
               </button>
@@ -188,9 +188,9 @@ export function StaffPageClient() {
 
         {/* ── Staff grid ───────────────────────────── */}
         {filtered.length === 0 ? (
-          <div className="bg-white rounded-2xl py-16 text-center border border-[#E8ECF4]">
+          <div className="bg-white rounded-2xl py-16 text-center border border-[#E8E4DA]">
             <p className="text-base font-semibold text-[#0D1B2A]">No staff found</p>
-            <p className="text-sm mt-1 text-[#8E95A5]">
+            <p className="text-sm mt-1 text-[#6B7280]">
               Try adjusting your search or filters
             </p>
           </div>
@@ -209,7 +209,7 @@ export function StaffPageClient() {
 
         {/* Result count */}
         {filtered.length > 0 && (
-          <p className="text-xs text-right text-[#8E95A5]">
+          <p className="text-xs text-right text-[#6B7280]">
             Showing {filtered.length} of {staff.length} members
           </p>
         )}
@@ -238,7 +238,7 @@ function FilterSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="text-xs rounded-lg py-1.5 px-3 appearance-none cursor-pointer bg-[#F4F2EE] border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
+      className="text-xs rounded-lg py-1.5 px-3 appearance-none cursor-pointer bg-[#F5F3EE] border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
     >
       {children}
     </select>

@@ -42,7 +42,7 @@ export function LoyaltyProgramCard({ program, onEdit, onDelete }: LoyaltyProgram
     <article
       className="bg-white rounded-2xl flex flex-col overflow-hidden group transition-shadow hover:shadow-md"
       style={{
-        border:   "1px solid #E8ECF4",
+        border:   "1px solid #E8E4DA",
         boxShadow: "0 1px 3px rgba(27,49,99,0.05)",
         opacity:  isInactive ? 0.72 : 1,
       }}
@@ -72,7 +72,7 @@ export function LoyaltyProgramCard({ program, onEdit, onDelete }: LoyaltyProgram
                 {isDraft ? (
                   <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F3F4F6", color: "#6B7A99" }}>Draft</span>
                 ) : isInactive ? (
-                  <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F3F4F6", color: "#8E95A5" }}>Inactive</span>
+                  <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F3F4F6", color: "#6B7280" }}>Inactive</span>
                 ) : (
                   <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: "#DCFCE7", color: "#15803D" }}>Active</span>
                 )}
@@ -88,7 +88,7 @@ export function LoyaltyProgramCard({ program, onEdit, onDelete }: LoyaltyProgram
             <button
               onClick={() => onEdit(program)}
               className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ backgroundColor: "#F0F3FA", border: "1px solid #E8ECF4", color: "#1B3163" }}
+              style={{ backgroundColor: "#F0EEE6", border: "1px solid #E8E4DA", color: "#1B3163" }}
               title="Edit program"
             >
               <Pencil size={13} />
@@ -135,7 +135,7 @@ export function LoyaltyProgramCard({ program, onEdit, onDelete }: LoyaltyProgram
           {/* Location */}
           <InfoRow
             icon={program.redeemLocation === "own_shop" ? <Store size={14} /> : <MapPin size={14} />}
-            iconColor="#8E95A5"
+            iconColor="#6B7280"
             label={program.redeemLocation === "own_shop"
               ? "Redeemable at your shop"
               : `Redeemable at ${program.partnerName}`}
@@ -162,17 +162,17 @@ export function LoyaltyProgramCard({ program, onEdit, onDelete }: LoyaltyProgram
         {/* Stats footer */}
         <div
           className="flex items-center justify-between pt-3 mt-auto"
-          style={{ borderTop: "1px solid #F0F3FA" }}
+          style={{ borderTop: "1px solid #F0EEE6" }}
         >
           <Stat label="Earned"   value={program.totalEarned}   />
-          <div style={{ width: 1, height: 28, backgroundColor: "#F0F3FA" }} />
+          <div style={{ width: 1, height: 28, backgroundColor: "#F0EEE6" }} />
           <Stat label="Redeemed" value={program.totalRedeemed} />
-          <div style={{ width: 1, height: 28, backgroundColor: "#F0F3FA" }} />
+          <div style={{ width: 1, height: 28, backgroundColor: "#F0EEE6" }} />
           <div className="flex flex-col items-center gap-0.5">
             <span className="text-sm font-bold flex items-center gap-0.5" style={{ color: "#1B3163" }}>
               <TrendingUp size={12} /> {redeemRate}%
             </span>
-            <span className="text-[10px]" style={{ color: "#8E95A5" }}>Redeem rate</span>
+            <span className="text-[10px]" style={{ color: "#6B7280" }}>Redeem rate</span>
           </div>
         </div>
 
@@ -196,7 +196,7 @@ function InfoRow({
       <span className="mt-0.5 shrink-0" style={{ color: iconColor }}>{icon}</span>
       <div className="min-w-0">
         {label && <p className="text-xs font-medium leading-snug" style={{ color: "#1B3163" }}>{label}</p>}
-        {sub   && <p className="text-[11px] leading-snug"         style={{ color: "#8E95A5" }}>{sub}</p>}
+        {sub   && <p className="text-[11px] leading-snug"         style={{ color: "#6B7280" }}>{sub}</p>}
         {extra}
       </div>
     </div>
@@ -207,7 +207,7 @@ function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex flex-col items-center gap-0.5">
       <span className="text-sm font-bold" style={{ color: "#1B3163" }}>{value}</span>
-      <span className="text-[10px]"       style={{ color: "#8E95A5" }}>{label}</span>
+      <span className="text-[10px]"       style={{ color: "#6B7280" }}>{label}</span>
     </div>
   );
 }

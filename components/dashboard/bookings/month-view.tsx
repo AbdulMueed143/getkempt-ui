@@ -21,7 +21,7 @@ interface MonthViewProps {
 /* Heat map background based on booking count */
 function heatBg(count: number): string {
   if (count === 0) return "transparent";
-  if (count <= 2)  return "#F4F2EE";
+  if (count <= 2)  return "#F5F3EE";
   if (count <= 4)  return "#E8E2D8";
   if (count <= 6)  return "#D9CEBD";
   return "#C4A882";
@@ -73,35 +73,35 @@ export function MonthView({ currentDate, bookings, onDayClick, onBooking }: Mont
   return (
     <div className="flex flex-col h-full overflow-hidden">
       {/* ── Month summary header ── */}
-      <div className="px-4 py-2.5 border-b border-[#E8ECF4] shrink-0 bg-[#FDFCFA] flex items-center justify-between">
+      <div className="px-4 py-2.5 border-b border-[#E8E4DA] shrink-0 bg-[#FDFCFA] flex items-center justify-between">
         <div>
           <p className="text-sm font-bold text-[#0D1B2A]">{formatMonthYear(currentDate)}</p>
-          <p className="text-[10px] text-[#8E95A5]">{monthBks.length} bookings</p>
+          <p className="text-[10px] text-[#6B7280]">{monthBks.length} bookings</p>
         </div>
         <div className="text-right">
           <p className="text-sm font-bold text-[#0D1B2A]">${monthRevenue}</p>
-          <p className="text-[10px] text-[#8E95A5]">revenue</p>
+          <p className="text-[10px] text-[#6B7280]">revenue</p>
         </div>
       </div>
 
       {/* ── Heat map legend ── */}
-      <div className="flex items-center gap-2 px-4 py-1.5 border-b border-[#F0F3FA] shrink-0">
-        <span className="text-[9px] text-[#8E95A5]">Less</span>
+      <div className="flex items-center gap-2 px-4 py-1.5 border-b border-[#F0EEE6] shrink-0">
+        <span className="text-[9px] text-[#6B7280]">Less</span>
         {[0, 2, 4, 6, 8].map((n) => (
           <div
             key={n}
-            className="w-3 h-3 rounded-sm border border-[#E8ECF4]"
+            className="w-3 h-3 rounded-sm border border-[#E8E4DA]"
             style={{ backgroundColor: heatBg(n) }}
           />
         ))}
-        <span className="text-[9px] text-[#8E95A5]">More</span>
+        <span className="text-[9px] text-[#6B7280]">More</span>
         <span className="text-[9px] text-[#C4C9D4] ml-auto">Tap a day to view details</span>
       </div>
 
       {/* ── Day-of-week headers ── */}
-      <div className="grid grid-cols-7 border-b border-[#E8ECF4] shrink-0">
+      <div className="grid grid-cols-7 border-b border-[#E8E4DA] shrink-0">
         {DAY_HEADERS.map((d) => (
-          <div key={d} className="py-1.5 text-center text-[10px] font-bold text-[#8E95A5] uppercase tracking-wider">
+          <div key={d} className="py-1.5 text-center text-[10px] font-bold text-[#6B7280] uppercase tracking-wider">
             {d}
           </div>
         ))}
@@ -129,7 +129,7 @@ export function MonthView({ currentDate, bookings, onDayClick, onBooking }: Mont
               type="button"
               onClick={() => onDayClick(day)}
               className={cn(
-                "relative flex flex-col border-b border-r border-[#F0F3FA] p-1 min-h-[72px] text-left transition-all",
+                "relative flex flex-col border-b border-r border-[#F0EEE6] p-1 min-h-[72px] text-left transition-all",
                 "hover:ring-1 hover:ring-[#C4A882]/40 hover:z-10",
                 !isCurMon && "opacity-40",
                 isToday && "ring-2 ring-[#C4A882] z-10"
@@ -174,7 +174,7 @@ export function MonthView({ currentDate, bookings, onDayClick, onBooking }: Mont
                     />
                   ))}
                   {dBks.length > 5 && (
-                    <span className="text-[8px] text-[#8E95A5] ml-0.5">+</span>
+                    <span className="text-[8px] text-[#6B7280] ml-0.5">+</span>
                   )}
                 </div>
               )}
@@ -183,7 +183,7 @@ export function MonthView({ currentDate, bookings, onDayClick, onBooking }: Mont
               {revenue > 0 && isCurMon && count >= 2 && (
                 <span className={cn(
                   "text-[8px] font-semibold mt-0.5 hidden sm:block",
-                  count >= 6 ? "text-white/80" : "text-[#8E95A5]"
+                  count >= 6 ? "text-white/80" : "text-[#6B7280]"
                 )}>
                   ${revenue}
                 </span>

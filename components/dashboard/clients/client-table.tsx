@@ -95,7 +95,7 @@ export function ClientTable({
   };
 
   return (
-    <div className="flex flex-col gap-0 bg-white rounded-2xl overflow-hidden" style={{ border: "1px solid #E8ECF4" }}>
+    <div className="flex flex-col gap-0 bg-white rounded-2xl overflow-hidden" style={{ border: "1px solid #E8E4DA" }}>
 
       {/* ── Table ──────────────────────────────────── */}
       <div className="overflow-x-auto">
@@ -103,7 +103,7 @@ export function ClientTable({
 
           {/* Head */}
           <thead>
-            <tr style={{ backgroundColor: "#F8F9FC", borderBottom: "1px solid #E8ECF4" }}>
+            <tr style={{ backgroundColor: "#FAF8F3", borderBottom: "1px solid #E8E4DA" }}>
 
               {/* Select all */}
               <th className="w-10 px-4 py-3 text-left">
@@ -118,11 +118,11 @@ export function ClientTable({
               </th>
 
               <ThCell label="Client"        field="name"            active={sortBy} dir={sortDir} onSort={toggleSort} />
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: "#8E95A5" }}>Phone</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: "#6B7280" }}>Phone</th>
               <ThCell label="Visits"        field="totalBookings"   active={sortBy} dir={sortDir} onSort={toggleSort} align="right" />
               <ThCell label="Last Visit"    field="lastBookingDate" active={sortBy} dir={sortDir} onSort={toggleSort} />
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: "#8E95A5" }}>Next Booking</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: "#8E95A5" }}>Staff</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: "#6B7280" }}>Next Booking</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: "#6B7280" }}>Staff</th>
               <ThCell label="Joined"        field="joinedAt"        active={sortBy} dir={sortDir} onSort={toggleSort} />
               <th className="w-12 px-4 py-3" />
             </tr>
@@ -132,7 +132,7 @@ export function ClientTable({
           <tbody>
             {paginated.length === 0 ? (
               <tr>
-                <td colSpan={9} className="text-center py-12 text-sm" style={{ color: "#8E95A5" }}>
+                <td colSpan={9} className="text-center py-12 text-sm" style={{ color: "#6B7280" }}>
                   No clients match your filters.
                 </td>
               </tr>
@@ -154,7 +154,7 @@ export function ClientTable({
       {/* ── Footer ─────────────────────────────────── */}
       <div
         className="flex items-center justify-between px-4 py-3 text-xs flex-wrap gap-2"
-        style={{ borderTop: "1px solid #F0F3FA", color: "#8E95A5" }}
+        style={{ borderTop: "1px solid #F0EEE6", color: "#6B7280" }}
       >
         <span>
           Showing {sorted.length === 0 ? 0 : start + 1}–{Math.min(start + PAGE_SIZE, sorted.length)} of {sorted.length} clients
@@ -229,12 +229,12 @@ function ClientRow({ client, isSelected, onToggle, onSendEmail }: RowProps) {
                 </span>
               )}
               {inactive && !isNew && (
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full uppercase" style={{ backgroundColor: "#F3F4F6", color: "#8E95A5" }}>
+                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full uppercase" style={{ backgroundColor: "#F3F4F6", color: "#6B7280" }}>
                   Lapsed
                 </span>
               )}
             </div>
-            <p className="text-xs truncate" style={{ color: "#8E95A5" }}>{client.email}</p>
+            <p className="text-xs truncate" style={{ color: "#6B7280" }}>{client.email}</p>
           </div>
         </div>
       </td>
@@ -277,7 +277,7 @@ function ClientRow({ client, isSelected, onToggle, onSendEmail }: RowProps) {
       </td>
 
       {/* Joined */}
-      <td className="px-4 py-3 text-sm" style={{ color: "#8E95A5", whiteSpace: "nowrap" }}>
+      <td className="px-4 py-3 text-sm" style={{ color: "#6B7280", whiteSpace: "nowrap" }}>
         {formatDate(client.joinedAt)}
       </td>
 
@@ -310,7 +310,7 @@ function ThCell({ label, field, active, dir, onSort, align = "left" }: ThCellPro
   return (
     <th
       className={`px-4 py-3 text-xs font-semibold uppercase tracking-wide cursor-pointer select-none text-${align}`}
-      style={{ color: active === field ? "#1B3163" : "#8E95A5", whiteSpace: "nowrap" }}
+      style={{ color: active === field ? "#1B3163" : "#6B7280", whiteSpace: "nowrap" }}
       onClick={() => onSort(field)}
     >
       <span className="inline-flex items-center gap-1">
@@ -327,7 +327,7 @@ function PageButton({ label, disabled, onClick }: { label: string; disabled: boo
       onClick={onClick}
       disabled={disabled}
       className="px-3 py-1 rounded-lg text-xs font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-      style={{ backgroundColor: "#F0F3FA", color: "#1B3163" }}
+      style={{ backgroundColor: "#F0EEE6", color: "#1B3163" }}
     >
       {label}
     </button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Zap } from "lucide-react";
 import { QUICK_ACTIONS } from "@/lib/mock/dashboard";
 import { useQuickActionStore, type QuickActionTarget } from "@/store/quick-action-store";
 
@@ -26,11 +26,37 @@ export function QuickActions() {
   return (
     <div
       className="bg-white rounded-2xl p-5"
-      style={{ border: "1px solid #E8ECF4", boxShadow: "0 1px 3px rgba(27,49,99,0.06)" }}
+      style={{
+        border: "1px solid #E8E4DA",
+        boxShadow:
+          "0 1px 2px rgba(11,18,32,0.04), 0 1px 3px rgba(11,18,32,0.04)",
+      }}
     >
-      <h2 className="text-base font-semibold mb-4" style={{ color: "#1B3163" }}>
-        Quick Actions
-      </h2>
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-4">
+        <div
+          className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+          style={{
+            backgroundColor: "#FDF5E8",
+            border: "1px solid #F2E4C1",
+          }}
+        >
+          <Zap
+            size={16}
+            className="text-[#8A6D2F]"
+            strokeWidth={2.25}
+            fill="#C4A882"
+          />
+        </div>
+        <div>
+          <h2 className="text-[15px] font-bold text-[#0B1220] leading-tight">
+            Quick Actions
+          </h2>
+          <p className="text-[11px] font-medium text-[#6B7280] mt-0.5">
+            Get things done fast
+          </p>
+        </div>
+      </div>
 
       <ul className="space-y-2">
         {QUICK_ACTIONS.map((action) => {
@@ -40,29 +66,29 @@ export function QuickActions() {
               <button
                 type="button"
                 onClick={() => handleClick(action.id, action.href)}
-                className="w-full flex items-center gap-3 p-3 rounded-xl transition-all group text-left"
-                style={{ backgroundColor: "#F8F9FC" }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F0F3FA";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F8F9FC";
-                }}
+                className="w-full flex items-center gap-3 p-3 rounded-xl transition-all group text-left bg-[#FAF8F3] hover:bg-white hover:border-[#C4A882]/40 border border-transparent hover:shadow-sm"
               >
                 {/* Icon bubble */}
                 <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: `${action.accentColor}18` }}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105"
+                  style={{
+                    backgroundColor: `${action.accentColor}18`,
+                    border: `1px solid ${action.accentColor}30`,
+                  }}
                 >
-                  <Icon size={17} style={{ color: action.accentColor }} />
+                  <Icon
+                    size={17}
+                    style={{ color: action.accentColor }}
+                    strokeWidth={2.25}
+                  />
                 </div>
 
                 {/* Text */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold" style={{ color: "#1B3163" }}>
+                  <p className="text-[13px] font-bold text-[#0B1220] leading-tight">
                     {action.label}
                   </p>
-                  <p className="text-xs" style={{ color: "#8E95A5" }}>
+                  <p className="text-[11px] mt-0.5 text-[#6B7280] font-medium leading-tight">
                     {action.description}
                   </p>
                 </div>
@@ -70,8 +96,7 @@ export function QuickActions() {
                 {/* Arrow */}
                 <ChevronRight
                   size={16}
-                  className="shrink-0 transition-transform group-hover:translate-x-0.5"
-                  style={{ color: "#8E95A5" }}
+                  className="shrink-0 transition-all text-[#9CA3AF] group-hover:text-[#C4A882] group-hover:translate-x-0.5"
                 />
               </button>
             </li>

@@ -121,20 +121,20 @@ export function ServiceSlideover({
         {/* Header */}
         <div
           className="flex items-center justify-between px-6 py-5 shrink-0"
-          style={{ borderBottom: "1px solid #E8ECF4" }}
+          style={{ borderBottom: "1px solid #E8E4DA" }}
         >
           <div>
             <h2 className="text-lg font-bold" style={{ color: "#1B3163" }}>
               {editing ? "Edit Service" : "Add Service"}
             </h2>
-            <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+            <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
               {editing ? "Update service details" : "Define a new service for your booking menu"}
             </p>
           </div>
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: "#F0F3FA", color: "#1B3163" }}
+            style={{ backgroundColor: "#F0EEE6", color: "#1B3163" }}
             aria-label="Close"
           >
             <X size={16} />
@@ -181,8 +181,8 @@ export function ServiceSlideover({
                           key={cat}
                           className="flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer transition-all text-sm"
                           style={{
-                            border:          `1.5px solid ${field.value === cat ? "#1B3163" : "#E8ECF4"}`,
-                            backgroundColor: field.value === cat ? "#EEF1F8" : "#F8F9FC",
+                            border:          `1.5px solid ${field.value === cat ? "#1B3163" : "#E8E4DA"}`,
+                            backgroundColor: field.value === cat ? "#EEF1F8" : "#FAF8F3",
                             color:           field.value === cat ? "#1B3163" : "#6B7A99",
                             fontWeight:      field.value === cat ? 600 : 400,
                           }}
@@ -208,8 +208,8 @@ export function ServiceSlideover({
                   rows={3}
                   className="w-full rounded-lg text-sm px-4 py-2.5 resize-none"
                   style={{
-                    backgroundColor: "#F8F9FC",
-                    border:          "1px solid #E8ECF4",
+                    backgroundColor: "#FAF8F3",
+                    border:          "1px solid #E8E4DA",
                     color:           "#1B3163",
                     outline:         "none",
                   }}
@@ -232,9 +232,9 @@ export function ServiceSlideover({
                         onClick={() => setValue("durationMinutes", d, { shouldValidate: true })}
                         className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
                         style={{
-                          backgroundColor: watch("durationMinutes") === d ? "#1B3163" : "#F0F3FA",
+                          backgroundColor: watch("durationMinutes") === d ? "#1B3163" : "#F0EEE6",
                           color:           watch("durationMinutes") === d ? "#EAEAEA" : "#1B3163",
-                          border:          `1px solid ${watch("durationMinutes") === d ? "#1B3163" : "#E8ECF4"}`,
+                          border:          `1px solid ${watch("durationMinutes") === d ? "#1B3163" : "#E8E4DA"}`,
                         }}
                       >
                         {d >= 60 ? `${d / 60}h${d % 60 ? ` ${d % 60}m` : ""}` : `${d}m`}
@@ -262,9 +262,9 @@ export function ServiceSlideover({
                         onClick={() => setValue("bufferMinutes", b, { shouldValidate: true })}
                         className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
                         style={{
-                          backgroundColor: watch("bufferMinutes") === b ? "#1B3163" : "#F0F3FA",
+                          backgroundColor: watch("bufferMinutes") === b ? "#1B3163" : "#F0EEE6",
                           color:           watch("bufferMinutes") === b ? "#EAEAEA" : "#1B3163",
-                          border:          `1px solid ${watch("bufferMinutes") === b ? "#1B3163" : "#E8ECF4"}`,
+                          border:          `1px solid ${watch("bufferMinutes") === b ? "#1B3163" : "#E8E4DA"}`,
                         }}
                       >
                         {b === 0 ? "None" : `${b}m`}
@@ -296,7 +296,7 @@ export function ServiceSlideover({
                   <p className="text-sm font-medium" style={{ color: "#1B3163" }}>
                     Require deposit
                   </p>
-                  <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
                     Charge a deposit at booking to reduce no-shows
                   </p>
                 </div>
@@ -347,7 +347,7 @@ export function ServiceSlideover({
                   <p className="text-sm font-medium" style={{ color: "#1B3163" }}>
                     Online booking
                   </p>
-                  <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
                     Allow clients to book this service online
                   </p>
                 </div>
@@ -370,8 +370,8 @@ export function ServiceSlideover({
                         key={s.id}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer text-sm transition-all"
                         style={{
-                          border:          `1.5px solid ${checked ? "#1B3163" : "#E8ECF4"}`,
-                          backgroundColor: checked ? "#EEF1F8" : "#F8F9FC",
+                          border:          `1.5px solid ${checked ? "#1B3163" : "#E8E4DA"}`,
+                          backgroundColor: checked ? "#EEF1F8" : "#FAF8F3",
                           color:           checked ? "#1B3163" : "#6B7A99",
                           fontWeight:      checked ? 600 : 400,
                         }}
@@ -401,13 +401,13 @@ export function ServiceSlideover({
         {/* Footer */}
         <div
           className="flex items-center justify-end gap-3 px-6 py-4 shrink-0"
-          style={{ borderTop: "1px solid #E8ECF4" }}
+          style={{ borderTop: "1px solid #E8E4DA" }}
         >
           <button
             type="button"
             onClick={onClose}
             className="px-5 py-2.5 rounded-xl text-sm font-medium"
-            style={{ backgroundColor: "#F0F3FA", color: "#1B3163", border: "1px solid #E8ECF4" }}
+            style={{ backgroundColor: "#F0EEE6", color: "#1B3163", border: "1px solid #E8E4DA" }}
           >
             Cancel
           </button>
@@ -431,7 +431,7 @@ export function ServiceSlideover({
 /* ── Scoped micro-components ─────────────────────── */
 function SlidSection({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
-    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0F3FA" }}>
+    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0EEE6" }}>
       <div className="flex items-center gap-2">
         <span style={{ color: "#1B3163" }}>{icon}</span>
         <h3 className="text-sm font-semibold" style={{ color: "#1B3163" }}>{title}</h3>
@@ -444,7 +444,7 @@ function SlidSection({ icon, title, children }: { icon: React.ReactNode; title: 
 function FieldWrap({ label, error, required, children }: { label: string; error?: string; required?: boolean; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#8E95A5" }}>
+      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6B7280" }}>
         {label}{required && <span className="text-[#D5B584] ml-1">*</span>}
       </label>
       {children}
@@ -460,9 +460,9 @@ const SlidInput = React.forwardRef<HTMLInputElement, SlidInputProps>(({ hasError
     <input
       ref={ref}
       className="w-full rounded-lg text-sm py-2.5 transition-all"
-      style={{ paddingLeft: icon ? "2.25rem" : "1rem", paddingRight: "1rem", backgroundColor: "#F8F9FC", border: `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`, color: "#1B3163", outline: "none" }}
+      style={{ paddingLeft: icon ? "2.25rem" : "1rem", paddingRight: "1rem", backgroundColor: "#FAF8F3", border: `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`, color: "#1B3163", outline: "none" }}
       onFocus={(e) => { e.currentTarget.style.border = "1px solid #1B3163"; e.currentTarget.style.backgroundColor = "white"; }}
-      onBlur={(e) => { e.currentTarget.style.border = `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`; e.currentTarget.style.backgroundColor = "#F8F9FC"; }}
+      onBlur={(e) => { e.currentTarget.style.border = `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`; e.currentTarget.style.backgroundColor = "#FAF8F3"; }}
       {...props}
     />
   </div>
@@ -471,6 +471,6 @@ SlidInput.displayName = "SlidInput";
 
 interface SlidSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> { hasError?: boolean; }
 const SlidSelect = React.forwardRef<HTMLSelectElement, SlidSelectProps>(({ hasError, children, ...props }, ref) => (
-  <select ref={ref} className="w-full rounded-lg text-sm py-2.5 px-4 appearance-none" style={{ backgroundColor: "#F8F9FC", border: `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`, color: "#1B3163", outline: "none" }} {...props}>{children}</select>
+  <select ref={ref} className="w-full rounded-lg text-sm py-2.5 px-4 appearance-none" style={{ backgroundColor: "#FAF8F3", border: `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`, color: "#1B3163", outline: "none" }} {...props}>{children}</select>
 ));
 SlidSelect.displayName = "SlidSelect";

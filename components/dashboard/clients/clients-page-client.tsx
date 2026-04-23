@@ -113,7 +113,7 @@ export function ClientsPageClient() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-[#0D1B2A]">All Clients</h1>
-            <p className="text-sm mt-0.5 text-[#8E95A5]">
+            <p className="text-sm mt-0.5 text-[#6B7280]">
               {MOCK_CLIENTS.length} clients across all staff members
             </p>
           </div>
@@ -138,7 +138,7 @@ export function ClientsPageClient() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by name, email or phone…"
-              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 transition-all duration-200 placeholder:text-[#8E95A5]"
+              className="w-full rounded-xl text-sm py-2.5 pl-9 pr-4 bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 transition-all duration-200 placeholder:text-[#6B7280]"
             />
           </div>
 
@@ -146,7 +146,7 @@ export function ClientsPageClient() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
+            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
             style={{ minWidth: 160 }}
           >
             {STATUS_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -156,7 +156,7 @@ export function ClientsPageClient() {
           <select
             value={staffFilter}
             onChange={(e) => setStaffFilter(e.target.value)}
-            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
+            className="rounded-xl text-sm py-2.5 px-3 appearance-none bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40 cursor-pointer"
             style={{ minWidth: 160 }}
           >
             <option value="all">All staff</option>
@@ -168,7 +168,7 @@ export function ClientsPageClient() {
 
         {/* ── Selection action bar ──────────────────── */}
         {selectedCount > 0 && (
-          <div className="flex items-center justify-between gap-4 px-4 py-3 rounded-2xl bg-[#F4F2EE] border border-[#E8ECF4]">
+          <div className="flex items-center justify-between gap-4 px-4 py-3 rounded-2xl bg-[#F5F3EE] border border-[#E8E4DA]">
             <span className="text-sm font-medium text-[#0D1B2A]">
               {selectedCount} client{selectedCount !== 1 ? "s" : ""} selected
             </span>
@@ -182,7 +182,7 @@ export function ClientsPageClient() {
               </button>
               <button
                 onClick={handleClearAll}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm bg-white text-[#8E95A5] border border-[#E8ECF4] hover:bg-[#F0F3FA] transition-colors"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm bg-white text-[#6B7280] border border-[#E8E4DA] hover:bg-[#F0EEE6] transition-colors"
               >
                 <ClearIcon size={13} />
                 Clear
@@ -194,7 +194,7 @@ export function ClientsPageClient() {
         {/* ── Quick audience shortcuts ──────────────── */}
         {selectedCount === 0 && (
           <div className="flex flex-wrap gap-2">
-            <span className="text-xs font-medium py-1 text-[#8E95A5]">Quick send to:</span>
+            <span className="text-xs font-medium py-1 text-[#6B7280]">Quick send to:</span>
             <ShortcutChip
               label={`All ${MOCK_CLIENTS.length} clients`}
               onClick={() => openBroadcast("all")}
@@ -240,7 +240,7 @@ function ShortcutChip({ label, onClick }: { label: string; onClick: () => void }
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all bg-[#F4F2EE] text-[#0D1B2A] border border-[#E8ECF4] hover:bg-[#E8ECF4]"
+      className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all bg-[#F5F3EE] text-[#0D1B2A] border border-[#E8E4DA] hover:bg-[#E8E4DA]"
     >
       <Send size={10} />
       {label}

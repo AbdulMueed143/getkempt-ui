@@ -285,7 +285,7 @@ export function TemplateSlideover({ rule, isNew = false, onSave, onClose }: Prop
 
             {/* Variables reference */}
             {showVars && (
-              <div className="bg-[#F8F9FC] border border-[#E5EAF4] rounded-xl p-3">
+              <div className="bg-[#FAF8F3] border border-[#E5EAF4] rounded-xl p-3">
                 <p className="text-xs font-semibold text-[#1B3163] mb-2">
                   Click a variable to insert it at the cursor
                 </p>

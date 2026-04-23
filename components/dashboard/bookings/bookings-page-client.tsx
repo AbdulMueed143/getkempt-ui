@@ -85,13 +85,13 @@ function AddBreakSlideover({
       <div className="flex-1 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div className="w-full max-w-md bg-white flex flex-col shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8ECF4] shrink-0">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8E4DA] shrink-0">
           <div>
             <h2 className="text-base font-bold text-[#0D1B2A]">Add Break Time</h2>
-            <p className="text-xs text-[#8E95A5] mt-0.5">Block off time for a staff member</p>
+            <p className="text-xs text-[#6B7280] mt-0.5">Block off time for a staff member</p>
           </div>
-          <button onClick={onClose} className="p-2 rounded-lg hover:bg-[#F4F2EE] transition-colors">
-            <XCircle className="w-4 h-4 text-[#8E95A5]" />
+          <button onClick={onClose} className="p-2 rounded-lg hover:bg-[#F5F3EE] transition-colors">
+            <XCircle className="w-4 h-4 text-[#6B7280]" />
           </button>
         </div>
 
@@ -102,7 +102,7 @@ function AddBreakSlideover({
             <select
               value={staffId}
               onChange={(e) => setStaffId(e.target.value)}
-              className="w-full rounded-xl text-sm py-2.5 px-3 bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
+              className="w-full rounded-xl text-sm py-2.5 px-3 bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
             >
               <option value="">Select staff…</option>
               {STAFF.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
@@ -116,7 +116,7 @@ function AddBreakSlideover({
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full rounded-xl text-sm py-2.5 px-3 bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
+              className="w-full rounded-xl text-sm py-2.5 px-3 bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
             />
           </div>
 
@@ -128,7 +128,7 @@ function AddBreakSlideover({
                 type="time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className="w-full rounded-xl text-sm py-2.5 px-3 bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
+                className="w-full rounded-xl text-sm py-2.5 px-3 bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
               />
             </div>
             <div className="space-y-1.5">
@@ -137,7 +137,7 @@ function AddBreakSlideover({
                 type="time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="w-full rounded-xl text-sm py-2.5 px-3 bg-white border border-[#E8ECF4] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
+                className="w-full rounded-xl text-sm py-2.5 px-3 bg-white border border-[#E8E4DA] text-[#0D1B2A] outline-none focus:border-[#C4A882]/40"
               />
             </div>
           </div>
@@ -155,7 +155,7 @@ function AddBreakSlideover({
                     "px-3 py-1.5 rounded-lg text-xs font-medium border transition-all",
                     reason === r
                       ? "bg-[#0D1B2A] text-white border-[#0D1B2A]"
-                      : "bg-[#F4F2EE] text-[#0D1B2A] border-[#E8ECF4] hover:border-[#C4A882]"
+                      : "bg-[#F5F3EE] text-[#0D1B2A] border-[#E8E4DA] hover:border-[#C4A882]"
                   )}
                 >
                   {r}
@@ -166,10 +166,10 @@ function AddBreakSlideover({
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-4 border-t border-[#E8ECF4] flex gap-3 shrink-0">
+        <div className="px-5 py-4 border-t border-[#E8E4DA] flex gap-3 shrink-0">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-[#8E95A5] hover:bg-[#F4F2EE] transition-colors"
+            className="flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-[#6B7280] hover:bg-[#F5F3EE] transition-colors"
           >
             Cancel
           </button>
@@ -266,13 +266,13 @@ function BookingDetailPopup({
           </div>
 
           {booking.notes && (
-            <p className="text-xs text-[#6B7A99] bg-[#F4F2EE] rounded-lg px-3 py-2 italic">
+            <p className="text-xs text-[#6B7A99] bg-[#F5F3EE] rounded-lg px-3 py-2 italic">
               &ldquo;{booking.notes}&rdquo;
             </p>
           )}
 
           {/* Source badge */}
-          <p className="text-[10px] text-[#8E95A5] uppercase tracking-wide">
+          <p className="text-[10px] text-[#6B7280] uppercase tracking-wide">
             Source: {booking.source.replace("_", " ")}
           </p>
 
@@ -281,7 +281,7 @@ function BookingDetailPopup({
             <button
               type="button"
               onClick={() => { onEdit(booking); onClose(); }}
-              className="flex-1 px-3 py-2 rounded-xl text-sm font-semibold text-[#0D1B2A] bg-[#F4F2EE] hover:bg-[#E8ECF4] transition-colors"
+              className="flex-1 px-3 py-2 rounded-xl text-sm font-semibold text-[#0D1B2A] bg-[#F5F3EE] hover:bg-[#E8E4DA] transition-colors"
             >
               Edit
             </button>
@@ -297,7 +297,7 @@ function BookingDetailPopup({
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-2 rounded-xl text-sm text-[#8E95A5] hover:bg-[#F4F2EE] transition-colors"
+              className="px-3 py-2 rounded-xl text-sm text-[#6B7280] hover:bg-[#F5F3EE] transition-colors"
             >
               Close
             </button>
@@ -418,7 +418,7 @@ export function BookingsPageClient() {
       <div className="hidden md:flex items-center gap-2 px-1 py-2 shrink-0 flex-wrap">
         {/* Today stats */}
         <div className="hidden lg:flex items-center gap-3 text-xs">
-          <span className="text-[#8E95A5] font-medium mr-1">Today</span>
+          <span className="text-[#6B7280] font-medium mr-1">Today</span>
           {[
             { icon: CheckCircle2, label: `${stats.confirmed} confirmed`, color: "text-[#0D1B2A]" },
             { icon: CheckCircle2, label: `${stats.completed} completed`, color: "text-emerald-600" },
@@ -433,7 +433,7 @@ export function BookingsPageClient() {
         <div className="flex-1" />
 
         {/* View switcher — desktop */}
-        <div className="flex rounded-xl bg-[#F4F2EE] p-1 gap-1">
+        <div className="flex rounded-xl bg-[#F5F3EE] p-1 gap-1">
           {(["day", "week", "month"] as CalView[]).map((v) => {
             const Icon = VIEW_ICONS[v];
             return (
@@ -445,7 +445,7 @@ export function BookingsPageClient() {
                   "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all",
                   view === v
                     ? "bg-white text-[#0D1B2A] shadow-sm"
-                    : "text-[#8E95A5] hover:text-[#0D1B2A]"
+                    : "text-[#6B7280] hover:text-[#0D1B2A]"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -459,7 +459,7 @@ export function BookingsPageClient() {
         <button
           type="button"
           onClick={() => setShowBreak(true)}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-[#0D1B2A] bg-[#F4F2EE] border border-[#E8ECF4] hover:bg-[#E8ECF4] transition-colors"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-[#0D1B2A] bg-[#F5F3EE] border border-[#E8E4DA] hover:bg-[#E8E4DA] transition-colors"
         >
           <Coffee className="w-4 h-4" />
           Break
@@ -477,30 +477,30 @@ export function BookingsPageClient() {
       </div>
 
       {/* ── Desktop calendar nav bar — hidden on mobile ── */}
-      <div className="hidden md:flex items-center gap-2 px-1 py-2 shrink-0 border-b border-[#E8ECF4]">
-        <button type="button" onClick={() => navigate(-1)} className="p-1.5 rounded-lg hover:bg-[#F4F2EE] transition-colors">
+      <div className="hidden md:flex items-center gap-2 px-1 py-2 shrink-0 border-b border-[#E8E4DA]">
+        <button type="button" onClick={() => navigate(-1)} className="p-1.5 rounded-lg hover:bg-[#F5F3EE] transition-colors">
           <ChevronLeft className="w-4 h-4 text-[#6B7A99]" />
         </button>
-        <button type="button" onClick={() => navigate(1)} className="p-1.5 rounded-lg hover:bg-[#F4F2EE] transition-colors">
+        <button type="button" onClick={() => navigate(1)} className="p-1.5 rounded-lg hover:bg-[#F5F3EE] transition-colors">
           <ChevronRight className="w-4 h-4 text-[#6B7A99]" />
         </button>
         <h2 className="text-sm font-semibold text-[#0D1B2A] flex-1">{navLabel()}</h2>
         <button
           type="button"
           onClick={goToday}
-          className="text-xs font-semibold text-[#0D1B2A] bg-[#F4F2EE] hover:bg-[#E8ECF4] px-3 py-1.5 rounded-lg transition-colors"
+          className="text-xs font-semibold text-[#0D1B2A] bg-[#F5F3EE] hover:bg-[#E8E4DA] px-3 py-1.5 rounded-lg transition-colors"
         >
           Today
         </button>
       </div>
 
       {/* ── Mobile compact header — visible only on mobile ── */}
-      <div className="flex md:hidden items-center gap-2 px-2 py-2 shrink-0 border-b border-[#E8ECF4]">
+      <div className="flex md:hidden items-center gap-2 px-2 py-2 shrink-0 border-b border-[#E8E4DA]">
         <h2 className="text-sm font-semibold text-[#0D1B2A] flex-1 truncate">{navLabel()}</h2>
         <button
           type="button"
           onClick={() => setShowBreak(true)}
-          className="p-2 rounded-lg text-[#0D1B2A] bg-[#F4F2EE] border border-[#E8ECF4]"
+          className="p-2 rounded-lg text-[#0D1B2A] bg-[#F5F3EE] border border-[#E8E4DA]"
           aria-label="Add break"
         >
           <Coffee className="w-4 h-4" />
@@ -524,7 +524,7 @@ export function BookingsPageClient() {
             "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-all shrink-0",
             staffFilter === "all"
               ? "bg-[#0D1B2A] text-white border-[#0D1B2A]"
-              : "bg-white text-[#8E95A5] border-[#E8ECF4] hover:border-[#C4A882]"
+              : "bg-white text-[#6B7280] border-[#E8E4DA] hover:border-[#C4A882]"
           )}
         >
           <Users className="w-3 h-3" />
@@ -542,7 +542,7 @@ export function BookingsPageClient() {
                 "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-all shrink-0",
                 active
                   ? "text-white border-transparent"
-                  : "bg-white text-[#6B7A99] border-[#E8ECF4] hover:border-[#C4A882]"
+                  : "bg-white text-[#6B7A99] border-[#E8E4DA] hover:border-[#C4A882]"
               )}
               style={active ? { backgroundColor: color, borderColor: color } : undefined}
             >
@@ -557,7 +557,7 @@ export function BookingsPageClient() {
       </div>
 
       {/* ── Calendar body ── */}
-      <div className="flex-1 min-h-0 overflow-hidden bg-white rounded-xl border border-[#E8ECF4] mt-0.5 mb-0 md:mb-0">
+      <div className="flex-1 min-h-0 overflow-hidden bg-white rounded-xl border border-[#E8E4DA] mt-0.5 mb-0 md:mb-0">
         {view === "month" && (
           <MonthView
             currentDate={curDate}
@@ -611,13 +611,13 @@ export function BookingsPageClient() {
       />
 
       {/* ── Mobile bottom navigation bar ── */}
-      <div className="md:hidden shrink-0 border-t border-[#E8ECF4] bg-white/95 backdrop-blur-md safe-area-bottom">
+      <div className="md:hidden shrink-0 border-t border-[#E8E4DA] bg-white/95 backdrop-blur-md safe-area-bottom">
         <div className="flex items-center justify-between px-3 py-2">
           {/* Prev */}
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="flex items-center gap-1 px-3 py-2.5 rounded-xl text-[#0D1B2A] active:bg-[#F4F2EE] transition-colors"
+            className="flex items-center gap-1 px-3 py-2.5 rounded-xl text-[#0D1B2A] active:bg-[#F5F3EE] transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
             <span className="text-xs font-medium">Prev</span>
@@ -627,13 +627,13 @@ export function BookingsPageClient() {
           <button
             type="button"
             onClick={goToday}
-            className="px-4 py-2 rounded-xl text-xs font-bold text-[#0D1B2A] bg-[#F4F2EE] active:bg-[#E8ECF4] transition-colors"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-[#0D1B2A] bg-[#F5F3EE] active:bg-[#E8E4DA] transition-colors"
           >
             Today
           </button>
 
           {/* View switcher — compact */}
-          <div className="flex rounded-xl bg-[#F4F2EE] p-0.5 gap-0.5">
+          <div className="flex rounded-xl bg-[#F5F3EE] p-0.5 gap-0.5">
             {(["day", "week", "month"] as CalView[]).map((v) => {
               const Icon = VIEW_ICONS[v];
               return (
@@ -645,7 +645,7 @@ export function BookingsPageClient() {
                     "p-2 rounded-lg transition-all",
                     view === v
                       ? "bg-white text-[#0D1B2A] shadow-sm"
-                      : "text-[#8E95A5]"
+                      : "text-[#6B7280]"
                   )}
                   aria-label={v}
                 >
@@ -659,7 +659,7 @@ export function BookingsPageClient() {
           <button
             type="button"
             onClick={() => navigate(1)}
-            className="flex items-center gap-1 px-3 py-2.5 rounded-xl text-[#0D1B2A] active:bg-[#F4F2EE] transition-colors"
+            className="flex items-center gap-1 px-3 py-2.5 rounded-xl text-[#0D1B2A] active:bg-[#F5F3EE] transition-colors"
           >
             <span className="text-xs font-medium">Next</span>
             <ChevronRight className="w-5 h-5" />

@@ -120,7 +120,7 @@ function ToastItem({ toast }: { toast: Toast }) {
       <button
         onClick={() => remove(toast.id)}
         className="shrink-0 p-1 rounded-lg transition-opacity opacity-50 hover:opacity-100"
-        style={{ color: "#8E95A5" }}
+        style={{ color: "#6B7280" }}
         aria-label="Dismiss notification"
       >
         <X size={14} />

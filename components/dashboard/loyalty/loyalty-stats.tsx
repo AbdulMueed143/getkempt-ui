@@ -52,7 +52,7 @@ export function LoyaltyStats({ programs }: LoyaltyStatsProps) {
         <div
           key={s.label}
           className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3"
-          style={{ border: "1px solid #E8ECF4" }}
+          style={{ border: "1px solid #E8E4DA" }}
         >
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
@@ -61,7 +61,7 @@ export function LoyaltyStats({ programs }: LoyaltyStatsProps) {
             {s.icon}
           </div>
           <div className="min-w-0">
-            <p className="text-xs truncate" style={{ color: "#8E95A5" }}>{s.label}</p>
+            <p className="text-xs truncate" style={{ color: "#6B7280" }}>{s.label}</p>
             <p className="text-lg font-bold leading-tight" style={{ color: "#1B3163" }}>{s.value}</p>
             {s.sub && <p className="text-[10px] truncate" style={{ color: "#9FB2D9" }}>{s.sub}</p>}
           </div>

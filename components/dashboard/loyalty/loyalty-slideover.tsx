@@ -112,20 +112,20 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
         {/* Header */}
         <div
           className="flex items-center justify-between px-6 py-5 shrink-0"
-          style={{ borderBottom: "1px solid #E8ECF4" }}
+          style={{ borderBottom: "1px solid #E8E4DA" }}
         >
           <div>
             <h2 className="text-lg font-bold" style={{ color: "#1B3163" }}>
               {editing ? "Edit Program" : "Add Loyalty Program"}
             </h2>
-            <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+            <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
               {editing ? "Update this program's details" : "Create a new rung in your loyalty ladder"}
             </p>
           </div>
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: "#F0F3FA", color: "#1B3163" }}
+            style={{ backgroundColor: "#F0EEE6", color: "#1B3163" }}
             aria-label="Close"
           >
             <X size={16} />
@@ -150,7 +150,7 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
                   placeholder="Tell clients what makes this reward special…"
                   rows={3}
                   className="w-full rounded-lg text-sm px-4 py-2.5 resize-none focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:bg-white"
-                  style={{ backgroundColor: "#F8F9FC", border: "1px solid #E8ECF4", color: "#1B3163" }}
+                  style={{ backgroundColor: "#FAF8F3", border: "1px solid #E8E4DA", color: "#1B3163" }}
                   {...register("description")}
                 />
               </FieldWrap>
@@ -169,8 +169,8 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
                         key={type}
                         className="flex flex-col gap-0.5 px-3 py-2.5 rounded-xl cursor-pointer transition-all"
                         style={{
-                          border:          `1.5px solid ${isActive ? "#1B3163" : "#E8ECF4"}`,
-                          backgroundColor: isActive ? "#EEF1F8" : "#F8F9FC",
+                          border:          `1.5px solid ${isActive ? "#1B3163" : "#E8E4DA"}`,
+                          backgroundColor: isActive ? "#EEF1F8" : "#FAF8F3",
                         }}
                       >
                         <input
@@ -182,7 +182,7 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
                         <span className="text-xs font-semibold" style={{ color: isActive ? "#1B3163" : "#374151" }}>
                           {REWARD_TYPE_LABELS[type]}
                         </span>
-                        <span className="text-[10px] leading-snug" style={{ color: "#8E95A5" }}>
+                        <span className="text-[10px] leading-snug" style={{ color: "#6B7280" }}>
                           {REWARD_TYPE_DESCRIPTIONS[type]}
                         </span>
                       </label>
@@ -241,15 +241,15 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
                       key={loc}
                       className="flex flex-col gap-1 px-3 py-3 rounded-xl cursor-pointer transition-all"
                       style={{
-                        border:          `1.5px solid ${isActive ? "#1B3163" : "#E8ECF4"}`,
-                        backgroundColor: isActive ? "#EEF1F8" : "#F8F9FC",
+                        border:          `1.5px solid ${isActive ? "#1B3163" : "#E8E4DA"}`,
+                        backgroundColor: isActive ? "#EEF1F8" : "#FAF8F3",
                       }}
                     >
                       <input type="radio" className="sr-only" value={loc} {...register("redeemLocation")} />
                       <span className="text-sm font-semibold" style={{ color: isActive ? "#1B3163" : "#374151" }}>
                         {loc === "own_shop" ? "Your shop" : "Partner shop"}
                       </span>
-                      <span className="text-xs leading-snug" style={{ color: "#8E95A5" }}>
+                      <span className="text-xs leading-snug" style={{ color: "#6B7280" }}>
                         {loc === "own_shop"
                           ? "Client redeems the reward when they next visit you"
                           : "Reward redeemable at a nearby partner business"}
@@ -292,15 +292,15 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
                         key={t}
                         className="flex flex-col gap-0.5 px-3 py-2.5 rounded-xl cursor-pointer transition-all"
                         style={{
-                          border:          `1.5px solid ${isActive ? "#1B3163" : "#E8ECF4"}`,
-                          backgroundColor: isActive ? "#EEF1F8" : "#F8F9FC",
+                          border:          `1.5px solid ${isActive ? "#1B3163" : "#E8E4DA"}`,
+                          backgroundColor: isActive ? "#EEF1F8" : "#FAF8F3",
                         }}
                       >
                         <input type="radio" className="sr-only" value={t} {...register("triggerType")} />
                         <span className="text-xs font-semibold" style={{ color: isActive ? "#1B3163" : "#374151" }}>
                           {TRIGGER_TYPE_LABELS[t]}
                         </span>
-                        <span className="text-[10px] leading-snug" style={{ color: "#8E95A5" }}>
+                        <span className="text-[10px] leading-snug" style={{ color: "#6B7280" }}>
                           {t === "visits" ? "Count how many times they visit" : "Track total $ spent"}
                         </span>
                       </label>
@@ -330,7 +330,7 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
                 className="px-4 py-3 rounded-xl text-sm"
                 style={{ backgroundColor: "#EEF1F8", border: "1px solid #C7D2E8" }}
               >
-                <span style={{ color: "#8E95A5" }}>Client earns this reward after </span>
+                <span style={{ color: "#6B7280" }}>Client earns this reward after </span>
                 <strong style={{ color: "#1B3163" }}>
                   {triggerType === "visits"
                     ? `${watch("triggerValue") || "?"} visits`
@@ -346,7 +346,7 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
               <label className="flex items-center justify-between cursor-pointer">
                 <div>
                   <p className="text-sm font-medium" style={{ color: "#1B3163" }}>Reward expires after earning</p>
-                  <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
                     Limit how long a client has to use the earned reward
                   </p>
                 </div>
@@ -372,7 +372,7 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
               <label className="flex items-center justify-between cursor-pointer">
                 <div>
                   <p className="text-sm font-medium" style={{ color: "#1B3163" }}>Program has an end date</p>
-                  <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
                     Set a date after which this program is no longer available
                   </p>
                 </div>
@@ -388,7 +388,7 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
                     type="date"
                     min={new Date().toISOString().split("T")[0]}
                     className="w-full rounded-lg text-sm py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-[#1B3163]"
-                    style={{ backgroundColor: "#F8F9FC", border: "1px solid #E8ECF4", color: "#1B3163" }}
+                    style={{ backgroundColor: "#FAF8F3", border: "1px solid #E8E4DA", color: "#1B3163" }}
                     {...register("programExpiryDate")}
                   />
                 </FieldWrap>
@@ -412,8 +412,8 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
                         key={s}
                         className="flex items-center justify-center px-3 py-2.5 rounded-xl cursor-pointer text-sm font-medium transition-all"
                         style={{
-                          border:          isActive ? `1.5px solid ${colors[s].border}` : "1.5px solid #E8ECF4",
-                          backgroundColor: isActive ? colors[s].bg : "#F8F9FC",
+                          border:          isActive ? `1.5px solid ${colors[s].border}` : "1.5px solid #E8E4DA",
+                          backgroundColor: isActive ? colors[s].bg : "#FAF8F3",
                           color:           isActive ? colors[s].color : "#6B7A99",
                         }}
                       >
@@ -432,13 +432,13 @@ export function LoyaltySlideover({ isOpen, onClose, onSave, editing }: LoyaltySl
         {/* Footer */}
         <div
           className="flex items-center justify-end gap-3 px-6 py-4 shrink-0"
-          style={{ borderTop: "1px solid #E8ECF4" }}
+          style={{ borderTop: "1px solid #E8E4DA" }}
         >
           <button
             type="button"
             onClick={onClose}
             className="px-5 py-2.5 rounded-xl text-sm font-medium"
-            style={{ backgroundColor: "#F0F3FA", color: "#1B3163", border: "1px solid #E8ECF4" }}
+            style={{ backgroundColor: "#F0EEE6", color: "#1B3163", border: "1px solid #E8E4DA" }}
           >
             Cancel
           </button>
@@ -464,7 +464,7 @@ function SlidSection({
   icon, title, children,
 }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
-    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0F3FA" }}>
+    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0EEE6" }}>
       <div className="flex items-center gap-2">
         <span style={{ color: "#1B3163" }}>{icon}</span>
         <h3 className="text-sm font-semibold" style={{ color: "#1B3163" }}>{title}</h3>
@@ -477,7 +477,7 @@ function SlidSection({
 function FieldWrap({ label, error, required, children }: { label: string; error?: string; required?: boolean; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#8E95A5" }}>
+      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6B7280" }}>
         {label}{required && <span className="text-[#D5B584] ml-1">*</span>}
       </label>
       {children}
@@ -496,8 +496,8 @@ const SlidInput = React.forwardRef<HTMLInputElement, SlidInputProps>(({ hasError
       style={{
         paddingLeft:     icon ? "2.25rem" : "1rem",
         paddingRight:    "1rem",
-        backgroundColor: "#F8F9FC",
-        border:          `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`,
+        backgroundColor: "#FAF8F3",
+        border:          `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`,
         color:           "#1B3163",
       }}
       {...props}

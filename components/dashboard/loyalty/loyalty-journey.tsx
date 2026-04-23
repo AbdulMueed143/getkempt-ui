@@ -21,12 +21,12 @@ export function LoyaltyJourney({ programs }: LoyaltyJourneyProps) {
   return (
     <div
       className="bg-white rounded-2xl px-5 py-4"
-      style={{ border: "1px solid #E8ECF4" }}
+      style={{ border: "1px solid #E8E4DA" }}
     >
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-sm font-semibold" style={{ color: "#1B3163" }}>Client journey</h3>
-          <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+          <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
             Clients progress through these programs in order — one at a time
           </p>
         </div>
@@ -96,10 +96,10 @@ export function LoyaltyJourney({ programs }: LoyaltyJourneyProps) {
 
           {/* "And beyond" placeholder */}
           <div className="flex items-center pl-1">
-            <ChevronRight size={18} style={{ color: "#E8ECF4" }} />
+            <ChevronRight size={18} style={{ color: "#E8E4DA" }} />
             <div
               className="flex items-center justify-center w-9 h-9 rounded-full text-xs font-medium"
-              style={{ border: "1.5px dashed #C5CEDF", color: "#8E95A5" }}
+              style={{ border: "1.5px dashed #C5CEDF", color: "#6B7280" }}
             >
               +
             </div>

@@ -164,20 +164,20 @@ export function PackageSlideover({
         {/* ── Header ──────────────────────────────── */}
         <div
           className="flex items-center justify-between px-6 py-5 shrink-0"
-          style={{ borderBottom: "1px solid #E8ECF4" }}
+          style={{ borderBottom: "1px solid #E8E4DA" }}
         >
           <div>
             <h2 className="text-lg font-bold" style={{ color: "#1B3163" }}>
               {editing ? "Edit Package" : "Create Package"}
             </h2>
-            <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+            <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
               {editing ? "Update this service bundle" : "Bundle services into a discounted offering"}
             </p>
           </div>
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: "#F0F3FA", color: "#1B3163" }}
+            style={{ backgroundColor: "#F0EEE6", color: "#1B3163" }}
             aria-label="Close"
           >
             <X size={16} />
@@ -221,8 +221,8 @@ export function PackageSlideover({
                   rows={3}
                   className="w-full rounded-lg text-sm px-4 py-2.5 resize-none focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:bg-white"
                   style={{
-                    backgroundColor: "#F8F9FC",
-                    border:          "1px solid #E8ECF4",
+                    backgroundColor: "#FAF8F3",
+                    border:          "1px solid #E8E4DA",
                     color:           "#1B3163",
                   }}
                   {...register("description")}
@@ -262,17 +262,17 @@ export function PackageSlideover({
                   onChange={(e) => setServiceSearch(e.target.value)}
                   placeholder="Search services…"
                   className="w-full rounded-lg text-sm py-2.5 pl-8 pr-4"
-                  style={{ backgroundColor: "#F8F9FC", border: "1px solid #E8ECF4", color: "#1B3163", outline: "none" }}
+                  style={{ backgroundColor: "#FAF8F3", border: "1px solid #E8E4DA", color: "#1B3163", outline: "none" }}
                 />
               </div>
 
               {/* Service list */}
               <div
                 className="rounded-xl overflow-hidden"
-                style={{ border: "1px solid #E8ECF4", maxHeight: 280, overflowY: "auto" }}
+                style={{ border: "1px solid #E8E4DA", maxHeight: 280, overflowY: "auto" }}
               >
                 {filteredServices.length === 0 ? (
-                  <p className="text-sm text-center py-6" style={{ color: "#8E95A5" }}>
+                  <p className="text-sm text-center py-6" style={{ color: "#6B7280" }}>
                     No services found
                   </p>
                 ) : (
@@ -284,7 +284,7 @@ export function PackageSlideover({
                         key={svc.id}
                         className="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors"
                         style={{
-                          borderTop:       i > 0 ? "1px solid #F0F3FA" : undefined,
+                          borderTop:       i > 0 ? "1px solid #F0EEE6" : undefined,
                           backgroundColor: isSelected ? "#F5F7FC" : "white",
                         }}
                         onClick={() => toggleService(svc.id)}
@@ -321,7 +321,7 @@ export function PackageSlideover({
                         </span>
 
                         {/* Duration + Price */}
-                        <span className="text-xs shrink-0" style={{ color: "#8E95A5" }}>
+                        <span className="text-xs shrink-0" style={{ color: "#6B7280" }}>
                           {formatDuration(svc.durationMinutes)} &nbsp;·&nbsp; ${formatPrice(svc.price)}
                         </span>
                       </label>
@@ -339,7 +339,7 @@ export function PackageSlideover({
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium" style={{ color: "#1B3163" }}>Duration</p>
-                    <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+                    <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
                       Auto: <strong>{formatDuration(baseDuration)}</strong> from selected services
                     </p>
                   </div>
@@ -375,9 +375,9 @@ export function PackageSlideover({
                 {/* Effective duration preview */}
                 <div
                   className="flex items-center justify-between px-4 py-3 rounded-xl text-sm"
-                  style={{ backgroundColor: "#F8F9FC", border: "1px solid #E8ECF4" }}
+                  style={{ backgroundColor: "#FAF8F3", border: "1px solid #E8E4DA" }}
                 >
-                  <span style={{ color: "#8E95A5" }}>Effective duration</span>
+                  <span style={{ color: "#6B7280" }}>Effective duration</span>
                   <span className="font-bold" style={{ color: "#1B3163" }}>
                     {formatDuration(effectiveDuration)}
                     {durationOverride && (
@@ -393,14 +393,14 @@ export function PackageSlideover({
               </div>
 
               {/* Divider */}
-              <div style={{ borderTop: "1px solid #F0F3FA" }} />
+              <div style={{ borderTop: "1px solid #F0EEE6" }} />
 
               {/* Discount */}
               <div className="space-y-3">
                 <label className="flex items-center justify-between cursor-pointer">
                   <div>
                     <p className="text-sm font-medium" style={{ color: "#1B3163" }}>Apply discount</p>
-                    <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+                    <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
                       Reward clients for booking a bundle
                     </p>
                   </div>
@@ -429,8 +429,8 @@ export function PackageSlideover({
                             key={type}
                             className="flex items-center gap-2 px-3 py-2.5 rounded-xl cursor-pointer transition-all text-sm"
                             style={{
-                              border:          `1.5px solid ${discountType === type ? "#1B3163" : "#E8ECF4"}`,
-                              backgroundColor: discountType === type ? "#EEF1F8" : "#F8F9FC",
+                              border:          `1.5px solid ${discountType === type ? "#1B3163" : "#E8E4DA"}`,
+                              backgroundColor: discountType === type ? "#EEF1F8" : "#FAF8F3",
                               color:           discountType === type ? "#1B3163" : "#6B7A99",
                               fontWeight:      discountType === type ? 600 : 400,
                             }}
@@ -470,19 +470,19 @@ export function PackageSlideover({
                 {/* Live price preview */}
                 <div
                   className="rounded-xl overflow-hidden"
-                  style={{ border: "1px solid #E8ECF4" }}
+                  style={{ border: "1px solid #E8E4DA" }}
                 >
                   <div
                     className="px-4 py-3 flex items-center justify-between text-sm"
-                    style={{ backgroundColor: "#F8F9FC", borderBottom: "1px solid #E8ECF4" }}
+                    style={{ backgroundColor: "#FAF8F3", borderBottom: "1px solid #E8E4DA" }}
                   >
-                    <span style={{ color: "#8E95A5" }}>Services total</span>
+                    <span style={{ color: "#6B7280" }}>Services total</span>
                     <span style={{ color: "#1B3163" }}>${formatPrice(basePrice)}</span>
                   </div>
                   {saving.amount > 0 && (
                     <div
                       className="px-4 py-3 flex items-center justify-between text-sm"
-                      style={{ backgroundColor: "#F8F9FC", borderBottom: "1px solid #E8ECF4" }}
+                      style={{ backgroundColor: "#FAF8F3", borderBottom: "1px solid #E8E4DA" }}
                     >
                       <span style={{ color: "#16A34A" }}>Discount</span>
                       <span style={{ color: "#16A34A" }}>−${formatPrice(saving.amount)}</span>
@@ -523,7 +523,7 @@ export function PackageSlideover({
               <label className="flex items-center justify-between cursor-pointer py-1">
                 <div>
                   <p className="text-sm font-medium" style={{ color: "#1B3163" }}>Online booking</p>
-                  <p className="text-xs mt-0.5" style={{ color: "#8E95A5" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>
                     Allow clients to book this package online
                   </p>
                 </div>
@@ -546,8 +546,8 @@ export function PackageSlideover({
                           key={s.id}
                           className="flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer text-sm transition-all"
                           style={{
-                            border:          `1.5px solid ${checked ? "#1B3163" : "#E8ECF4"}`,
-                            backgroundColor: checked ? "#EEF1F8" : "#F8F9FC",
+                            border:          `1.5px solid ${checked ? "#1B3163" : "#E8E4DA"}`,
+                            backgroundColor: checked ? "#EEF1F8" : "#FAF8F3",
                             color:           checked ? "#1B3163" : "#6B7A99",
                             fontWeight:      checked ? 600 : 400,
                           }}
@@ -581,13 +581,13 @@ export function PackageSlideover({
         {/* ── Footer ──────────────────────────────── */}
         <div
           className="flex items-center justify-end gap-3 px-6 py-4 shrink-0"
-          style={{ borderTop: "1px solid #E8ECF4" }}
+          style={{ borderTop: "1px solid #E8E4DA" }}
         >
           <button
             type="button"
             onClick={onClose}
             className="px-5 py-2.5 rounded-xl text-sm font-medium"
-            style={{ backgroundColor: "#F0F3FA", color: "#1B3163", border: "1px solid #E8ECF4" }}
+            style={{ backgroundColor: "#F0EEE6", color: "#1B3163", border: "1px solid #E8E4DA" }}
           >
             Cancel
           </button>
@@ -623,7 +623,7 @@ function SlidSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0F3FA" }}>
+    <div className="px-6 py-5 space-y-4" style={{ borderBottom: "1px solid #F0EEE6" }}>
       <div className="flex items-center gap-2">
         <span style={{ color: "#1B3163" }}>{icon}</span>
         <h3 className="text-sm font-semibold" style={{ color: "#1B3163" }}>{title}</h3>
@@ -643,7 +643,7 @@ function FieldWrap({
 }) {
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#8E95A5" }}>
+      <label className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6B7280" }}>
         {label}{required && <span className="text-[#D5B584] ml-1">*</span>}
       </label>
       {children}
@@ -674,8 +674,8 @@ const SlidInput = React.forwardRef<HTMLInputElement, SlidInputProps>(
         style={{
           paddingLeft:     icon ? "2.25rem" : "1rem",
           paddingRight:    "1rem",
-          backgroundColor: "#F8F9FC",
-          border:          `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`,
+          backgroundColor: "#FAF8F3",
+          border:          `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`,
           color:           "#1B3163",
           outline:         "none",
         }}
@@ -684,8 +684,8 @@ const SlidInput = React.forwardRef<HTMLInputElement, SlidInputProps>(
           e.currentTarget.style.backgroundColor = "white";
         }}
         onBlur={(e) => {
-          e.currentTarget.style.border = `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`;
-          e.currentTarget.style.backgroundColor = "#F8F9FC";
+          e.currentTarget.style.border = `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`;
+          e.currentTarget.style.backgroundColor = "#FAF8F3";
         }}
         {...props}
       />
@@ -703,8 +703,8 @@ const SlidSelect = React.forwardRef<HTMLSelectElement, SlidSelectProps>(
       ref={ref}
       className="w-full rounded-lg text-sm py-2.5 px-4 appearance-none"
       style={{
-        backgroundColor: "#F8F9FC",
-        border:          `1px solid ${hasError ? "#EF4444" : "#E8ECF4"}`,
+        backgroundColor: "#FAF8F3",
+        border:          `1px solid ${hasError ? "#EF4444" : "#E8E4DA"}`,
         color:           "#1B3163",
         outline:         "none",
       }}

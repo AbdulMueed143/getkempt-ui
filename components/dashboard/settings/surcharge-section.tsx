@@ -19,8 +19,8 @@ const inputCls = (err?: boolean) =>
   cn(
     "w-full text-sm text-[#0D1B2A] border rounded-2xl px-4 py-3 bg-white/80 backdrop-blur-sm transition-all duration-200",
     "focus:outline-none focus:ring-2 focus:ring-[#C4A882]/50 focus:border-[#C4A882] focus:bg-white focus:shadow-sm",
-    "placeholder:text-[#8E95A5]",
-    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm"
+    "placeholder:text-[#6B7280]",
+    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8E4DA] hover:border-[#C4A882]/40 hover:shadow-sm"
   );
 
 const TIME_PLACEHOLDER = "HH:MM";
@@ -107,7 +107,7 @@ export function SurchargeSection({ form }: Props) {
   }
 
   return (
-    <div id="surcharges" className="divide-y divide-[#F0F3FA]">
+    <div id="surcharges" className="divide-y divide-[#F0EEE6]">
 
       {/* Quick presets & actions */}
       <div className="px-5 sm:px-6 py-4 space-y-3">
@@ -133,7 +133,7 @@ export function SurchargeSection({ form }: Props) {
               key={p.label}
               type="button"
               onClick={() => addPreset(p)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-[#0D1B2A] bg-gradient-to-br from-[#F8F6F2] to-[#F4F2EE] border border-[#E8ECF4] hover:border-[#0D1B2A] hover:shadow-sm transition-all duration-200"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-[#0D1B2A] bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] border border-[#E8E4DA] hover:border-[#0D1B2A] hover:shadow-sm transition-all duration-200"
             >
               <span className="text-base">{p.emoji}</span>
               {p.label}
@@ -160,7 +160,7 @@ export function SurchargeSection({ form }: Props) {
           {/* Day picker */}
           <div className="space-y-2">
             <label className="text-[11px] font-semibold text-[#6B7A99]">
-              Applies on <span className="font-normal text-[#8E95A5]">(leave empty = every day)</span>
+              Applies on <span className="font-normal text-[#6B7280]">(leave empty = every day)</span>
             </label>
             <div className="flex flex-wrap gap-1.5">
               {ALL_DAYS.map((day) => (
@@ -172,7 +172,7 @@ export function SurchargeSection({ form }: Props) {
                     "px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all duration-200",
                     draft.days.includes(day)
                       ? "bg-[#0D1B2A] text-white border-[#0D1B2A] shadow-sm"
-                      : "bg-white text-[#6B7A99] border-[#E8ECF4] hover:border-[#0D1B2A] hover:text-[#0D1B2A]"
+                      : "bg-white text-[#6B7A99] border-[#E8E4DA] hover:border-[#0D1B2A] hover:text-[#0D1B2A]"
                   )}
                 >
                   {DAY_LABELS[day]}
@@ -184,7 +184,7 @@ export function SurchargeSection({ form }: Props) {
           {/* Time window */}
           <div className="space-y-2">
             <label className="text-[11px] font-semibold text-[#6B7A99]">
-              Time window <span className="font-normal text-[#8E95A5]">(leave empty = all day)</span>
+              Time window <span className="font-normal text-[#6B7280]">(leave empty = all day)</span>
             </label>
             <div className="flex items-center gap-2">
               <input
@@ -194,7 +194,7 @@ export function SurchargeSection({ form }: Props) {
                 placeholder={TIME_PLACEHOLDER}
                 className={cn(inputCls(), "w-32 font-mono")}
               />
-              <span className="text-xs text-[#8E95A5] font-medium">to</span>
+              <span className="text-xs text-[#6B7280] font-medium">to</span>
               <input
                 type="time"
                 value={draft.timeEnd}
@@ -224,7 +224,7 @@ export function SurchargeSection({ form }: Props) {
                 onChange={(e) => setDraft((d) => ({ ...d, surchargeValue: Number(e.target.value) }))}
                 className={inputCls()}
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] pointer-events-none">
                 {draft.surchargeType === "percentage" ? "%" : "$"}
               </span>
             </div>
@@ -242,7 +242,7 @@ export function SurchargeSection({ form }: Props) {
             <button
               type="button"
               onClick={() => setShowAdd(false)}
-              className="px-5 py-2.5 rounded-xl text-sm text-[#8E95A5] hover:text-[#0D1B2A] transition-colors"
+              className="px-5 py-2.5 rounded-xl text-sm text-[#6B7280] hover:text-[#0D1B2A] transition-colors"
             >
               Cancel
             </button>
@@ -256,11 +256,11 @@ export function SurchargeSection({ form }: Props) {
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-50 to-purple-50 flex items-center justify-center mx-auto mb-3">
             <span className="text-2xl">💲</span>
           </div>
-          <p className="text-sm text-[#8E95A5] font-medium">No surcharge rules yet</p>
+          <p className="text-sm text-[#6B7280] font-medium">No surcharge rules yet</p>
           <p className="text-[11px] text-[#C4C9D4] mt-1">Use quick add above or create a custom rule</p>
         </div>
       ) : (
-        <ul className="divide-y divide-[#F0F3FA]">
+        <ul className="divide-y divide-[#F0EEE6]">
           {fields.map((field, idx) => {
             const isActive      = watch(`surchargeRules.${idx}.isActive`);
             const sType         = watch(`surchargeRules.${idx}.surchargeType`);
@@ -286,10 +286,10 @@ export function SurchargeSection({ form }: Props) {
                       className={cn(
                         "w-full text-sm font-bold text-[#0D1B2A] bg-transparent border-0 border-b-2",
                         "focus:outline-none focus:border-[#C4A882] transition-colors pb-0.5",
-                        nameErr ? "border-rose-300" : "border-transparent hover:border-[#E8ECF4]"
+                        nameErr ? "border-rose-300" : "border-transparent hover:border-[#E8E4DA]"
                       )}
                     />
-                    <p className="text-[11px] text-[#8E95A5] mt-1">
+                    <p className="text-[11px] text-[#6B7280] mt-1">
                       {describeRule(days, timeStart, timeEnd)}
                     </p>
                   </div>
@@ -301,7 +301,7 @@ export function SurchargeSection({ form }: Props) {
                   <button
                     type="button"
                     onClick={() => remove(idx)}
-                    className="p-2 rounded-xl text-[#8E95A5] hover:text-rose-500 hover:bg-rose-50 transition-all duration-200 shrink-0"
+                    className="p-2 rounded-xl text-[#6B7280] hover:text-rose-500 hover:bg-rose-50 transition-all duration-200 shrink-0"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -311,7 +311,7 @@ export function SurchargeSection({ form }: Props) {
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 pl-14">
                   {/* Day picker */}
                   <div className="sm:col-span-2 lg:col-span-2 space-y-2">
-                    <p className="text-[11px] font-semibold text-[#8E95A5]">Days (empty = every day)</p>
+                    <p className="text-[11px] font-semibold text-[#6B7280]">Days (empty = every day)</p>
                     <div className="flex flex-wrap gap-1.5">
                       {ALL_DAYS.map((day) => (
                         <button
@@ -328,7 +328,7 @@ export function SurchargeSection({ form }: Props) {
                             "px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-200",
                             (days as SurchargeDay[]).includes(day)
                               ? "bg-[#0D1B2A] text-white border-[#0D1B2A]"
-                              : "bg-white text-[#8E95A5] border-[#E8ECF4] hover:border-[#0D1B2A] hover:text-[#0D1B2A]"
+                              : "bg-white text-[#6B7280] border-[#E8E4DA] hover:border-[#0D1B2A] hover:text-[#0D1B2A]"
                           )}
                         >
                           {DAY_LABELS[day]}
@@ -339,7 +339,7 @@ export function SurchargeSection({ form }: Props) {
 
                   {/* Time window */}
                   <div className="space-y-2">
-                    <p className="text-[11px] font-semibold text-[#8E95A5]">From</p>
+                    <p className="text-[11px] font-semibold text-[#6B7280]">From</p>
                     <input
                       type="time"
                       {...register(`surchargeRules.${idx}.timeStart`)}
@@ -347,7 +347,7 @@ export function SurchargeSection({ form }: Props) {
                     />
                   </div>
                   <div className="space-y-2">
-                    <p className="text-[11px] font-semibold text-[#8E95A5]">Until</p>
+                    <p className="text-[11px] font-semibold text-[#6B7280]">Until</p>
                     <input
                       type="time"
                       {...register(`surchargeRules.${idx}.timeEnd`)}
@@ -363,7 +363,7 @@ export function SurchargeSection({ form }: Props) {
 
                   {/* Amount */}
                   <div className="space-y-2">
-                    <p className="text-[11px] font-semibold text-[#8E95A5]">Type</p>
+                    <p className="text-[11px] font-semibold text-[#6B7280]">Type</p>
                     <select
                       {...register(`surchargeRules.${idx}.surchargeType`)}
                       className={inputCls()}
@@ -373,7 +373,7 @@ export function SurchargeSection({ form }: Props) {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-[11px] font-semibold text-[#8E95A5]">Amount</p>
+                    <p className="text-[11px] font-semibold text-[#6B7280]">Amount</p>
                     <div className="relative">
                       <input
                         type="number"
@@ -381,7 +381,7 @@ export function SurchargeSection({ form }: Props) {
                         {...register(`surchargeRules.${idx}.surchargeValue`, { valueAsNumber: true })}
                         className={cn(inputCls(!!valueErr))}
                       />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#8E95A5] pointer-events-none">
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] pointer-events-none">
                         {sType === "percentage" ? "%" : "$"}
                       </span>
                     </div>

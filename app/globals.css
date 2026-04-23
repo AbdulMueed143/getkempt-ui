@@ -1,18 +1,55 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Brand Colors ──────────────────────────────── */
-  --color-midnight-navy:    #00071A;
-  --color-royal-indigo:     #1B3163;
-  --color-warm-sand:        #D5B584;
-  --color-soft-ivory:       #EAEAEA;
+  /* ─────────────────────────────────────────────────
+     BRAND COLOURS
+     ───────────────────────────────────────────────── */
 
-  /* Secondary */
-  --color-mist-blue:        #9FB2D9;
+  /* Core navy family */
+  --color-midnight-navy:    #00071A;  /* deepest — landing only */
+  --color-deep-navy:        #0D1B2A;  /* sidebar background, dark surfaces */
+  --color-surface-navy:     #111E2E;  /* cards on dark surfaces */
+
+  /* Brand indigo */
+  --color-royal-indigo:     #1B3163;  /* primary brand colour — text, buttons */
+  --color-indigo-hover:     #152748;  /* hover state for royal indigo */
+  --color-indigo-subtle:    #EEF1F8;  /* tinted panel background */
+
+  /* Warm sand / gold accent */
+  --color-warm-sand:        #C4A882;
+  --color-warm-sand-light:  #D5B584;
+  --color-warm-sand-pale:   #E5D6B8;
+
+  /* Neutral ivory / cream */
+  --color-soft-ivory:       #EAEAEA;
   --color-stone-beige:      #EFE6D8;
-  --color-cool-gray:        #8E95A5;
+
+  /* Secondary accents */
+  --color-mist-blue:        #9FB2D9;
   --color-sage-taupe:       #86B0A5;
+  --color-cool-gray:        #8E95A5;
   --color-soft-charcoal:    #2A2E3A;
+
+  /* ─────────────────────────────────────────────────
+     DASHBOARD TEXT SCALE
+     These are the text colours used on the (light)
+     dashboard surfaces — high contrast for readability.
+     ───────────────────────────────────────────────── */
+  --color-ink-900:          #0B1220;  /* primary headings */
+  --color-ink-800:          #152030;  /* strong body text */
+  --color-ink-700:          #1B3163;  /* brand-tinted text */
+  --color-ink-500:          #4B5563;  /* secondary body */
+  --color-ink-400:          #6B7280;  /* muted / helper text */
+  --color-ink-300:          #9CA3AF;  /* placeholder / disabled */
+
+  /* ─────────────────────────────────────────────────
+     DASHBOARD SURFACES
+     ───────────────────────────────────────────────── */
+  --color-app-bg:           #F5F3EE;  /* page background — warm ivory */
+  --color-card:             #FFFFFF;  /* card surface */
+  --color-card-tint:        #FAF8F3;  /* tinted card surface */
+  --color-border-soft:      #E8E4DA;  /* soft warm border */
+  --color-border-muted:     #F0EEE6;  /* very soft divider */
 
   /* Semantic aliases */
   --color-bg-primary:       var(--color-midnight-navy);
@@ -23,18 +60,25 @@
   --color-border:           rgba(213, 181, 132, 0.2);
   --color-border-focus:     var(--color-warm-sand);
 
-  /* ── Typography ────────────────────────────────── */
+  /* ─────────────────────────────────────────────────
+     TYPOGRAPHY
+     ───────────────────────────────────────────────── */
   --font-sans:   "Rethink Sans", ui-sans-serif, system-ui, sans-serif;
   --font-serif:  "Hedvig Letters Serif", ui-serif, Georgia, serif;
 
-  /* ── Spacing / Radius ──────────────────────────── */
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:   12px;
-  --radius-xl:   16px;
+  /* ─────────────────────────────────────────────────
+     RADIUS
+     ───────────────────────────────────────────────── */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   18px;
+  --radius-2xl:  22px;
 }
 
-/* ── Base reset ────────────────────────────────── */
+/* ─────────────────────────────────────────────────
+   BASE RESET
+   ───────────────────────────────────────────────── */
 * {
   box-sizing: border-box;
 }
@@ -42,39 +86,99 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
+  /* Dark navy body — landing page uses this.
+     Dashboard layout explicitly sets its own bg + text colour. */
   background-color: var(--color-midnight-navy);
   color: var(--color-soft-ivory);
   font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11"; /* nicer 1, a, g glyphs when available */
 }
 
-/* ── Focus ring ────────────────────────────────── */
+/* Dashboard pages override body inheritance so text is legible */
+.app-surface {
+  background-color: var(--color-app-bg);
+  color: var(--color-ink-800);
+}
+
+/* ─────────────────────────────────────────────────
+   TYPOGRAPHY DEFAULTS
+   Explicit, readable defaults on every heading level.
+   ───────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* ─────────────────────────────────────────────────
+   FOCUS RING
+   ───────────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--color-warm-sand);
   outline-offset: 2px;
 }
 
-/* ── Scrollbar ─────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-midnight-navy); }
-::-webkit-scrollbar-thumb { background: var(--color-soft-charcoal); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-cool-gray); }
-
-/* ── Selection ─────────────────────────────────── */
-::selection {
-  background: rgba(27, 49, 99, 0.35);
+/* ─────────────────────────────────────────────────
+   SCROLLBAR — separate styles for dark & light contexts
+   ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 149, 165, 0.35);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 149, 165, 0.55);
+  background-clip: padding-box;
 }
 
-/* ── Form element text colour reset ────────────── */
+/* Hide scrollbar (used for horizontal tab strips etc.) */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+
+/* Dark scrollbar for sidebar / dark sections */
+.scrollbar-dark::-webkit-scrollbar-thumb {
+  background: rgba(196, 168, 130, 0.20);
+  background-clip: padding-box;
+}
+.scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 168, 130, 0.35);
+  background-clip: padding-box;
+}
+
+/* ─────────────────────────────────────────────────
+   SELECTION — readable on both light & dark
+   ───────────────────────────────────────────────── */
+::selection {
+  background: rgba(27, 49, 99, 0.25);
+  color: inherit;
+}
+
+/* ─────────────────────────────────────────────────
+   FORM ELEMENT TEXT COLOUR RESET
+   Ensures typed text is always dark on white inputs.
+   ───────────────────────────────────────────────── */
 input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="color"]),
 textarea,
 select {
-  color: #0D1B2A;
+  color: var(--color-ink-900);
 }
 
-/* ── Landing page enhancements ─────────────────── */
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-ink-300);
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────────────
+   LANDING PAGE ENHANCEMENTS (dark hero style)
+   ───────────────────────────────────────────────── */
 
 /* Noise texture overlay for sections */
 .noise-overlay::before {
@@ -118,26 +222,14 @@ select {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.7; }
 }
-
-.gold-shimmer {
-  animation: shimmer 4s ease-in-out infinite;
-}
+.gold-shimmer { animation: shimmer 4s ease-in-out infinite; }
 
 /* Smooth fade-in for sections */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
+.animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
 
 /* Brick-like subtle pattern for dark sections */
 .brick-texture::after {
@@ -167,4 +259,26 @@ select {
   background: linear-gradient(90deg, #C4A882, #6B8FD4, #C4A882);
   border-radius: 2px;
   opacity: 0.6;
+}
+
+/* ─────────────────────────────────────────────────
+   REUSABLE CARD STYLE
+   Used across dashboard widgets for consistency.
+   ───────────────────────────────────────────────── */
+.card-surface {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 1px 2px rgba(11, 18, 32, 0.04),
+    0 1px 3px rgba(11, 18, 32, 0.06);
+}
+
+.card-surface-elevated {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 4px 8px rgba(11, 18, 32, 0.04),
+    0 8px 24px rgba(11, 18, 32, 0.06);
 }

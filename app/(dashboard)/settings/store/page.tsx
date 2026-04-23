@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function StoreSettingsPage() {
   return (
-    <div className="max-w-4xl mx-auto px-0 sm:px-0">
+    <div className="max-w-5xl mx-auto">
       <StoreSettingsClient />
     </div>
   );

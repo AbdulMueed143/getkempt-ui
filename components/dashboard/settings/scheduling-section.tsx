@@ -40,8 +40,8 @@ const inputCls = (err?: boolean) =>
   cn(
     "w-full text-sm text-[#0D1B2A] border rounded-2xl px-4 py-3 bg-white/80 backdrop-blur-sm transition-all duration-200",
     "focus:outline-none focus:ring-2 focus:ring-[#C4A882]/50 focus:border-[#C4A882] focus:bg-white focus:shadow-sm",
-    "placeholder:text-[#8E95A5]",
-    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm"
+    "placeholder:text-[#6B7280]",
+    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8E4DA] hover:border-[#C4A882]/40 hover:shadow-sm"
   );
 
 export function SchedulingSection({ form }: Props) {
@@ -81,7 +81,7 @@ export function SchedulingSection({ form }: Props) {
               <option value="weeks">weeks</option>
               <option value="months">months</option>
             </select>
-            <span className="text-sm text-[#8E95A5] font-medium">in advance</span>
+            <span className="text-sm text-[#6B7280] font-medium">in advance</span>
           </div>
 
           {errors.bookingWindowValue && (
@@ -119,7 +119,7 @@ export function SchedulingSection({ form }: Props) {
                   "px-4 py-2 rounded-xl text-sm font-semibold border transition-all duration-200",
                   interval === mins
                     ? "bg-[#0D1B2A] text-white border-[#0D1B2A] shadow-sm scale-[1.02]"
-                    : "bg-white text-[#6B7A99] border-[#E8ECF4] hover:border-[#0D1B2A] hover:text-[#0D1B2A] hover:shadow-sm"
+                    : "bg-white text-[#6B7A99] border-[#E8E4DA] hover:border-[#0D1B2A] hover:text-[#0D1B2A] hover:shadow-sm"
                 )}
               >
                 {mins} min
@@ -129,12 +129,12 @@ export function SchedulingSection({ form }: Props) {
 
           {/* Live slot example */}
           <div className="space-y-1.5">
-            <div className="flex items-center gap-2.5 text-xs bg-gradient-to-r from-[#F8F6F2] to-[#F4F2EE] rounded-xl px-4 py-3 border border-[#E8ECF4]">
+            <div className="flex items-center gap-2.5 text-xs bg-gradient-to-r from-[#F8F6F2] to-[#F5F3EE] rounded-xl px-4 py-3 border border-[#E8E4DA]">
               <Clock className="w-4 h-4 text-[#0D1B2A] shrink-0" />
               <span className="font-medium text-[#6B7A99]">Example&nbsp;&nbsp;</span>
               <span className="font-mono text-[#0D1B2A] text-[11px]">{slotExamples(interval)}</span>
             </div>
-            <p className="text-[11px] text-[#8E95A5] pl-1">
+            <p className="text-[11px] text-[#6B7280] pl-1">
               Slots are generated from your staff&apos;s working hours using this interval
             </p>
           </div>

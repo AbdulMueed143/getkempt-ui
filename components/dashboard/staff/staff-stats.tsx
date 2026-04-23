@@ -17,7 +17,7 @@ export function StaffStats({ staff }: StaffStatsProps) {
       value: total,
       icon: Users,
       accentColor: "#0D1B2A",
-      accentBg: "#E8ECF4",
+      accentBg: "#E8E4DA",
     },
     {
       label: "Active",
@@ -37,7 +37,7 @@ export function StaffStats({ staff }: StaffStatsProps) {
       label: "Inactive",
       value: inactive,
       icon: UserX,
-      accentColor: "#8E95A5",
+      accentColor: "#6B7280",
       accentBg: "#F3F4F6",
     },
   ];
@@ -49,7 +49,7 @@ export function StaffStats({ staff }: StaffStatsProps) {
         return (
           <div
             key={s.label}
-            className="bg-white rounded-2xl px-5 py-4 flex items-center gap-4 border border-[#E8ECF4] shadow-sm hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-2xl px-5 py-4 flex items-center gap-4 border border-[#E8E4DA] shadow-sm hover:shadow-md transition-shadow duration-200"
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
@@ -61,7 +61,7 @@ export function StaffStats({ staff }: StaffStatsProps) {
               <p className="text-2xl font-bold leading-none text-[#0D1B2A]">
                 {s.value}
               </p>
-              <p className="text-xs mt-1 text-[#8E95A5]">
+              <p className="text-xs mt-1 text-[#6B7280]">
                 {s.label}
               </p>
             </div>

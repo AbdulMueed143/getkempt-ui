@@ -14,8 +14,8 @@ const inputCls = (err?: boolean) =>
   cn(
     "w-full text-sm text-[#0D1B2A] border rounded-2xl px-4 py-3 bg-white/80 backdrop-blur-sm transition-all duration-200",
     "focus:outline-none focus:ring-2 focus:ring-[#C4A882]/50 focus:border-[#C4A882] focus:bg-white focus:shadow-sm",
-    "placeholder:text-[#8E95A5]",
-    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm"
+    "placeholder:text-[#6B7280]",
+    err ? "border-rose-300 bg-rose-50/30" : "border-[#E8E4DA] hover:border-[#C4A882]/40 hover:shadow-sm"
   );
 
 const PRIVACY_TEMPLATES = [
@@ -68,14 +68,14 @@ export function PoliciesSection({ form }: Props) {
       <div className="lg:grid lg:grid-cols-2 lg:gap-6 space-y-5 lg:space-y-0">
 
         {/* ── Cancellation Policy Text ── */}
-        <div className="bg-gradient-to-br from-[#FDFCFA] to-[#F8F6F2] rounded-2xl border border-[#E8ECF4] overflow-hidden">
-          <div className="px-5 py-4 border-b border-[#F0F3FA] flex items-center gap-2.5">
+        <div className="bg-gradient-to-br from-[#FDFCFA] to-[#F8F6F2] rounded-2xl border border-[#E8E4DA] overflow-hidden">
+          <div className="px-5 py-4 border-b border-[#F0EEE6] flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shrink-0 shadow-sm">
               <FileText className="w-4 h-4 text-white" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-[#0D1B2A]">Cancellation Policy</h3>
-              <p className="text-[11px] text-[#8E95A5]">
+              <p className="text-[11px] text-[#6B7280]">
                 Shown to clients before they confirm a booking
               </p>
             </div>
@@ -100,7 +100,7 @@ export function PoliciesSection({ form }: Props) {
                     "flex items-center gap-1 text-xs font-semibold transition-all duration-200 px-2.5 py-1 rounded-lg",
                     showCancellationTemplates
                       ? "bg-[#0D1B2A] text-white"
-                      : "text-[#0D1B2A] hover:bg-[#F4F2EE]"
+                      : "text-[#0D1B2A] hover:bg-[#F5F3EE]"
                   )}
                 >
                   Templates
@@ -118,7 +118,7 @@ export function PoliciesSection({ form }: Props) {
                         setValue("cancellationPolicy", t.text, { shouldDirty: true });
                         setShowCancellationTemplates(false);
                       }}
-                      className="text-left px-4 py-2.5 rounded-xl text-xs text-[#0D1B2A] bg-white border border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm transition-all duration-200 font-medium"
+                      className="text-left px-4 py-2.5 rounded-xl text-xs text-[#0D1B2A] bg-white border border-[#E8E4DA] hover:border-[#C4A882]/40 hover:shadow-sm transition-all duration-200 font-medium"
                     >
                       {t.label}
                     </button>
@@ -132,7 +132,7 @@ export function PoliciesSection({ form }: Props) {
                 placeholder="Describe your cancellation and rescheduling policy in plain language…"
                 className={cn(inputCls(!!errors.cancellationPolicy), "resize-y")}
               />
-              <p className="text-[11px] text-[#8E95A5] text-right">{cancellationLen}/3000</p>
+              <p className="text-[11px] text-[#6B7280] text-right">{cancellationLen}/3000</p>
               {errors.cancellationPolicy && (
                 <p className="flex items-center gap-1 text-xs text-rose-500">
                   <AlertCircle className="w-3 h-3" />{errors.cancellationPolicy.message}
@@ -143,14 +143,14 @@ export function PoliciesSection({ form }: Props) {
         </div>
 
         {/* ── Privacy Policy ── */}
-        <div className="bg-gradient-to-br from-[#FDFCFA] to-[#F8F6F2] rounded-2xl border border-[#E8ECF4] overflow-hidden">
-          <div className="px-5 py-4 border-b border-[#F0F3FA] flex items-center gap-2.5">
+        <div className="bg-gradient-to-br from-[#FDFCFA] to-[#F8F6F2] rounded-2xl border border-[#E8E4DA] overflow-hidden">
+          <div className="px-5 py-4 border-b border-[#F0EEE6] flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-sm">
               <ShieldCheck className="w-4 h-4 text-white" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-[#0D1B2A]">Privacy Policy</h3>
-              <p className="text-[11px] text-[#8E95A5]">
+              <p className="text-[11px] text-[#6B7280]">
                 How you handle clients&apos; personal data
               </p>
             </div>
@@ -166,7 +166,7 @@ export function PoliciesSection({ form }: Props) {
                   "flex items-center gap-1 text-xs font-semibold transition-all duration-200 px-2.5 py-1 rounded-lg",
                   showPrivacyTemplates
                     ? "bg-[#0D1B2A] text-white"
-                    : "text-[#0D1B2A] hover:bg-[#F4F2EE]"
+                    : "text-[#0D1B2A] hover:bg-[#F5F3EE]"
                 )}
               >
                 Templates
@@ -184,7 +184,7 @@ export function PoliciesSection({ form }: Props) {
                       setValue("privacyPolicy", t.text, { shouldDirty: true });
                       setShowPrivacyTemplates(false);
                     }}
-                    className="text-left px-4 py-2.5 rounded-xl text-xs text-[#0D1B2A] bg-white border border-[#E8ECF4] hover:border-[#C4A882]/40 hover:shadow-sm transition-all duration-200 font-medium"
+                    className="text-left px-4 py-2.5 rounded-xl text-xs text-[#0D1B2A] bg-white border border-[#E8E4DA] hover:border-[#C4A882]/40 hover:shadow-sm transition-all duration-200 font-medium"
                   >
                     {t.label}
                   </button>
@@ -198,7 +198,7 @@ export function PoliciesSection({ form }: Props) {
               placeholder="Describe how you collect, store, and use client data…"
               className={cn(inputCls(!!errors.privacyPolicy), "resize-y")}
             />
-            <p className="text-[11px] text-[#8E95A5] text-right">{privacyLen}/5000</p>
+            <p className="text-[11px] text-[#6B7280] text-right">{privacyLen}/5000</p>
             {errors.privacyPolicy && (
               <p className="flex items-center gap-1 text-xs text-rose-500">
                 <AlertCircle className="w-3 h-3" />{errors.privacyPolicy.message}

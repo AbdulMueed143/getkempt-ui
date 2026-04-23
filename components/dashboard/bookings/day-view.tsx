@@ -27,7 +27,7 @@ function getPeriod(date: Date): Period {
 
 const PERIOD_META: Record<Period, { label: string; icon: React.ElementType; color: string; bg: string }> = {
   morning:   { label: "Morning",   icon: Sun,    color: "#D97706", bg: "#FEF3C7" },
-  afternoon: { label: "Afternoon", icon: Sunset, color: "#C4A882", bg: "#F4F2EE" },
+  afternoon: { label: "Afternoon", icon: Sunset, color: "#C4A882", bg: "#F5F3EE" },
   evening:   { label: "Evening",   icon: Moon,   color: "#6366F1", bg: "#EEF2FF" },
 };
 
@@ -88,14 +88,14 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
     <div className="flex flex-col h-full overflow-hidden">
       {/* ── Day header with stats ── */}
       <div className={cn(
-        "px-4 py-3 border-b border-[#E8ECF4] shrink-0",
+        "px-4 py-3 border-b border-[#E8E4DA] shrink-0",
         isToday && "bg-[#FDFCFA]"
       )}>
         <div className="flex items-center gap-3">
           <div
             className={cn(
               "w-12 h-12 rounded-xl flex flex-col items-center justify-center shrink-0",
-              isToday ? "bg-[#0D1B2A] text-white" : "bg-[#F4F2EE] text-[#0D1B2A]"
+              isToday ? "bg-[#0D1B2A] text-white" : "bg-[#F5F3EE] text-[#0D1B2A]"
             )}
           >
             <span className="text-[10px] font-bold uppercase tracking-wide leading-none">
@@ -105,7 +105,7 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-[#0D1B2A]">{formatShortDate(date)}</p>
-            <p className="text-xs text-[#8E95A5]">
+            <p className="text-xs text-[#6B7280]">
               {dayBks.length === 0
                 ? "No appointments"
                 : `${dayBks.length} appointment${dayBks.length !== 1 ? "s" : ""}`}
@@ -116,7 +116,7 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
         {/* Quick stats row */}
         {dayBks.length > 0 && (
           <div className="flex items-center gap-3 mt-3 flex-wrap">
-            <StatPill icon={CheckCircle2} label={`${confirmed} upcoming`} color="#0D1B2A" bg="#E8ECF4" />
+            <StatPill icon={CheckCircle2} label={`${confirmed} upcoming`} color="#0D1B2A" bg="#E8E4DA" />
             <StatPill icon={CheckCircle2} label={`${completed} done`} color="#16A34A" bg="#DCFCE7" />
             {cancelled > 0 && (
               <StatPill icon={CheckCircle2} label={`${cancelled} cancelled`} color="#DC2626" bg="#FEE2E2" />
@@ -125,7 +125,7 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
               <span className="text-xs font-bold text-[#0D1B2A]">
                 ${totalRevenue.toFixed(0)}
               </span>
-              <span className="text-[10px] text-[#8E95A5] ml-1">revenue</span>
+              <span className="text-[10px] text-[#6B7280] ml-1">revenue</span>
             </div>
           </div>
         )}
@@ -135,11 +135,11 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
       <div className="flex-1 overflow-y-auto">
         {dayBks.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full py-16 px-4">
-            <div className="w-16 h-16 rounded-2xl bg-[#F4F2EE] flex items-center justify-center mb-4">
+            <div className="w-16 h-16 rounded-2xl bg-[#F5F3EE] flex items-center justify-center mb-4">
               <CoffeeIcon className="w-8 h-8 text-[#C4A882]" />
             </div>
             <p className="text-base font-semibold text-[#0D1B2A]">No bookings scheduled</p>
-            <p className="text-sm text-[#8E95A5] mt-1 text-center">
+            <p className="text-sm text-[#6B7280] mt-1 text-center">
               This day is free. Tap &ldquo;New Booking&rdquo; to add one.
             </p>
           </div>
@@ -165,10 +165,10 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
                     <span className="text-xs font-bold uppercase tracking-wider" style={{ color: meta.color }}>
                       {meta.label}
                     </span>
-                    <span className="text-[10px] text-[#8E95A5]">
+                    <span className="text-[10px] text-[#6B7280]">
                       {bks.length} booking{bks.length !== 1 ? "s" : ""}
                     </span>
-                    <div className="flex-1 border-t border-dashed border-[#E8ECF4] ml-2" />
+                    <div className="flex-1 border-t border-dashed border-[#E8E4DA] ml-2" />
                   </div>
 
                   {/* Booking cards */}
@@ -217,18 +217,18 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
                               "hover:shadow-md active:scale-[0.99]",
                               isNow
                                 ? "border-[#C4A882] bg-[#FDFCFA] shadow-sm ring-1 ring-[#C4A882]/30"
-                                : "border-[#E8ECF4] bg-white",
+                                : "border-[#E8E4DA] bg-white",
                               (isCancelled || isNoShow) && "opacity-60",
                               isPast && !isNow && "opacity-75"
                             )}
                           >
                             <div className="flex">
                               {/* Left time column */}
-                              <div className="w-16 sm:w-20 shrink-0 flex flex-col items-center justify-center py-3 border-r border-[#F0F3FA]">
+                              <div className="w-16 sm:w-20 shrink-0 flex flex-col items-center justify-center py-3 border-r border-[#F0EEE6]">
                                 <span className="text-xs font-bold text-[#0D1B2A]">
                                   {formatTime(startDate)}
                                 </span>
-                                <span className="text-[10px] text-[#8E95A5] mt-0.5">
+                                <span className="text-[10px] text-[#6B7280] mt-0.5">
                                   {booking.durationMinutes}m
                                 </span>
                               </div>
@@ -245,7 +245,7 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
                                   <div className="min-w-0">
                                     <p className={cn(
                                       "text-sm font-semibold truncate",
-                                      isCancelled ? "line-through text-[#8E95A5]" : "text-[#0D1B2A]"
+                                      isCancelled ? "line-through text-[#6B7280]" : "text-[#0D1B2A]"
                                     )}>
                                       {booking.clientName}
                                     </p>
@@ -254,7 +254,7 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
                                         <Scissors size={10} className="text-[#9FB2D9]" />
                                         {booking.serviceName}
                                       </span>
-                                      <span className="text-[10px] text-[#8E95A5]">·</span>
+                                      <span className="text-[10px] text-[#6B7280]">·</span>
                                       <span className="flex items-center gap-1 text-[11px] text-[#6B7A99]">
                                         <User size={10} className="text-[#9FB2D9]" />
                                         {booking.staffName.split(" ")[0]}
@@ -282,7 +282,7 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
 
                                 {/* Notes preview */}
                                 {booking.notes && (
-                                  <p className="text-[10px] text-[#8E95A5] mt-1 truncate italic">
+                                  <p className="text-[10px] text-[#6B7280] mt-1 truncate italic">
                                     &ldquo;{booking.notes}&rdquo;
                                   </p>
                                 )}
@@ -323,7 +323,7 @@ export function DayView({ date, bookings, onBooking }: DayViewProps) {
 
             {/* End of day summary */}
             <div className="text-center py-6 mt-2">
-              <p className="text-xs text-[#8E95A5]">
+              <p className="text-xs text-[#6B7280]">
                 {formatTime(new Date(dayBks[0].startAt))} — {formatTime(new Date(dayBks[dayBks.length - 1].endAt))}
               </p>
               <p className="text-[10px] text-[#C4C9D4] mt-0.5">

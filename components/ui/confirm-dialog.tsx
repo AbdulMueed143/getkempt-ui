@@ -99,7 +99,7 @@ export function ConfirmDialog() {
         <button
           onClick={cancel}
           className="absolute top-4 right-4 p-1.5 rounded-lg transition-colors hover:bg-gray-100"
-          style={{ color: "#8E95A5" }}
+          style={{ color: "#6B7280" }}
           aria-label="Close"
         >
           <X size={16} />
@@ -136,7 +136,7 @@ export function ConfirmDialog() {
           {config.detail && (
             <p
               className="text-xs mt-2 leading-relaxed px-3 py-2 rounded-lg"
-              style={{ backgroundColor: "#F8F9FC", color: "#8E95A5", border: "1px solid #E8ECF4" }}
+              style={{ backgroundColor: "#F8F9FC", color: "#6B7280", border: "1px solid #E8ECF4" }}
             >
               {config.detail}
             </p>

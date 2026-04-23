@@ -174,7 +174,7 @@ export function RemindersPageClient() {
       />
 
       {/* Info banner */}
-      <div className="flex items-start gap-2.5 bg-[#F8F9FC] border border-[#E5EAF4] rounded-xl px-4 py-3">
+      <div className="flex items-start gap-2.5 bg-[#FAF8F3] border border-[#E5EAF4] rounded-xl px-4 py-3">
         <Info className="w-4 h-4 text-[#1B3163] shrink-0 mt-0.5" />
         <p className="text-xs text-[#1B3163]/80 leading-relaxed">
           <strong>Tip:</strong> You can add multiple "Appointment Reminder" rules at different lead times

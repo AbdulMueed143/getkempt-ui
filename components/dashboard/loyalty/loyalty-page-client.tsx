@@ -114,7 +114,7 @@ export function LoyaltyPageClient() {
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <h1 className="text-2xl font-bold" style={{ color: "#1B3163" }}>Loyalty System</h1>
-            <p className="text-sm mt-0.5" style={{ color: "#8E95A5" }}>
+            <p className="text-sm mt-0.5" style={{ color: "#6B7280" }}>
               Build a ladder of rewards to keep clients coming back.
             </p>
           </div>
@@ -155,7 +155,7 @@ export function LoyaltyPageClient() {
         {/* ── Program list ───────────────────────────── */}
         {sorted.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-sm mb-4" style={{ color: "#8E95A5" }}>
+            <p className="text-sm mb-4" style={{ color: "#6B7280" }}>
               No loyalty programs yet. Add your first one to get started!
             </p>
             <button
