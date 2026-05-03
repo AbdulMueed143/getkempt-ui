@@ -1,0 +1,53 @@
+# ─── Build output / generated ─────────────────
+.next
+out
+build
+dist
+coverage
+*.tsbuildinfo
+
+# ─── Dependencies ─────────────────────────────
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ─── VCS ──────────────────────────────────────
+.git
+.gitignore
+.github
+
+# ─── Editor / OS ──────────────────────────────
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ─── Tests ────────────────────────────────────
+__tests__
+__mocks__
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+jest.config.*
+jest.setup.*
+
+# ─── Env files (secrets must NEVER be baked into images) ───
+.env
+.env.local
+.env.*.local
+
+# ─── Docker self ──────────────────────────────
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# ─── Misc ─────────────────────────────────────
+README.md
+*.md
+LICENSE
+.husky

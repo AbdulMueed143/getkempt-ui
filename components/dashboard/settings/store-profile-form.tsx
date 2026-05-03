@@ -240,12 +240,12 @@ export function StoreProfileForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 pb-24">
 
       {/* ═══════════════════════════════════════════════════════════
-          PAGE HEADER — clean, on-brand
+          PAGE HEADER — desktop: full / mobile: condensed
           ═══════════════════════════════════════════════════════════ */}
       <header className="flex items-start justify-between gap-4 flex-wrap pt-1">
-        <div className="flex items-start gap-3.5 min-w-0">
+        <div className="flex items-start gap-3 min-w-0">
           <div
-            className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+            className="hidden sm:flex w-11 h-11 rounded-xl items-center justify-center shrink-0"
             style={{
               backgroundColor: "#F5EFE3",
               border: "1px solid rgba(196,168,130,0.4)",
@@ -254,13 +254,13 @@ export function StoreProfileForm() {
             <Store size={20} className="text-[#8A6D2F]" strokeWidth={2.25} />
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#C4A882] mb-0.5">
+            <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-[#C4A882] mb-0.5">
               Public profile
             </p>
-            <h1 className="text-[22px] md:text-[26px] font-extrabold font-sans text-[#0B1220] leading-tight tracking-tight">
+            <h1 className="text-[20px] sm:text-[22px] md:text-[26px] font-extrabold font-sans text-[#0B1220] leading-tight tracking-tight">
               Store Profile
             </h1>
-            <p className="text-sm text-[#4B5563] font-medium mt-1">
+            <p className="hidden sm:block text-sm text-[#4B5563] font-medium mt-1">
               How your shop shows up to clients — identity, contact &amp; location.
             </p>
           </div>
@@ -282,8 +282,9 @@ export function StoreProfileForm() {
       </header>
 
       {/* ═══════════════════════════════════════════════════════════
-          IDENTITY STRIP — logo + name + business type
-          (warm ivory card, not the rainbow hero)
+          IDENTITY STRIP — logo + name + meta
+          Mobile: compact horizontal row.
+          Desktop: roomier with breathing space.
           ═══════════════════════════════════════════════════════════ */}
       <div
         className="relative overflow-hidden rounded-2xl"
@@ -303,11 +304,11 @@ export function StoreProfileForm() {
           }}
         />
 
-        <div className="relative px-5 sm:px-7 py-5 sm:py-6 flex flex-col sm:flex-row items-center sm:items-center gap-5">
+        <div className="relative px-4 sm:px-7 py-4 sm:py-6 flex items-center gap-4 sm:gap-5">
           {/* Logo / avatar */}
           <div className="relative shrink-0">
             <div
-              className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-white flex items-center justify-center"
+              className="w-16 h-16 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-white flex items-center justify-center"
               style={{
                 border: "1px solid #E8E4DA",
                 boxShadow: "0 4px 14px rgba(11,18,32,0.06)",
@@ -317,48 +318,85 @@ export function StoreProfileForm() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={logoUrl} alt="Shop logo" className="w-full h-full object-cover" />
               ) : (
-                <Store className="w-9 h-9 text-[#C4A882]" strokeWidth={1.5} />
+                <Store className="w-7 h-7 sm:w-9 sm:h-9 text-[#C4A882]" strokeWidth={1.5} />
               )}
             </div>
             <button
               type="button"
               onClick={() => setActiveTab("identity")}
-              className="absolute -bottom-1 -right-1 w-8 h-8 rounded-xl bg-[#0B1220] text-white flex items-center justify-center shadow-lg hover:bg-[#1B3163] transition-colors"
+              className="absolute -bottom-1 -right-1 w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#0B1220] text-white flex items-center justify-center shadow-lg hover:bg-[#1B3163] transition-colors"
               title="Change logo"
               aria-label="Change logo"
             >
-              <Camera size={14} />
+              <Camera size={13} className="sm:hidden" />
+              <Camera size={14} className="hidden sm:block" />
             </button>
           </div>
 
           {/* Name + meta */}
-          <div className="flex-1 text-center sm:text-left min-w-0">
-            <h2 className="text-[22px] sm:text-[24px] font-extrabold text-[#0B1220] tracking-tight truncate">
+          <div className="flex-1 min-w-0">
+            <h2 className="text-[18px] sm:text-[24px] font-extrabold text-[#0B1220] tracking-tight truncate">
               {shopName || "Your Shop Name"}
             </h2>
-            <div className="flex items-center justify-center sm:justify-start gap-2 mt-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white text-[#4B5563] border border-[#E8E4DA]">
-                <Store size={11} />
-                {BUSINESS_TYPE_LABELS[businessType as keyof typeof BUSINESS_TYPE_LABELS] || "Business"}
+            <div className="flex items-center gap-1.5 sm:gap-2 mt-1.5 sm:mt-2 flex-wrap">
+              <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white text-[#4B5563] border border-[#E8E4DA]">
+                <Store size={10} className="sm:hidden" />
+                <Store size={11} className="hidden sm:block" />
+                <span className="truncate max-w-[120px] sm:max-w-none">
+                  {BUSINESS_TYPE_LABELS[businessType as keyof typeof BUSINESS_TYPE_LABELS] || "Business"}
+                </span>
               </span>
               {watch("address.suburb") && (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white text-[#4B5563] border border-[#E8E4DA]">
-                  <MapPin size={11} />
-                  {watch("address.suburb")}
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white text-[#4B5563] border border-[#E8E4DA]">
+                  <MapPin size={10} className="sm:hidden" />
+                  <MapPin size={11} className="hidden sm:block" />
+                  <span className="truncate max-w-[100px] sm:max-w-none">
+                    {watch("address.suburb")}
+                  </span>
                 </span>
               )}
             </div>
           </div>
         </div>
+
+        {/* Mobile completeness bar — sits inside the identity card */}
+        <div className="md:hidden relative px-4 pb-4">
+          <div className="flex items-center justify-between text-[10px] text-[#4B5563] font-semibold mb-1.5">
+            <span>Profile completeness</span>
+            <span className="text-[#0B1220] font-extrabold tabular-nums">{completeness}%</span>
+          </div>
+          <div className="w-full h-1.5 rounded-full bg-[#E8E4DA] overflow-hidden">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-[#C4A882] to-[#D5B584] transition-all duration-500"
+              style={{ width: `${completeness}%` }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* ═══════════════════════════════════════════════════════════
-          TAB NAVIGATION — clean underline style
+          TAB NAVIGATION
+          Mobile: clean segmented-control card, NOT sticky
+                  (page is short — sticky tabs added more friction
+                  than they saved on small screens).
+          Desktop: sticky inside an opaque ivory bar with shadow,
+                   so scrolling content can't bleed through.
           ═══════════════════════════════════════════════════════════ */}
       <div
-        className="sticky top-16 z-[5] bg-[#F5F3EE]/85 backdrop-blur-md -mx-4 px-4 lg:-mx-8 lg:px-8 border-b border-[#E8E4DA]"
+        className={cn(
+          "lg:sticky lg:top-16 lg:z-10 lg:-mx-8 lg:px-8 lg:pt-2 lg:pb-2",
+          "lg:bg-[#F5F3EE] lg:border-b lg:border-[#E8E4DA]",
+        )}
       >
-        <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
+        <div
+          className="flex items-center gap-1 p-1 rounded-xl bg-white overflow-x-auto scrollbar-hide"
+          style={{
+            border: "1px solid #E8E4DA",
+            boxShadow:
+              "0 1px 2px rgba(11,18,32,0.04), 0 1px 3px rgba(11,18,32,0.04)",
+          }}
+          role="tablist"
+        >
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
             const TabIcon = tab.icon;
@@ -368,28 +406,23 @@ export function StoreProfileForm() {
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  "relative flex items-center gap-2 px-4 py-3 text-sm font-semibold transition-colors whitespace-nowrap",
+                  "relative flex-1 flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-[12px] sm:text-[13px] font-semibold transition-all duration-200 whitespace-nowrap min-w-0",
                   isActive
-                    ? "text-[#0B1220]"
-                    : "text-[#6B7280] hover:text-[#0B1220]",
+                    ? "bg-gradient-to-b from-[#0B1220] to-[#1B3163] text-white shadow-sm"
+                    : "text-[#4B5563] hover:text-[#0B1220] hover:bg-[#FAF8F3]",
                 )}
-                aria-current={isActive ? "page" : undefined}
+                role="tab"
+                aria-selected={isActive}
               >
                 <TabIcon
-                  size={15}
-                  className={isActive ? "text-[#C4A882]" : "text-[#9CA3AF]"}
+                  size={14}
+                  className={cn(
+                    "shrink-0",
+                    isActive ? "text-[#C4A882]" : "text-[#9CA3AF]",
+                  )}
                   strokeWidth={2.25}
                 />
-                <span>{tab.label}</span>
-                {isActive && (
-                  <span
-                    className="absolute bottom-0 left-2 right-2 h-[2px] rounded-full"
-                    style={{
-                      background:
-                        "linear-gradient(90deg, #C4A882, #D5B584)",
-                    }}
-                  />
-                )}
+                <span className="truncate">{tab.label}</span>
               </button>
             );
           })}

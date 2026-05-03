@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   CalendarCog,
   Search,
-  CheckCircle2,
-  CircleDashed,
   CalendarDays,
   RefreshCw,
+  ChevronDown,
+  X,
+  Check,
+  Globe2,
 } from "lucide-react";
 import { AvailabilityStats } from "./availability-stats";
 import { WeeklyScheduleEditor } from "./weekly-schedule-editor";
@@ -36,19 +38,23 @@ export function AvailabilityPageClient() {
   const [slideoverOpen, setSlideoverOpen] = useState(false);
   const [editingOverride, setEditingOverride] = useState<AvailabilityOverride | null>(null);
   const [mobileTab, setMobileTab] = useState<MobileTab>("schedule");
+  const [staffSheetOpen, setStaffSheetOpen] = useState(false);
 
   /* ── Derived ── */
   const selectedStaff = MOCK_STAFF.find((s) => s.id === selectedStaffId)!;
   const selectedSchedule = schedules.find((s) => s.staffId === selectedStaffId);
   const staffOverrides = overrides.filter((o) => o.staffId === selectedStaffId);
+  const today = new Date().toISOString().split("T")[0];
+  const upcomingOverridesForStaff = staffOverrides.filter((o) => o.date >= today).length;
 
   const filteredStaff = useMemo(() => {
-    const q = staffSearch.toLowerCase();
+    const q = staffSearch.trim().toLowerCase();
+    if (!q) return MOCK_STAFF;
     return MOCK_STAFF.filter(
       (s) =>
         s.firstName.toLowerCase().includes(q) ||
         s.lastName.toLowerCase().includes(q) ||
-        s.specialization.toLowerCase().includes(q)
+        s.specialization.toLowerCase().includes(q),
     );
   }, [staffSearch]);
 
@@ -89,8 +95,8 @@ export function AvailabilityPageClient() {
                 })),
                 note: values.note ?? "",
               }
-            : o
-        )
+            : o,
+        ),
       );
       toast.success({
         title: "Override updated",
@@ -149,90 +155,126 @@ export function AvailabilityPageClient() {
       onSave={handleSaveSchedule}
     />
   ) : (
-    <div className="bg-white rounded-xl border border-dashed border-gray-200 p-10 text-center">
-      <CalendarCog className="w-8 h-8 text-gray-200 mx-auto mb-2" />
-      <p className="text-gray-400 text-sm">No schedule found for this staff member.</p>
+    <div className="bg-white rounded-2xl border border-dashed border-[#E5E2D9] p-10 text-center">
+      <CalendarCog className="w-8 h-8 text-[#CBD5E1] mx-auto mb-2" />
+      <p className="text-[#94A3B8] text-sm">No schedule found for this staff member.</p>
     </div>
   );
 
   return (
     <div className="space-y-5">
-      {/* ── Page header ── */}
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Availability</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Manage weekly schedules and date-specific overrides for your team
+      {/* ─────────── PAGE HEADER ─────────── */}
+      <header className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-[#C4A882]">
+            Manage
+          </p>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#0F172A] mt-0.5 leading-tight">
+            Availability
+          </h1>
+          <p className="hidden sm:block text-sm text-[#64748B] mt-1">
+            Set weekly hours and one-off date overrides per staff member.
           </p>
         </div>
-        <div className="hidden sm:flex items-center gap-2 text-xs text-gray-400 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100 shrink-0">
-          <CalendarCog className="w-3.5 h-3.5" />
+        <div className="hidden sm:inline-flex items-center gap-1.5 text-[11px] text-[#64748B] bg-white px-3 py-1.5 rounded-full border border-[#E5E2D9] shrink-0">
+          <Globe2 className="w-3.5 h-3.5 text-[#1B3163]" />
           AEDT · stored as UTC
         </div>
-      </div>
+      </header>
 
-      {/* ── Stats ── */}
+      {/* ─────────── STATS ─────────── */}
       <AvailabilityStats schedules={schedules} overrides={overrides} />
 
       {/* ════════════════════════════════════════════
-          MOBILE LAYOUT  (hidden on lg+)
+          MOBILE LAYOUT (< lg)
           ════════════════════════════════════════════ */}
-      <div className="lg:hidden space-y-4">
-        {/* Staff selector */}
-        <MobileStaffSelector
-          staff={MOCK_STAFF}
-          filtered={filteredStaff}
-          search={staffSearch}
-          onSearch={setStaffSearch}
-          selectedId={selectedStaffId}
-          onSelect={(id) => {
-            setSelectedStaffId(id);
-            setMobileTab("schedule"); // reset tab on staff change
-          }}
-          overrides={overrides}
-        />
-
-        {/* Selected staff context bar */}
-        <div className="flex items-center gap-3 bg-white rounded-xl border border-gray-100 px-4 py-3">
+      <div className="lg:hidden space-y-3">
+        {/* Staff selector — single button instead of chip-strip */}
+        <button
+          type="button"
+          onClick={() => setStaffSheetOpen(true)}
+          className="w-full bg-white rounded-2xl border border-[#E5E2D9] px-4 py-3 flex items-center gap-3 hover:border-[#1B3163]/40 transition-colors text-left shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          aria-haspopup="dialog"
+        >
+          {/* Avatar */}
           <span
-            className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-            style={{
-              backgroundColor: selectedStaff.avatarColor + "22",
-              color: selectedStaff.avatarColor,
-            }}
+            className="w-11 h-11 rounded-2xl overflow-hidden flex items-center justify-center text-sm font-bold shrink-0"
+            style={
+              !selectedStaff.avatarImage
+                ? {
+                    backgroundColor: selectedStaff.avatarColor + "22",
+                    color: selectedStaff.avatarColor,
+                  }
+                : undefined
+            }
           >
-            {selectedStaff.firstName[0]}{selectedStaff.lastName[0]}
+            {selectedStaff.avatarImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={selectedStaff.avatarImage}
+                alt={selectedStaff.firstName}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <>
+                {selectedStaff.firstName[0]}
+                {selectedStaff.lastName[0]}
+              </>
+            )}
           </span>
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-gray-900 truncate">
+
+          {/* Name + meta */}
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[#C4A882]">
+                Editing
+              </p>
+              <span className="text-[10px] text-[#94A3B8]">·</span>
+              <p className="text-[10px] font-medium text-[#94A3B8]">
+                {MOCK_STAFF.length} staff
+              </p>
+            </div>
+            <p className="text-sm font-bold text-[#0F172A] truncate mt-0.5">
               {selectedStaff.firstName} {selectedStaff.lastName}
             </p>
-            <p className="text-xs text-gray-400 truncate">{selectedStaff.specialization}</p>
+            <p className="text-[11px] text-[#64748B] truncate">
+              {selectedStaff.specialization}
+              {upcomingOverridesForStaff > 0 && (
+                <>
+                  {" · "}
+                  <span className="text-amber-600 font-medium">
+                    {upcomingOverridesForStaff} upcoming override
+                    {upcomingOverridesForStaff > 1 ? "s" : ""}
+                  </span>
+                </>
+              )}
+            </p>
           </div>
-          <div className="ml-auto text-xs text-gray-400 shrink-0">
-            {staffOverrides.filter((o) => o.date >= new Date().toISOString().split("T")[0]).length} overrides
-          </div>
-        </div>
 
-        {/* Schedule / Overrides tab bar */}
+          <span className="text-[11px] font-semibold text-[#1B3163] shrink-0 inline-flex items-center gap-1">
+            Switch
+            <ChevronDown className="w-3.5 h-3.5" />
+          </span>
+        </button>
+
+        {/* Tab bar */}
         <MobileTabBar
           active={mobileTab}
           onChange={setMobileTab}
-          overrideCount={
-            staffOverrides.filter((o) => o.date >= new Date().toISOString().split("T")[0]).length
-          }
+          overrideCount={upcomingOverridesForStaff}
         />
 
         {/* Tab content */}
-        {mobileTab === "schedule" && weeklyEditor}
-        {mobileTab === "overrides" && <OverridesList {...overrideListProps} />}
+        <div className="pt-1">
+          {mobileTab === "schedule" && weeklyEditor}
+          {mobileTab === "overrides" && <OverridesList {...overrideListProps} />}
+        </div>
       </div>
 
       {/* ════════════════════════════════════════════
-          DESKTOP LAYOUT  (hidden below lg)
+          DESKTOP LAYOUT (lg+)
           ════════════════════════════════════════════ */}
       <div className="hidden lg:flex gap-6 items-start">
-        {/* Staff sidebar */}
         <StaffSidebar
           staff={MOCK_STAFF}
           filtered={filteredStaff}
@@ -243,7 +285,6 @@ export function AvailabilityPageClient() {
           overrides={overrides}
         />
 
-        {/* Content grid */}
         <div className="flex-1 min-w-0">
           <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6 items-start">
             {weeklyEditor}
@@ -252,7 +293,24 @@ export function AvailabilityPageClient() {
         </div>
       </div>
 
-      {/* Override slide-over (shared) */}
+      {/* Mobile staff bottom sheet */}
+      <StaffBottomSheet
+        open={staffSheetOpen}
+        onClose={() => setStaffSheetOpen(false)}
+        staff={MOCK_STAFF}
+        filtered={filteredStaff}
+        search={staffSearch}
+        onSearch={setStaffSearch}
+        selectedId={selectedStaffId}
+        onSelect={(id) => {
+          setSelectedStaffId(id);
+          setMobileTab("schedule");
+          setStaffSheetOpen(false);
+        }}
+        overrides={overrides}
+      />
+
+      {/* Override slide-over */}
       <OverrideSlideover
         isOpen={slideoverOpen}
         onClose={() => setSlideoverOpen(false)}
@@ -265,126 +323,9 @@ export function AvailabilityPageClient() {
   );
 }
 
-/* ── Mobile Staff Selector ────────────────────────────────────────────
- * Search input + horizontal scroll chips.
- * Works for any team size — the chip strip scrolls.
- * ─────────────────────────────────────────────────────────────────── */
-
-interface MobileStaffSelectorProps {
-  staff: StaffMember[];
-  filtered: StaffMember[];
-  search: string;
-  onSearch: (v: string) => void;
-  selectedId: string;
-  onSelect: (id: string) => void;
-  overrides: AvailabilityOverride[];
-}
-
-function MobileStaffSelector({
-  staff,
-  filtered,
-  search,
-  onSearch,
-  selectedId,
-  onSelect,
-  overrides,
-}: MobileStaffSelectorProps) {
-  const today = new Date().toISOString().split("T")[0];
-
-  return (
-    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-      {/* Search */}
-      <div className="px-4 pt-3 pb-2">
-        <div className="flex items-center justify-between mb-2.5">
-          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-            Staff
-          </span>
-          <span className="text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded-full">
-            {staff.length}
-          </span>
-        </div>
-        <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => onSearch(e.target.value)}
-            placeholder="Search staff…"
-            className="w-full text-sm pl-8 pr-3 py-2 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:bg-white focus:border-transparent placeholder:text-gray-300"
-          />
-        </div>
-      </div>
-
-      {/* Horizontal chip strip */}
-      <div className="px-4 pb-3 overflow-x-auto flex gap-2 [-webkit-overflow-scrolling:touch]">
-        {filtered.length === 0 ? (
-          <p className="text-xs text-gray-400 py-2 whitespace-nowrap">No staff found</p>
-        ) : (
-          filtered.map((member) => {
-            const isSelected = member.id === selectedId;
-            const hasOverride = overrides.some(
-              (o) => o.staffId === member.id && o.date === today
-            );
-
-            return (
-              <button
-                key={member.id}
-                type="button"
-                onClick={() => onSelect(member.id)}
-                className={cn(
-                  "flex items-center gap-2 px-3 py-2 rounded-xl border text-sm font-medium whitespace-nowrap transition-all shrink-0",
-                  isSelected
-                    ? "bg-[#1B3163] text-white border-[#1B3163] shadow-sm"
-                    : "bg-white text-gray-700 border-gray-200 hover:border-[#1B3163]"
-                )}
-              >
-                {/* Avatar */}
-                <span
-                  className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
-                  style={{
-                    backgroundColor: isSelected
-                      ? "rgba(255,255,255,0.2)"
-                      : member.avatarColor + "22",
-                    color: isSelected ? "white" : member.avatarColor,
-                  }}
-                >
-                  {member.firstName[0]}
-                </span>
-
-                {member.firstName}
-
-                {/* Status indicators */}
-                {member.status === "on_leave" && (
-                  <span
-                    className={cn(
-                      "text-xs px-1.5 py-0.5 rounded-full font-normal",
-                      isSelected
-                        ? "bg-white/20 text-white"
-                        : "bg-amber-100 text-amber-600"
-                    )}
-                  >
-                    Leave
-                  </span>
-                )}
-                {hasOverride && (
-                  <span
-                    className={cn(
-                      "w-1.5 h-1.5 rounded-full shrink-0",
-                      isSelected ? "bg-amber-300" : "bg-amber-400"
-                    )}
-                    title="Has override today"
-                  />
-                )}
-              </button>
-            );
-          })
-        )}
-      </div>
-    </div>
-  );
-}
-
-/* ── Mobile Tab Bar ───────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+ * Mobile tab bar
+ * ───────────────────────────────────────────────────────────── */
 
 interface MobileTabBarProps {
   active: MobileTab;
@@ -394,15 +335,17 @@ interface MobileTabBarProps {
 
 function MobileTabBar({ active, onChange, overrideCount }: MobileTabBarProps) {
   return (
-    <div className="flex bg-white rounded-xl border border-gray-100 p-1 gap-1">
+    <div className="flex bg-white rounded-2xl border border-[#E5E2D9] p-1 gap-1 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
       <TabButton
-        label="Weekly Schedule"
+        label="Weekly"
+        sublabel="Recurring"
         icon={<CalendarDays className="w-4 h-4" />}
         active={active === "schedule"}
         onClick={() => onChange("schedule")}
       />
       <TabButton
-        label="Date Overrides"
+        label="Overrides"
+        sublabel="One-off dates"
         icon={<RefreshCw className="w-4 h-4" />}
         badge={overrideCount}
         active={active === "overrides"}
@@ -414,31 +357,37 @@ function MobileTabBar({ active, onChange, overrideCount }: MobileTabBarProps) {
 
 interface TabButtonProps {
   label: string;
+  sublabel: string;
   icon: React.ReactNode;
   active: boolean;
   onClick: () => void;
   badge?: number;
 }
 
-function TabButton({ label, icon, active, onClick, badge }: TabButtonProps) {
+function TabButton({ label, sublabel, icon, active, onClick, badge }: TabButtonProps) {
   return (
     <button
       type="button"
       onClick={onClick}
       className={cn(
-        "flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-sm font-medium transition-all",
+        "flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-sm font-semibold transition-all",
         active
           ? "bg-[#1B3163] text-white shadow-sm"
-          : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+          : "text-[#64748B] hover:text-[#0F172A] hover:bg-[#F4F2EC]",
       )}
     >
       {icon}
-      <span className="hidden xs:inline sm:inline">{label}</span>
+      <span className="flex flex-col items-start leading-tight">
+        <span>{label}</span>
+        <span className={cn("text-[10px] font-medium", active ? "text-white/70" : "text-[#94A3B8]")}>
+          {sublabel}
+        </span>
+      </span>
       {badge != null && badge > 0 && (
         <span
           className={cn(
-            "text-xs px-1.5 py-0.5 rounded-full font-semibold leading-none",
-            active ? "bg-white/20 text-white" : "bg-amber-100 text-amber-600"
+            "text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none ml-auto sm:ml-0",
+            active ? "bg-white/20 text-white" : "bg-amber-100 text-amber-700",
           )}
         >
           {badge}
@@ -448,7 +397,202 @@ function TabButton({ label, icon, active, onClick, badge }: TabButtonProps) {
   );
 }
 
-/* ── Desktop Staff Sidebar ────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+ * Mobile staff bottom sheet — replaces the horizontal chip strip
+ * with a focused, scrollable list. Far easier to scan, never
+ * fights vertical page scroll.
+ * ───────────────────────────────────────────────────────────── */
+
+interface StaffBottomSheetProps {
+  open: boolean;
+  onClose: () => void;
+  staff: StaffMember[];
+  filtered: StaffMember[];
+  search: string;
+  onSearch: (v: string) => void;
+  selectedId: string;
+  onSelect: (id: string) => void;
+  overrides: AvailabilityOverride[];
+}
+
+function StaffBottomSheet({
+  open,
+  onClose,
+  staff,
+  filtered,
+  search,
+  onSearch,
+  selectedId,
+  onSelect,
+  overrides,
+}: StaffBottomSheetProps) {
+  const today = new Date().toISOString().split("T")[0];
+
+  // Lock body scroll while open
+  useEffect(() => {
+    if (!open) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [open]);
+
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return;
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div className="lg:hidden fixed inset-0 z-50 flex flex-col" role="dialog" aria-modal="true">
+      {/* Backdrop */}
+      <button
+        type="button"
+        aria-label="Close"
+        onClick={onClose}
+        className="absolute inset-0 bg-[#0F172A]/40 backdrop-blur-sm animate-in fade-in duration-150"
+      />
+
+      {/* Sheet */}
+      <div className="relative mt-auto bg-white rounded-t-3xl shadow-2xl flex flex-col max-h-[85dvh] animate-in slide-in-from-bottom duration-200">
+        {/* Grab handle */}
+        <div className="pt-2 pb-1 flex justify-center">
+          <span className="w-10 h-1.5 rounded-full bg-[#E5E2D9]" />
+        </div>
+
+        <div className="px-4 sm:px-5 pb-3 flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-[#C4A882]">
+              Pick staff
+            </p>
+            <h2 className="text-base font-bold text-[#0F172A]">
+              {staff.length} staff member{staff.length === 1 ? "" : "s"}
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="w-9 h-9 rounded-full bg-[#F4F2EC] flex items-center justify-center text-[#475569] hover:bg-[#EAE7DE]"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Search */}
+        <div className="px-4 sm:px-5 pb-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8] pointer-events-none" />
+            <input
+              type="text"
+              autoFocus
+              value={search}
+              onChange={(e) => onSearch(e.target.value)}
+              placeholder="Search by name or role…"
+              className="w-full text-sm pl-9 pr-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:bg-white focus:border-transparent placeholder:text-[#94A3B8]"
+            />
+          </div>
+        </div>
+
+        {/* List */}
+        <div className="flex-1 overflow-y-auto px-2 pb-[max(env(safe-area-inset-bottom),1rem)]">
+          {filtered.length === 0 ? (
+            <p className="text-sm text-[#94A3B8] text-center py-10">No staff match that search.</p>
+          ) : (
+            <ul className="space-y-1">
+              {filtered.map((member) => {
+                const isSelected = member.id === selectedId;
+                const hasOverride = overrides.some(
+                  (o) => o.staffId === member.id && o.date === today,
+                );
+                const onLeave = member.status === "on_leave";
+                return (
+                  <li key={member.id}>
+                    <button
+                      type="button"
+                      onClick={() => onSelect(member.id)}
+                      className={cn(
+                        "w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors",
+                        isSelected
+                          ? "bg-[#EEF1F8]"
+                          : "hover:bg-[#F4F2EC] active:bg-[#EAE7DE]",
+                      )}
+                    >
+                      <span
+                        className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center text-sm font-bold shrink-0"
+                        style={
+                          !member.avatarImage
+                            ? {
+                                backgroundColor: member.avatarColor + "22",
+                                color: member.avatarColor,
+                              }
+                            : undefined
+                        }
+                      >
+                        {member.avatarImage ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={member.avatarImage}
+                            alt={member.firstName}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <>
+                            {member.firstName[0]}
+                            {member.lastName[0]}
+                          </>
+                        )}
+                      </span>
+
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className={cn(
+                            "text-sm font-semibold truncate",
+                            isSelected ? "text-[#1B3163]" : "text-[#0F172A]",
+                          )}
+                        >
+                          {member.firstName} {member.lastName}
+                        </p>
+                        <p className="text-[11px] text-[#64748B] truncate flex items-center gap-1.5 mt-0.5">
+                          {member.specialization}
+                          {onLeave && (
+                            <span className="text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full font-semibold leading-none">
+                              On leave
+                            </span>
+                          )}
+                          {hasOverride && (
+                            <span className="text-amber-700 font-medium">· override today</span>
+                          )}
+                        </p>
+                      </div>
+
+                      {isSelected && (
+                        <span className="w-7 h-7 rounded-full bg-[#1B3163] text-white flex items-center justify-center shrink-0">
+                          <Check className="w-3.5 h-3.5" />
+                        </span>
+                      )}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Desktop staff sidebar
+ * ───────────────────────────────────────────────────────────── */
 
 interface StaffSidebarProps {
   staff: StaffMember[];
@@ -472,23 +616,23 @@ function StaffSidebar({
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <div className="w-56 shrink-0 bg-white rounded-xl border border-gray-100 overflow-hidden flex flex-col">
+    <div className="w-60 shrink-0 bg-white rounded-2xl border border-[#E5E2D9] overflow-hidden flex flex-col shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
       {/* Header + search */}
-      <div className="px-4 py-3 border-b border-gray-100">
+      <div className="px-4 py-3 border-b border-[#EAE7DE]">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-xs font-semibold text-gray-900 uppercase tracking-wide">Staff</h3>
-          <span className="text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded-full">
+          <h3 className="text-[11px] font-bold text-[#0F172A] uppercase tracking-wider">Staff</h3>
+          <span className="text-[10px] font-semibold text-[#64748B] bg-[#F4F2EC] px-1.5 py-0.5 rounded-full">
             {staff.length}
           </span>
         </div>
         <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#94A3B8] pointer-events-none" />
           <input
             type="text"
             value={search}
             onChange={(e) => onSearch(e.target.value)}
             placeholder="Search staff…"
-            className="w-full text-xs pl-7 pr-3 py-1.5 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:bg-white focus:border-transparent placeholder:text-gray-300"
+            className="w-full text-xs pl-7 pr-3 py-1.5 border border-[#E2E8F0] rounded-lg bg-[#F8FAFC] focus:outline-none focus:ring-2 focus:ring-[#1B3163] focus:bg-white focus:border-transparent placeholder:text-[#94A3B8]"
           />
         </div>
       </div>
@@ -496,13 +640,13 @@ function StaffSidebar({
       {/* Scrollable list */}
       <div className="overflow-y-auto" style={{ maxHeight: "calc(100vh - 320px)" }}>
         {filtered.length === 0 && (
-          <p className="text-xs text-gray-400 text-center py-6 px-4">No staff match your search</p>
+          <p className="text-xs text-[#94A3B8] text-center py-6 px-4">No staff match your search</p>
         )}
 
         {filtered.map((member) => {
           const isSelected = member.id === selectedId;
           const hasOverride = overrides.some(
-            (o) => o.staffId === member.id && o.date === today
+            (o) => o.staffId === member.id && o.date === today,
           );
 
           return (
@@ -511,34 +655,49 @@ function StaffSidebar({
               type="button"
               onClick={() => onSelect(member.id)}
               className={cn(
-                "w-full text-left px-4 py-3 flex items-start gap-3 transition-colors border-b border-gray-50 last:border-0",
-                isSelected ? "bg-[#EEF1F8]" : "hover:bg-gray-50"
+                "w-full text-left px-4 py-3 flex items-start gap-3 transition-colors border-b border-[#F4F2EC] last:border-0",
+                isSelected ? "bg-[#EEF1F8]" : "hover:bg-[#FAF8F3]",
               )}
             >
               <span
                 className="w-8 h-8 rounded-full overflow-hidden shrink-0 mt-0.5 flex items-center justify-center text-xs font-bold"
-                style={!member.avatarImage ? { backgroundColor: member.avatarColor + "22", color: member.avatarColor } : undefined}
-              >
-                {member.avatarImage
-                  ? <img src={member.avatarImage} alt={member.firstName} className="w-full h-full object-cover" />
-                  : <>{member.firstName[0]}{member.lastName[0]}</>
+                style={
+                  !member.avatarImage
+                    ? { backgroundColor: member.avatarColor + "22", color: member.avatarColor }
+                    : undefined
                 }
+              >
+                {member.avatarImage ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={member.avatarImage}
+                    alt={member.firstName}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <>
+                    {member.firstName[0]}
+                    {member.lastName[0]}
+                  </>
+                )}
               </span>
 
               <div className="min-w-0 flex-1">
                 <p
                   className={cn(
-                    "text-sm font-medium leading-tight truncate",
-                    isSelected ? "text-[#1B3163]" : "text-gray-800"
+                    "text-sm font-semibold leading-tight truncate",
+                    isSelected ? "text-[#1B3163]" : "text-[#0F172A]",
                   )}
                 >
                   {member.firstName} {member.lastName}
                 </p>
-                <p className="text-xs text-gray-400 truncate mt-0.5">{member.specialization}</p>
-                <div className="flex items-center gap-1.5 mt-1">
-                  <StatusIcon status={member.status} />
+                <p className="text-xs text-[#64748B] truncate mt-0.5">{member.specialization}</p>
+                <div className="flex items-center gap-1.5 mt-1.5">
+                  <StatusPill status={member.status} />
                   {hasOverride && (
-                    <span className="text-xs text-amber-600 font-medium">override today</span>
+                    <span className="text-[10px] text-amber-700 font-bold uppercase tracking-wide">
+                      Override
+                    </span>
                   )}
                 </div>
               </div>
@@ -550,21 +709,35 @@ function StaffSidebar({
   );
 }
 
-/* ── Status icon ──────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+ * Status pill
+ * ───────────────────────────────────────────────────────────── */
 
-function StatusIcon({ status }: { status: StaffMember["status"] }) {
-  if (status === "active") return <CheckCircle2 className="w-3 h-3 text-emerald-500 shrink-0" />;
-  if (status === "on_leave") {
+function StatusPill({ status }: { status: StaffMember["status"] }) {
+  if (status === "active") {
     return (
-      <span className="text-xs text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full font-medium leading-none">
-        On leave
+      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-1.5 py-0.5 rounded-full leading-none">
+        <span className="w-1 h-1 rounded-full bg-emerald-500" />
+        Active
       </span>
     );
   }
-  return <CircleDashed className="w-3 h-3 text-gray-300 shrink-0" />;
+  if (status === "on_leave") {
+    return (
+      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-100 px-1.5 py-0.5 rounded-full leading-none">
+        <span className="w-1 h-1 rounded-full bg-amber-500" />
+        Leave
+      </span>
+    );
+  }
+  return (
+    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-500 bg-slate-50 border border-slate-200 px-1.5 py-0.5 rounded-full leading-none">
+      Inactive
+    </span>
+  );
 }
 
-/* ── Utility ──────────────────────────────────────────────────────────── */
+/* ── Utility ─────────────────────────────────────────────────────────── */
 
 function formatDateShort(dateStr: string): string {
   return new Date(dateStr + "T00:00:00").toLocaleDateString("en-AU", {

@@ -48,6 +48,64 @@ npm run test -- --coverage
 
 ---
 
+## Docker
+
+A multi-stage `Dockerfile` is provided. The final image is built on **nginx-alpine**
+(no Node.js runtime in production) and weighs ~25 MB.
+
+### Build & run
+
+```bash
+# Build the production image
+docker build -t getkempt-frontend:latest .
+
+# Run it
+docker run --rm -p 8080:8080 getkempt-frontend:latest
+# → open http://localhost:8080
+```
+
+### With docker-compose
+
+```bash
+# Production-like preview at http://localhost:8080
+docker compose up web
+
+# Hot-reload dev container at http://localhost:3000
+docker compose --profile dev up dev
+```
+
+### Build-time env vars (baked into the static bundle)
+
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_BASE_PATH` | Sub-path for the deployment (e.g. `/getkempt`) |
+| `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` | Google Maps Places API |
+| `NEXT_PUBLIC_API_URL` | Backend API base URL |
+
+Pass them at build time:
+
+```bash
+docker build \
+  --build-arg NEXT_PUBLIC_API_URL=https://api.getkempt.co \
+  -t getkempt-frontend:latest .
+```
+
+### Hardening notes
+
+The production container ships with sensible defaults already applied:
+
+- Runs as a non-root user
+- Read-only root filesystem (writable `tmpfs` for nginx caches only)
+- All Linux capabilities dropped
+- Security headers: HSTS, X-Frame-Options, CSP starter, Referrer-Policy, Permissions-Policy
+- nginx version banner hidden
+- 1-year `immutable` cache for hashed assets, `no-store` for HTML
+- Healthcheck wired to `wget --spider` against the root URL
+
+See [`SECURITY.md`](./SECURITY.md) for the full security plan.
+
+---
+
 ## Application Routes
 
 | Route | Page | Description |

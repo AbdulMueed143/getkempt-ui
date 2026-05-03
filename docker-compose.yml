@@ -1,0 +1,64 @@
+# ─────────────────────────────────────────────────────────────
+# Get Kempt — Docker Compose
+#
+# Two services:
+#   - web:  production image (nginx serving static export)
+#   - dev:  optional hot-reload dev container (Node + next dev)
+#
+# Usage:
+#   docker compose up web        # production-like, http://localhost:8080
+#   docker compose up dev        # hot reload,       http://localhost:3000
+# ─────────────────────────────────────────────────────────────
+
+services:
+  # ─── Production preview ──────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Public env — baked at BUILD time into the static bundle.
+        NEXT_PUBLIC_BASE_PATH:           ${NEXT_PUBLIC_BASE_PATH:-}
+        NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${NEXT_PUBLIC_GOOGLE_MAPS_API_KEY:-}
+        NEXT_PUBLIC_API_URL:             ${NEXT_PUBLIC_API_URL:-}
+    image: getkempt-frontend:latest
+    container_name: getkempt-web
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    read_only: true                   # Filesystem is read-only at runtime
+    tmpfs:                             # Writable scratch dirs nginx needs
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    security_opt:
+      - no-new-privileges:true        # Prevent privilege escalation
+    cap_drop:
+      - ALL                           # Drop every Linux capability
+    cap_add:
+      - NET_BIND_SERVICE              # Only allow binding low ports if needed
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout:  3s
+      retries:  3
+      start_period: 10s
+
+  # ─── Local development (hot reload) ──────────
+  dev:
+    image: node:22-alpine
+    container_name: getkempt-dev
+    working_dir: /app
+    command: sh -c "npm ci --no-audit --no-fund && npm run dev"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - dev_node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    profiles: ["dev"]                  # Only starts when explicitly requested
+
+volumes:
+  dev_node_modules:
