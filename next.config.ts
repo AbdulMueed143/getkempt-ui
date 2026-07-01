@@ -2,27 +2,23 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /**
-   * Static export — required for GitHub Pages (gh-pages -d out).
-   * `next build` will write all pages to the `out/` directory.
+   * Static export — generates static HTML/CSS/JS files in the `out/` directory.
+   * Compatible with: Cloudflare Pages, GitHub Pages, Netlify, S3, nginx, etc.
    */
   output: "export",
 
   /**
-   * Next.js Image optimisation is a server-side feature and cannot run
-   * in a statically exported site. Setting unoptimized keeps <Image>
-   * working by serving the original files directly.
+   * Image optimization requires a server. For static export, we serve
+   * original images directly. Consider a CDN image service (Cloudflare
+   * Images, Cloudinary) for production optimization.
    */
   images: {
     unoptimized: true,
   },
 
   /**
-   * If your GitHub Pages site lives at a sub-path
-   * (e.g. https://username.github.io/getkempt) set this env variable
-   * before building:
-   *   NEXT_PUBLIC_BASE_PATH=/getkempt npm run deploy
-   *
-   * For a root deployment (username.github.io) leave it unset.
+   * Base path for subdirectory deployments (e.g., /app).
+   * Leave empty for root deployments (recommended for Cloudflare Pages).
    */
   basePath: process.env.NEXT_PUBLIC_BASE_PATH ?? "",
 };

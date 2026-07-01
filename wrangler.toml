@@ -1,0 +1,32 @@
+# Cloudflare Pages Configuration
+# https://developers.cloudflare.com/pages/configuration/wrangler-configuration/
+
+name = "getkempt-frontend"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "out"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Environment Variables
+# 
+# Build-time variables (NEXT_PUBLIC_*) are baked into the static bundle.
+# Configure these in the Cloudflare Dashboard under:
+#   Pages > your-project > Settings > Environment variables
+#
+# You can set different values per environment (Production, Preview, Branch)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Production environment (main branch) → getkempt.co
+[env.production]
+# These are set in Cloudflare Dashboard - documented here for reference
+# NEXT_PUBLIC_API_URL = "https://api.getkempt.co"
+# NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = "<production-key>"
+
+# UAT environment (uat branch) → uat.getkempt.co
+[env.uat]
+# NEXT_PUBLIC_API_URL = "https://api-uat.getkempt.co"
+# NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = "<uat-key>"
+
+# Preview environment (all other branches including dev) → dev.getkempt.co
+[env.preview]
+# NEXT_PUBLIC_API_URL = "https://api-dev.getkempt.co"
+# NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = "<dev-key>"

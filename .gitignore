@@ -74,6 +74,10 @@ Desktop.ini
 # ── Vercel ────────────────────────────────────────
 .vercel
 
+# ── Cloudflare ──────────────────────────────────────
+.wrangler/
+.dev.vars
+
 # ── Turbopack cache ───────────────────────────────
 .turbo/
 
