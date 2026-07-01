@@ -46,5 +46,11 @@
     "tailwindcss": "4.3.2",
     "ts-node": "^10.9.2",
     "typescript": "6.0.3"
+  },
+  "optionalDependencies": {
+    "@next/swc-linux-x64-gnu": "16.2.9",
+    "@next/swc-linux-x64-musl": "16.2.9",
+    "lightningcss-linux-x64-gnu": "1.32.0",
+    "lightningcss-linux-x64-musl": "1.32.0"
   }
 }
