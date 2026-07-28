@@ -1,7 +1,7 @@
 "use client";
 
 import type { UseFormReturn } from "react-hook-form";
-import { ShieldCheck, FileText, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { ShieldCheck, FileText, AlertCircle, ChevronDown, ChevronUp, Lightbulb } from "lucide-react";
 import { useState } from "react";
 import type { StoreSettingsSchema } from "@/lib/validations/store-settings";
 import { cn } from "@/lib/utils/cn";
@@ -83,7 +83,7 @@ export function PoliciesSection({ form }: Props) {
 
           <div className="p-5 space-y-3">
             <div className="flex items-start gap-2 text-[11px] text-amber-700 bg-amber-50/60 border border-amber-100/60 rounded-xl px-3 py-2.5">
-              <span className="text-sm mt-0.5">💡</span>
+              <Lightbulb className="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" strokeWidth={1.75} />
               <span className="leading-relaxed">
                 Use the <strong>Cancellation &amp; No-show Fees</strong> section to configure
                 actual fee amounts. This text is for clients to read.

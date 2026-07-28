@@ -4,6 +4,7 @@ import { SalesChart } from "@/components/dashboard/widgets/sales-chart";
 import { QuickActions } from "@/components/dashboard/widgets/quick-actions";
 import { AlertsPanel } from "@/components/dashboard/widgets/alerts-panel";
 import { UpcomingBookings } from "@/components/dashboard/widgets/upcoming-bookings";
+import { BookingLinkCard } from "@/components/dashboard/share/booking-link-card";
 import { STAT_CARDS } from "@/lib/mock/dashboard";
 
 export const metadata: Metadata = { title: "Dashboard" };
@@ -40,6 +41,9 @@ export default function DashboardPage() {
           </p>
         </div>
       </header>
+
+      {/* ── Shareable booking link ──────────────────── */}
+      <BookingLinkCard />
 
       {/* ── Stat cards — 4 across ───────────────────── */}
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">

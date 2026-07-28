@@ -1,3 +1,5 @@
+import { CheckCircle2, Bell, Star, XCircle, CalendarClock, type LucideIcon } from "lucide-react";
+
 /* ── Channels ─────────────────────────────────────── */
 export type ReminderChannel = "email" | "sms" | "push";
 
@@ -46,41 +48,41 @@ export type ReminderEvent =
 
 export const EVENT_META: Record<
   ReminderEvent,
-  { label: string; description: string; color: string; icon: string; canHaveMultiple: boolean }
+  { label: string; description: string; color: string; icon: LucideIcon; canHaveMultiple: boolean }
 > = {
   booking_confirmed: {
     label:           "Booking Confirmed",
     description:     "Sent immediately when a booking is created or accepted",
     color:           "#047857",
-    icon:            "✅",
+    icon:            CheckCircle2,
     canHaveMultiple: false,
   },
   appointment_reminder: {
     label:           "Appointment Reminder",
     description:     "Sent before the appointment — add multiple reminders at different lead times",
     color:           "#1B3163",
-    icon:            "🔔",
+    icon:            Bell,
     canHaveMultiple: true,
   },
   appointment_followup: {
     label:           "Post-visit Follow-up",
     description:     "Sent after the appointment — ask for a review or share loyalty progress",
     color:           "#B45309",
-    icon:            "⭐",
+    icon:            Star,
     canHaveMultiple: false,
   },
   booking_cancelled: {
     label:           "Booking Cancelled",
     description:     "Sent when a booking is cancelled by owner or client",
     color:           "#DC2626",
-    icon:            "❌",
+    icon:            XCircle,
     canHaveMultiple: false,
   },
   booking_rescheduled: {
     label:           "Booking Rescheduled",
     description:     "Sent when an appointment is moved to a new date or time",
     color:           "#7C3AED",
-    icon:            "📅",
+    icon:            CalendarClock,
     canHaveMultiple: false,
   },
 };

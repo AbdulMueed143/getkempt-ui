@@ -27,6 +27,7 @@ import {
   Plug2,
   ListOrdered,
   TicketPercent,
+  ShoppingBag,
 } from "lucide-react";
 import type {
   StatCardData,
@@ -63,6 +64,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { label: "Visits",         href: "/visits",       icon: CalendarCheck2 },
       { label: "Services",       href: "/services",     icon: Scissors },
       { label: "Packages",       href: "/packages",     icon: PackagePlus },
+      { label: "Products",       href: "/products",     icon: ShoppingBag },
       { label: "Loyalty System", href: "/loyalty",      icon: Gift },
       // {
       //   label: "Waitlist",
@@ -103,9 +105,6 @@ export const NAV_SECTIONS: NavSection[] = [
         label: "Checkout & POS",
         href: "/checkout",
         icon: CreditCard,
-        comingSoon: true,
-        comingSoonDescription:
-          "Accept deposits at booking time and collect balances in-store. Supports tap, card, and cash with automatic receipt generation and tip tracking.",
       },
       {
         label: "Invoices & Tax",
@@ -317,6 +316,14 @@ export const QUICK_ACTIONS: QuickAction[] = [
     icon: Clock,
     href: "/availability",
     accentColor: "#22C55E",
+  },
+  {
+    id: "new-sale",
+    label: "New Sale",
+    description: "Ring up products at the counter",
+    icon: ShoppingBag,
+    href: "/checkout",
+    accentColor: "#C4A882",
   },
 ];
 

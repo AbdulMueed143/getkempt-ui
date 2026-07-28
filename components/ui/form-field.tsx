@@ -1,4 +1,5 @@
 import * as React from "react";
+import { AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { Label } from "./label";
 import { Input } from "./input";
@@ -34,7 +35,7 @@ export const FormField = React.forwardRef<HTMLInputElement, FormFieldProps>(
             role="alert"
             className="mt-1.5 text-xs text-red-400 flex items-center gap-1"
           >
-            <span>⚠</span>
+            <AlertTriangle className="w-3 h-3 shrink-0" />
             {error}
           </p>
         )}

@@ -1,7 +1,7 @@
 import {
   CalendarDays, Users, CalendarCheck2, Scissors,
   PackagePlus, Gift, BarChart3, MessageSquare,
-  MapPin, Shield,
+  MapPin, Shield, Rocket,
 } from "lucide-react";
 
 const FEATURES = [
@@ -148,7 +148,9 @@ export function FeaturesSection() {
 
               {f.soon && (
                 <div className="mt-3 pt-3 border-t border-amber-100">
-                  <span className="text-xs text-amber-600 font-medium">🚀 In development</span>
+                  <span className="inline-flex items-center gap-1.5 text-xs text-amber-600 font-medium">
+                    <Rocket className="w-3.5 h-3.5" strokeWidth={1.75} /> In development
+                  </span>
                 </div>
               )}
             </div>

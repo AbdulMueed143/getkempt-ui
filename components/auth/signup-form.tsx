@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Mail, Lock, User, Building2, Shield, Sparkles } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Building2, Shield, Sparkles, AlertTriangle } from "lucide-react";
 import { signupSchema, type SignupSchema } from "@/lib/validations/auth";
 import { useAuth } from "@/hooks/use-auth";
 import { FormField } from "@/components/ui/form-field";
@@ -111,7 +111,7 @@ export function SignupForm() {
           />
           {errors.role && (
             <p className="mt-1.5 text-xs text-red-400 flex items-center gap-1">
-              <span>⚠</span> {errors.role.message}
+              <AlertTriangle className="w-3 h-3 shrink-0" /> {errors.role.message}
             </p>
           )}
         </div>
@@ -176,7 +176,7 @@ export function SignupForm() {
         />
         {errors.agreeToTerms && (
           <p className="text-xs text-red-400 flex items-center gap-1 -mt-2">
-            <span>⚠</span> {errors.agreeToTerms.message}
+            <AlertTriangle className="w-3 h-3 shrink-0" /> {errors.agreeToTerms.message}
           </p>
         )}
 

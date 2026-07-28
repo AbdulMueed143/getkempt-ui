@@ -106,6 +106,122 @@ See [`SECURITY.md`](./SECURITY.md) for the full security plan.
 
 ---
 
+## Deployment (Cloudflare Pages)
+
+The frontend is deployed to **Cloudflare Pages** as a static site. This gives us:
+- **$0/month** hosting (free tier)
+- Unlimited bandwidth
+- Global CDN (300+ edge locations)
+- Automatic SSL
+- Preview deployments for every branch
+
+### Prerequisites
+
+1. [Cloudflare account](https://dash.cloudflare.com/sign-up) (free)
+2. [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/) installed
+3. Node.js 22+ (matches CI environment)
+
+### First-time setup (one person does this once)
+
+```bash
+# 1. Login to Cloudflare
+npx wrangler login
+
+# 2. Create the Pages project
+npx wrangler pages project create getkempt --production-branch=main
+
+# 3. Build and deploy
+npm run build
+npx wrangler pages deploy out --project-name=getkempt --branch=main
+```
+
+### Environments
+
+| Branch | Environment | URL |
+|--------|-------------|-----|
+| `main` | Production | `getkempt.pages.dev` / `getkempt.co` |
+| `uat` | UAT (Preview) | `uat.getkempt.pages.dev` / `uat.getkempt.co` |
+| `dev` | Development (Preview) | `dev.getkempt.pages.dev` / `dev.getkempt.co` |
+| Feature branches | Preview | `<branch>.getkempt.pages.dev` |
+
+### Deploy commands
+
+```bash
+# Deploy current branch
+npm run build
+npx wrangler pages deploy out --project-name=getkempt
+
+# Deploy to specific branch/environment
+npx wrangler pages deploy out --project-name=getkempt --branch=uat
+npx wrangler pages deploy out --project-name=getkempt --branch=main  # production
+```
+
+### Environment variables
+
+Set these in **Cloudflare Dashboard** → **Workers & Pages** → **getkempt** → **Settings** → **Variables and Secrets**:
+
+| Variable | Production | Preview (UAT/Dev) |
+|----------|------------|-------------------|
+| `NEXT_PUBLIC_APP_ENV` | `production` | `uat` or `development` |
+| `NEXT_PUBLIC_API_URL` | `https://api.getkempt.co` | `https://api-uat.getkempt.co` |
+| `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` | prod key | dev key |
+
+> **Note:** `NEXT_PUBLIC_*` variables are baked into the bundle at build time. Changing them requires a redeploy.
+
+### Custom domains
+
+Add custom domains via CLI or dashboard:
+
+```bash
+# Via CLI
+npx wrangler pages project add-domain getkempt getkempt.co
+npx wrangler pages project add-domain getkempt uat.getkempt.co
+npx wrangler pages project add-domain getkempt dev.getkempt.co
+
+# Or via Dashboard: Workers & Pages → getkempt → Custom domains → Add
+```
+
+### CI/CD (GitHub Actions)
+
+The repo includes `.github/workflows/deploy.yml` for automatic deployments.
+
+**Required GitHub Secrets:**
+| Secret | Description |
+|--------|-------------|
+| `CLOUDFLARE_API_TOKEN` | API token with "Cloudflare Pages: Edit" permission |
+| `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare account ID |
+
+**Required GitHub Variables:**
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_API_URL` | Backend API URL |
+
+### Troubleshooting
+
+**Build fails with "Missing from lock file"**
+```bash
+# Regenerate lock file with Node 22
+nvm use 22
+rm -rf node_modules package-lock.json
+npm install
+# Commit and push package-lock.json
+```
+
+**Build fails with "Cannot find native binding"**
+
+Native packages (SWC, lightningcss, tailwindcss-oxide) need Linux binaries in the lock file. These are already added as `optionalDependencies` in `package.json`. If issues persist:
+```bash
+nvm use 22
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**Clear build cache**
+
+Cloudflare Dashboard → Workers & Pages → getkempt → Settings → Builds & deployments → Build cache → Clear cache
+
+---
+
 ## Application Routes
 
 | Route | Page | Description |

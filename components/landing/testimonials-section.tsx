@@ -7,7 +7,6 @@ const TESTIMONIALS = [
     suburb:  "Fitzroy, VIC",
     rating:  5,
     text:    "We used to manage bookings through a Google sheet and a WhatsApp group. GetKempt replaced all of that. My team knows their schedule, clients book themselves, and I can actually see who's shown up at the end of the day. Night and day difference.",
-    emoji:   "✂️",
   },
   {
     name:    "Priya S.",
@@ -15,7 +14,6 @@ const TESTIMONIALS = [
     suburb:  "South Yarra, VIC",
     rating:  5,
     text:    "The loyalty programs are what sold me. My regulars love earning rewards, and it's completely automated — I set it up once and forgot about it. Retention has noticeably improved in the three months since I switched.",
-    emoji:   "💅",
   },
   {
     name:    "Jamal H.",
@@ -23,9 +21,19 @@ const TESTIMONIALS = [
     suburb:  "Brunswick, VIC",
     rating:  5,
     text:    "We have 11 barbers across two chairs and the staff availability system saves me so much back-and-forth. Overrides for sick days, public holiday closures, it all just works. Honestly the best thing I've done for the business this year.",
-    emoji:   "💈",
   },
 ];
+
+/** "Marcus D." → "MD" — clean initials avatar for real people. */
+function initials(name: string): string {
+  return name
+    .split(/\s+/)
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
 
 export function TestimonialsSection() {
   return (
@@ -81,8 +89,8 @@ export function TestimonialsSection() {
 
               {/* Author */}
               <div className="flex items-center gap-3 mt-6 pt-5 border-t border-[#E8E2D8]">
-                <div className="w-11 h-11 rounded-full bg-[#C4A882]/10 border border-[#C4A882]/15 flex items-center justify-center text-xl shrink-0">
-                  {t.emoji}
+                <div className="w-11 h-11 rounded-full bg-[#C4A882]/10 border border-[#C4A882]/15 flex items-center justify-center shrink-0">
+                  <span className="text-sm font-bold text-[#1B3163] tracking-wide">{initials(t.name)}</span>
                 </div>
                 <div>
                   <p className="text-sm font-bold text-[#0D1B2A]">{t.name}</p>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useFieldArray, type UseFormReturn } from "react-hook-form";
 import {
   Plus, Trash2, AlertCircle,
-  Clock, Calendar,
+  Clock, CalendarDays, Sun, Percent,
 } from "lucide-react";
 import type { StoreSettingsSchema } from "@/lib/validations/store-settings";
 import { ALL_DAYS, DAY_LABELS, type SurchargeDay } from "@/types/store-settings";
@@ -53,20 +53,17 @@ const EMPTY_RULE = (): DraftRule => ({
 const PRESETS = [
   {
     label: "Weekend Surcharge",
-    icon: Calendar,
-    emoji: "🗓️",
+    icon: CalendarDays,
     rule: { name: "Weekend Surcharge", days: ["saturday", "sunday"] as SurchargeDay[], timeStart: "", timeEnd: "", surchargeType: "percentage" as const, surchargeValue: 10 },
   },
   {
     label: "After-Hours",
     icon: Clock,
-    emoji: "🌙",
     rule: { name: "After-Hours Surcharge", days: [] as SurchargeDay[], timeStart: "18:00", timeEnd: "21:00", surchargeType: "percentage" as const, surchargeValue: 15 },
   },
   {
     label: "Sunday Premium",
-    icon: Calendar,
-    emoji: "☀️",
+    icon: Sun,
     rule: { name: "Sunday Surcharge", days: ["sunday"] as SurchargeDay[], timeStart: "", timeEnd: "", surchargeType: "percentage" as const, surchargeValue: 20 },
   },
 ];
@@ -135,7 +132,7 @@ export function SurchargeSection({ form }: Props) {
               onClick={() => addPreset(p)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-[#0D1B2A] bg-gradient-to-br from-[#F8F6F2] to-[#F5F3EE] border border-[#E8E4DA] hover:border-[#0D1B2A] hover:shadow-sm transition-all duration-200"
             >
-              <span className="text-base">{p.emoji}</span>
+              <p.icon className="w-4 h-4 text-[#1B3163]" strokeWidth={1.75} />
               {p.label}
             </button>
           ))}
@@ -254,7 +251,7 @@ export function SurchargeSection({ form }: Props) {
       {fields.length === 0 ? (
         <div className="py-12 text-center">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-50 to-purple-50 flex items-center justify-center mx-auto mb-3">
-            <span className="text-2xl">💲</span>
+            <Percent className="w-6 h-6 text-violet-500" strokeWidth={1.5} />
           </div>
           <p className="text-sm text-[#6B7280] font-medium">No surcharge rules yet</p>
           <p className="text-[11px] text-[#C4C9D4] mt-1">Use quick add above or create a custom rule</p>

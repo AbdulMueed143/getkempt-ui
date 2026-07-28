@@ -5,7 +5,7 @@ export type BookingStatus =
   | "cancelled"   // cancelled before appointment
   | "no_show";    // client did not arrive
 
-export type BookingSource = "app" | "manual" | "walk_in";
+export type BookingSource = "app" | "manual" | "walk_in" | "online";
 
 export const BOOKING_STATUS_LABELS: Record<BookingStatus, string> = {
   confirmed: "Confirmed",
