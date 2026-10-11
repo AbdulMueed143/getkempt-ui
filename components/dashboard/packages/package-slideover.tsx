@@ -4,7 +4,7 @@ import React, { useEffect, useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  X, Package2, Clock, DollarSign, Settings2, Search,
+  X, Package2, Clock, DollarSign, Settings2, Search, AlertTriangle,
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { ImageUpload } from "@/components/ui/image-upload";
@@ -234,7 +234,7 @@ export function PackageSlideover({
             <SlidSection icon={<Package2 size={15} />} title="Services Included">
               {errors.serviceIds?.message && (
                 <p className="text-xs text-red-500 flex items-center gap-1 -mt-2">
-                  <span>⚠</span> {errors.serviceIds.message}
+                  <AlertTriangle className="w-3 h-3 shrink-0" /> {errors.serviceIds.message}
                 </p>
               )}
 
@@ -649,7 +649,7 @@ function FieldWrap({
       {children}
       {error && (
         <p className="text-xs text-red-500 flex items-center gap-1">
-          <span>⚠</span>{error}
+          <AlertTriangle className="w-3 h-3 shrink-0" />{error}
         </p>
       )}
     </div>

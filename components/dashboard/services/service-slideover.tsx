@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { X, Tag, Clock, DollarSign, Settings2 } from "lucide-react";
+import { X, Tag, Clock, DollarSign, Settings2, AlertTriangle } from "lucide-react";
 import { serviceSchema, type ServiceSchema } from "@/lib/validations/service";
 import { DURATION_PRESETS, BUFFER_PRESETS } from "@/lib/mock/services";
 import { MOCK_STAFF } from "@/lib/mock/staff";
@@ -448,7 +448,7 @@ function FieldWrap({ label, error, required, children }: { label: string; error?
         {label}{required && <span className="text-[#D5B584] ml-1">*</span>}
       </label>
       {children}
-      {error && <p className="text-xs text-red-500 flex items-center gap-1"><span>⚠</span>{error}</p>}
+      {error && <p className="text-xs text-red-500 flex items-center gap-1"><AlertTriangle className="w-3 h-3 shrink-0" />{error}</p>}
     </div>
   );
 }

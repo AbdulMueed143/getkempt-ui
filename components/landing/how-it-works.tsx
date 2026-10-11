@@ -1,22 +1,48 @@
-const STEPS = [
+import {
+  Store,
+  Users,
+  CalendarCheck,
+  Scissors,
+  Brush,
+  Hand,
+  Sparkles,
+  Eye,
+  Waves,
+  Leaf,
+  Armchair,
+  type LucideIcon,
+} from "lucide-react";
+
+const STEPS: { number: string; title: string; desc: string; Icon: LucideIcon }[] = [
   {
     number: "01",
     title:  "Set up your shop",
     desc:   "Add your shop details, services, packages, and opening hours in minutes. No developer required — if you can use Instagram you can use GetKempt.",
-    emoji:  "🏪",
+    Icon:   Store,
   },
   {
     number: "02",
     title:  "Add your team",
     desc:   "Invite staff members and set their individual schedules, services, and permissions. Each team member gets their own colour-coded calendar.",
-    emoji:  "👥",
+    Icon:   Users,
   },
   {
     number: "03",
     title:  "Take bookings everywhere",
     desc:   "Your clients book via your public booking page, the GetKempt app, or walk in. You take phone bookings directly from the calendar. Everything syncs instantly.",
-    emoji:  "📱",
+    Icon:   CalendarCheck,
   },
+];
+
+const INDUSTRIES: { Icon: LucideIcon; label: string }[] = [
+  { Icon: Scissors, label: "Barbershops" },
+  { Icon: Brush,    label: "Hair Salons" },
+  { Icon: Hand,     label: "Nail Studios" },
+  { Icon: Sparkles, label: "Beauty Spas" },
+  { Icon: Eye,      label: "Lash & Brow" },
+  { Icon: Waves,    label: "Massage" },
+  { Icon: Leaf,     label: "Wellness" },
+  { Icon: Armchair, label: "Barber + Beauty" },
 ];
 
 export function HowItWorks() {
@@ -73,9 +99,9 @@ export function HowItWorks() {
 
           {STEPS.map((s) => (
             <div key={s.number} className="flex flex-col items-center text-center relative group">
-              {/* Emoji circle — warm border */}
-              <div className="w-28 h-28 rounded-full bg-[#1B3163]/30 border border-[#C4A882]/20 flex items-center justify-center mb-6 text-4xl relative z-10 ring-4 ring-[#0D1B2A] group-hover:border-[#C4A882]/40 group-hover:bg-[#1B3163]/40 transition-all duration-500">
-                {s.emoji}
+              {/* Icon circle — warm border */}
+              <div className="w-28 h-28 rounded-full bg-[#1B3163]/30 border border-[#C4A882]/20 flex items-center justify-center mb-6 relative z-10 ring-4 ring-[#0D1B2A] group-hover:border-[#C4A882]/40 group-hover:bg-[#1B3163]/40 transition-all duration-500">
+                <s.Icon className="w-11 h-11 text-[#C4A882]" strokeWidth={1.5} />
               </div>
 
               {/* Step number */}
@@ -96,21 +122,12 @@ export function HowItWorks() {
 
           <p className="text-sm text-white/35 font-medium mb-6 uppercase tracking-wider">Designed for every kind of grooming business</p>
           <div className="flex flex-wrap justify-center gap-3">
-            {[
-              { icon: "✂️", label: "Barbershops" },
-              { icon: "💇", label: "Hair Salons" },
-              { icon: "💅", label: "Nail Studios" },
-              { icon: "🧖", label: "Beauty Spas" },
-              { icon: "👁️", label: "Lash & Brow" },
-              { icon: "🛁", label: "Massage" },
-              { icon: "🌿", label: "Wellness" },
-              { icon: "🪑", label: "Barber + Beauty" },
-            ].map((t) => (
+            {INDUSTRIES.map((t) => (
               <div
                 key={t.label}
                 className="flex items-center gap-2 bg-white/[0.03] border border-[#C4A882]/10 rounded-xl px-4 py-2.5 hover:border-[#C4A882]/25 hover:bg-white/[0.05] transition-all duration-300"
               >
-                <span className="text-xl">{t.icon}</span>
+                <t.Icon className="w-[18px] h-[18px] text-[#C4A882]" strokeWidth={1.75} />
                 <span className="text-sm text-white/60 font-medium">{t.label}</span>
               </div>
             ))}

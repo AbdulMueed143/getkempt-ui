@@ -10,7 +10,7 @@ import { create } from "zustand";
  *   3. The target page client reads `pendingAction` in a useEffect on first
  *      render, opens its slideover, then calls `clear()`.
  */
-export type QuickActionTarget = "booking" | "staff" | "service";
+export type QuickActionTarget = "booking" | "staff" | "service" | "product";
 
 interface QuickActionStore {
   pendingAction: QuickActionTarget | null;

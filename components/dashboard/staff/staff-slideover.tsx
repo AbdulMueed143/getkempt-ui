@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { X, User, Mail, Phone, Briefcase, DollarSign, Calendar } from "lucide-react";
+import { X, User, Mail, Phone, Briefcase, DollarSign, Calendar, AlertTriangle } from "lucide-react";
 import { staffSchema, type StaffSchema } from "@/lib/validations/staff";
 import { ALL_SERVICES, STAFF_COLORS } from "@/lib/mock/staff";
 import { ROLE_LABELS, ROLE_DESCRIPTIONS } from "@/types/staff";
@@ -282,7 +282,7 @@ export function StaffSlideover({ isOpen, onClose, onSave, editing }: StaffSlideo
             {/* ── Section 3: Services ──────────────────── */}
             <FormSection icon={<Briefcase size={15} />} title="Services Offered">
               {errors.services && (
-                <p className="text-xs text-red-500 mb-2">⚠ {errors.services.message}</p>
+                <p className="text-xs text-red-500 mb-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3 shrink-0" />{errors.services.message}</p>
               )}
               <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {ALL_SERVICES.map((service) => {
@@ -419,7 +419,7 @@ function FieldWrap({
       {children}
       {error && (
         <p className="text-xs text-red-500 flex items-center gap-1">
-          <span>⚠</span> {error}
+          <AlertTriangle className="w-3 h-3 shrink-0" /> {error}
         </p>
       )}
     </div>

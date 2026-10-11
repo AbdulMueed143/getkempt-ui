@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { X, Users, CalendarCheck, User, MousePointerClick, Mail, Clock, Send } from "lucide-react";
+import { X, Users, CalendarCheck, User, MousePointerClick, Mail, Clock, Send, Lightbulb, AlertTriangle } from "lucide-react";
 import { campaignSchema, type CampaignSchema } from "@/lib/validations/campaign";
 import { dispatchCampaign } from "@/lib/api/campaigns";
 import type { CampaignAudience, CampaignPayload } from "@/types/campaign";
@@ -195,7 +195,7 @@ export function BroadcastSlideover({
             {/* ── 1. Recipients ───────────────────── */}
             <SlidSection icon={<Users size={15} />} title="1. Choose recipients">
               {errors.audience?.message && (
-                <p className="text-xs text-red-500">⚠ {errors.audience.message}</p>
+                <p className="text-xs text-red-500 flex items-center gap-1"><AlertTriangle className="w-3 h-3 shrink-0" />{errors.audience.message}</p>
               )}
 
               <div className="grid grid-cols-2 gap-2">
@@ -263,7 +263,7 @@ export function BroadcastSlideover({
                     ))}
                   </select>
                   {errors.staffId?.message && (
-                    <p className="text-xs text-red-500 flex items-center gap-1"><span>⚠</span>{errors.staffId.message}</p>
+                    <p className="text-xs text-red-500 flex items-center gap-1"><AlertTriangle className="w-3 h-3 shrink-0" />{errors.staffId.message}</p>
                   )}
                 </div>
               )}
@@ -327,7 +327,7 @@ export function BroadcastSlideover({
                   </span>
                 </div>
                 <p className="text-[11px] flex items-center gap-1" style={{ color: "#6B7280" }}>
-                  <span>💡</span>
+                  <Lightbulb className="w-3.5 h-3.5 shrink-0 text-amber-500" strokeWidth={1.75} />
                   Use <code className="text-[10px] px-1 rounded" style={{ backgroundColor: "#EEF1F8", color: "#1B3163" }}>{"{{firstName}}"}</code> to personalise each message
                 </p>
               </FieldWrap>
@@ -460,7 +460,7 @@ function FieldWrap({
       </label>
       {children}
       {error && (
-        <p className="text-xs text-red-500 flex items-center gap-1"><span>⚠</span>{error}</p>
+        <p className="text-xs text-red-500 flex items-center gap-1"><AlertTriangle className="w-3 h-3 shrink-0" />{error}</p>
       )}
     </div>
   );

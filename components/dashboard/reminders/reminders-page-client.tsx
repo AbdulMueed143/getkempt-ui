@@ -196,7 +196,7 @@ export function RemindersPageClient() {
               {/* Event group header */}
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-base">{meta.icon}</span>
+                  <meta.icon className="w-4 h-4 shrink-0" style={{ color: meta.color }} strokeWidth={1.75} />
                   <h2 className="text-sm font-bold text-gray-700">{meta.label}</h2>
                   <span className="text-xs text-gray-400">
                     · {eventRules.length === 0 ? "no rules" : `${eventRules.length} rule${eventRules.length > 1 ? "s" : ""}`}

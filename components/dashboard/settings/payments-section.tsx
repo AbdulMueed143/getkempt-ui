@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
-import { CheckCircle2, AlertCircle, ExternalLink, Info } from "lucide-react";
+import {
+  CheckCircle2, AlertCircle, ExternalLink, Info,
+  Store, Lock, CreditCard, Banknote, Landmark, type LucideIcon,
+} from "lucide-react";
 import type { StoreSettingsSchema } from "@/lib/validations/store-settings";
 import {
   PAYMENT_MODE_LABELS,
@@ -28,18 +31,18 @@ const inputCls = (err?: boolean) =>
 
 const PAYMENT_MODES: PaymentMode[] = ["in_store", "deposit", "full_upfront"];
 
-const PAYMENT_MODE_ICONS: Record<PaymentMode, string> = {
-  in_store:    "🏪",
-  deposit:     "🔒",
-  full_upfront: "💳",
+const PAYMENT_MODE_ICONS: Record<PaymentMode, LucideIcon> = {
+  in_store:     Store,
+  deposit:      Lock,
+  full_upfront: CreditCard,
 };
 
 const IN_STORE_METHODS: InStoreMethod[] = ["card", "cash", "bank_transfer"];
 
-const IN_STORE_METHOD_ICONS: Record<InStoreMethod, string> = {
-  card:          "💳",
-  cash:          "💵",
-  bank_transfer: "🏦",
+const IN_STORE_METHOD_ICONS: Record<InStoreMethod, LucideIcon> = {
+  card:          CreditCard,
+  cash:          Banknote,
+  bank_transfer: Landmark,
 };
 
 export function PaymentsSection({ form }: Props) {
@@ -152,6 +155,7 @@ export function PaymentsSection({ form }: Props) {
             const selected = paymentMode === mode;
             const requiresStripe = mode !== "in_store";
             const disabled = requiresStripe && !stripeConnected;
+            const ModeIcon = PAYMENT_MODE_ICONS[mode];
             return (
               <button
                 key={mode}
@@ -166,7 +170,7 @@ export function PaymentsSection({ form }: Props) {
                   disabled && "opacity-40 cursor-not-allowed"
                 )}
               >
-                <span className="text-2xl">{PAYMENT_MODE_ICONS[mode]}</span>
+                <ModeIcon className="w-6 h-6 text-[#1B3163]" strokeWidth={1.5} />
                 <p className="text-sm font-bold text-[#0D1B2A]">
                   {PAYMENT_MODE_LABELS[mode]}
                 </p>
@@ -238,6 +242,7 @@ export function PaymentsSection({ form }: Props) {
         <div className="flex flex-wrap gap-2">
           {IN_STORE_METHODS.map((method) => {
             const active = inStoreMethods.includes(method);
+            const MethodIcon = IN_STORE_METHOD_ICONS[method];
             return (
               <button
                 key={method}
@@ -250,7 +255,7 @@ export function PaymentsSection({ form }: Props) {
                     : "bg-white border-[#E8E4DA] text-[#6B7280] hover:border-[#C4A882]/40 hover:shadow-sm"
                 )}
               >
-                <span className="text-base">{IN_STORE_METHOD_ICONS[method]}</span>
+                <MethodIcon className="w-4 h-4 shrink-0" strokeWidth={1.75} />
                 {active && <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-[#0D1B2A]" />}
                 {IN_STORE_METHOD_LABELS[method]}
               </button>

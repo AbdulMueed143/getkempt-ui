@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Instagram, Music2, Facebook, type LucideIcon } from "lucide-react";
 
 const FOOTER_LINKS = [
   {
@@ -29,10 +30,10 @@ const FOOTER_LINKS = [
   },
 ];
 
-const SOCIAL = [
-  { label: "Instagram", href: "https://instagram.com/getkempt", icon: "📸" },
-  { label: "TikTok",    href: "https://tiktok.com/@getkempt",   icon: "🎵" },
-  { label: "Facebook",  href: "https://facebook.com/getkempt",  icon: "👍" },
+const SOCIAL: { label: string; href: string; Icon: LucideIcon }[] = [
+  { label: "Instagram", href: "https://instagram.com/getkempt", Icon: Instagram },
+  { label: "TikTok",    href: "https://tiktok.com/@getkempt",   Icon: Music2 },
+  { label: "Facebook",  href: "https://facebook.com/getkempt",  Icon: Facebook },
 ];
 
 export function LandingFooter() {
@@ -78,9 +79,10 @@ export function LandingFooter() {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={s.label}
-                  className="w-9 h-9 bg-white/[0.04] hover:bg-[#C4A882]/15 border border-white/[0.06] hover:border-[#C4A882]/20 rounded-xl flex items-center justify-center text-base transition-all duration-300"
+                  aria-label={s.label}
+                  className="w-9 h-9 bg-white/[0.04] hover:bg-[#C4A882]/15 border border-white/[0.06] hover:border-[#C4A882]/20 rounded-xl flex items-center justify-center text-white/50 hover:text-[#C4A882] transition-all duration-300"
                 >
-                  {s.icon}
+                  <s.Icon className="w-4 h-4" strokeWidth={1.75} />
                 </a>
               ))}
             </div>

@@ -30,6 +30,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          NEXT_PUBLIC_APP_ENV: ${{ vars.NEXT_PUBLIC_APP_ENV }}
           NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
           NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
 
@@ -60,4 +61,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy out --project-name=getkempt-frontend --branch=${{ github.ref_name }}
+          command: pages deploy out --project-name=getkempt --branch=${{ github.ref_name }}

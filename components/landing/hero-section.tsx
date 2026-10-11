@@ -47,10 +47,10 @@ export function HeroSection() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Trust badge */}
-        <div className="inline-flex items-center gap-2 bg-[#C4A882]/10 border border-[#C4A882]/20 text-[#C4A882] text-xs font-semibold px-4 py-2 rounded-full mb-8 backdrop-blur-sm">
+        {/* <div className="inline-flex items-center gap-2 bg-[#C4A882]/10 border border-[#C4A882]/20 text-[#C4A882] text-xs font-semibold px-4 py-2 rounded-full mb-8 backdrop-blur-sm">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Trusted by Melbourne&apos;s finest grooming shops</span>
-        </div>
+        </div> */}
 
         {/* Headline — using serif for luxurious feel */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl text-white leading-[1.08] tracking-tight mb-6">

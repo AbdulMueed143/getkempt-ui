@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { X, Gift, Target, MapPin, Clock, Settings2, DollarSign, Percent } from "lucide-react";
+import { X, Gift, Target, MapPin, Clock, Settings2, DollarSign, Percent, AlertTriangle } from "lucide-react";
 import { loyaltyProgramSchema, type LoyaltyProgramSchema } from "@/lib/validations/loyalty";
 import type { LoyaltyProgram, RewardType } from "@/types/loyalty";
 import {
@@ -481,7 +481,7 @@ function FieldWrap({ label, error, required, children }: { label: string; error?
         {label}{required && <span className="text-[#D5B584] ml-1">*</span>}
       </label>
       {children}
-      {error && <p className="text-xs text-red-500 flex items-center gap-1"><span>⚠</span>{error}</p>}
+      {error && <p className="text-xs text-red-500 flex items-center gap-1"><AlertTriangle className="w-3 h-3 shrink-0" />{error}</p>}
     </div>
   );
 }

@@ -53,7 +53,7 @@ export function ReminderRuleCard({
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-start gap-2.5 min-w-0">
-            <span className="text-xl mt-0.5 shrink-0">{meta.icon}</span>
+            <meta.icon className="w-5 h-5 mt-0.5 shrink-0" style={{ color: meta.color }} strokeWidth={1.75} />
             <div className="min-w-0">
               <p className="text-sm font-bold text-gray-900 truncate">{meta.label}</p>
               <p className="text-xs text-gray-400 mt-0.5 leading-snug">{meta.description}</p>
